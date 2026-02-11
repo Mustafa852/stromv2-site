@@ -125,7 +125,7 @@
         .cmd-card:hover { border-color: var(--primary); transform: translateY(-7px); background: rgba(30, 30, 40, 0.6); box-shadow: 0 15px 40px rgba(0,0,0,0.4); }
         .cmd-badge { background: rgba(88, 101, 242, 0.1); color: #8ea1ff; padding: 6px 14px; border-radius: 8px; font-family: monospace; font-weight: 800; }
 
-        /* --- FAQ (SSS) BÖLÜMÜ --- */
+        /* --- FAQ --- */
         .faq-section { padding: 80px 5%; max-width: 1000px; margin: 0 auto; }
         .faq-item { margin-bottom: 15px; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; background: rgba(20, 20, 25, 0.4); transition: 0.3s; }
         .faq-question { padding: 20px; cursor: pointer; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
@@ -135,16 +135,27 @@
         .faq-icon { transition: 0.3s; }
         .faq-item.active .faq-icon { transform: rotate(180deg); color: var(--primary); }
 
-        /* --- FOOTER --- */
+        /* --- FOOTER (YENİLENDİ: ORTALANDI) --- */
         footer { border-top: 1px solid var(--border); padding: 60px 5% 30px; background: #020203; margin-top: 100px; }
-        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px; }
+        .footer-content { 
+            display: flex; 
+            justify-content: space-around; 
+            align-items: flex-start;
+            flex-wrap: wrap; 
+            gap: 40px; 
+            margin-bottom: 40px; 
+            text-align: center;
+        }
+        .footer-col { 
+            flex: 1; 
+            min-width: 250px; 
+            max-width: 400px;
+        }
+        .footer-col .logo { justify-content: center; } /* Logoyu ortala */
         .footer-col h3 { color: white; margin-bottom: 20px; font-size: 18px; }
         .footer-col a { display: block; color: var(--text-muted); text-decoration: none; margin-bottom: 10px; transition: 0.2s; font-size: 14px; cursor: pointer; }
-        .footer-col a:hover { color: var(--primary); padding-left: 5px; }
+        .footer-col a:hover { color: var(--primary); transform: translateX(5px); display: inline-block; }
         .footer-bottom { text-align: center; border-top: 1px solid var(--border); padding-top: 30px; color: #555; font-size: 13px; }
-        .social-links { display: flex; gap: 15px; }
-        .social-btn { width: 40px; height: 40px; border-radius: 10px; background: rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center; color: white; transition: 0.3s; text-decoration: none; }
-        .social-btn:hover { background: var(--primary); transform: translateY(-3px); }
 
         /* --- MODALS & BUTTONS --- */
         .btn-rgb { position: relative; padding: 2px; border-radius: 12px; background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8); background-size: 400%; animation: rgb-flow 8s linear infinite; cursor: pointer; transition: 0.3s; }
@@ -179,12 +190,12 @@
         input:checked + .slider:before { transform: translateX(25px); }
 
         /* LEGAL MODAL STYLES */
-        .legal-text { color: var(--text-muted); line-height: 1.6; font-size: 14px; max-height: 400px; overflow-y: auto; padding-right: 10px; }
+        .legal-text { color: var(--text-muted); line-height: 1.6; font-size: 14px; max-height: 400px; overflow-y: auto; padding-right: 10px; text-align: left; }
         .legal-text h3 { color: white; margin-top: 20px; margin-bottom: 10px; border-bottom: 1px solid var(--border); padding-bottom: 5px; }
         .legal-text ul { padding-left: 20px; margin-bottom: 10px; }
         .legal-text li { margin-bottom: 5px; }
 
-        @media (max-width: 900px) { .dashboard { grid-template-columns: 1fr; } .sidebar { display: none; } .nav-links { display: none; } .stats-section { flex-wrap: wrap; gap: 20px; } }
+        @media (max-width: 900px) { .dashboard { grid-template-columns: 1fr; } .sidebar { display: none; } .nav-links { display: none; } .stats-section { flex-wrap: wrap; gap: 20px; } .footer-content { flex-direction: column; } }
     </style>
 </head>
     <link rel="shortcut icon" href="https://i.hizliresim.com/a3su1pc.png" type="image/x-icon">
@@ -269,7 +280,7 @@
                 <div class="plan-price">350 <span>TL</span></div>
                 <ul class="plan-features">
                     <li><i class="fas fa-check"></i> %15 İndirim</li>
-                   <li><i class="fas fa-check"></i> Tüm Komutlar</li>
+                  <li><i class="fas fa-check"></i> Tüm Komutlar</li>
                     <li><i class="fas fa-check"></i> VIP Rolü</li>
                 </ul>
                 <button onclick="buyPremium('6 Aylık')" class="buy-btn" style="background: var(--accent); color: black;">Satın Al</button>
@@ -281,7 +292,7 @@
                     <li><i class="fas fa-check"></i> Ömür Boyu Erişim</li>
                     <li><i class="fas fa-check"></i> Sponsor Rolü</li>
                     <li><i class="fas fa-check"></i> Erken Erişim</li>
-                     <li><i class="fas fa-check"></i> Tüm Komutlar</li>
+                        <li><i class="fas fa-check"></i> Tüm Komutlar</li>
                 </ul>
                 <button onclick="buyPremium('Sınırsız')" class="buy-btn" style="background: var(--secondary); box-shadow: 0 0 20px rgba(211, 59, 245, 0.3);">Satın Al</button>
             </div>
@@ -321,7 +332,7 @@
         </div>
         <div class="faq-item" onclick="toggleFaq(this)">
             <div class="faq-question">Premium satın aldıktan sonra ne yapmalıyım? <i class="fas fa-chevron-down faq-icon"></i></div>
-            <div class="faq-answer">Bionluk üzerinden satın aldıktan sonra Bionluk üzerinden iletişime geçin.</div>
+            <div class="faq-answer">Bionluk üzerinden satın aldıktan sonra Destek Sunucumuza gelip 'lord__' ile iletişime geçmeniz yeterlidir. Yetkileriniz anında tanımlanır.</div>
         </div>
         <div class="faq-item" onclick="toggleFaq(this)">
             <div class="faq-question">İade politikanız nedir? <i class="fas fa-chevron-down faq-icon"></i></div>
@@ -354,14 +365,6 @@
                 <a onclick="openModal('kullanimModal')">Kullanım Şartları</a>
                 <a onclick="openModal('gizlilikModal')">Gizlilik Politikası</a>
                 <a onclick="openModal('iadeModal')">İade Koşulları</a>
-            </div>
-            <div class="footer-col">
-                <h3>Bizi Takip Et</h3>
-                <div class="social-links">
-                    <a href="#" class="social-btn"><i class="fab fa-discord"></i></a>
-                    <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="social-btn"><i class="fab fa-youtube"></i></a>
-                </div>
             </div>
         </div>
         <div class="footer-bottom">
@@ -469,7 +472,7 @@
                     <li>Yukarıdaki şartlara uymazsanız botun "karaliste" bölümüne alınırsınız.</li>
                 </ul>
                 <h3>2) Veri Silme</h3>
-                <p>StromV2#2951 isim etiketli (1037392359249432598) ID'li bottan verilerinizin silinmesini istiyorsanız <strong>lord__</strong> isim etiketli (846736343593779230) ID'li kullanıcıya ulaşıp verilerinizi sildirebilirsiniz.</p>
+                <p>StromV2#2951 isim etiketli ve ID'li bottan verilerinizin silinmesini istiyorsanız <strong>lord__</strong> isim etiketli ve ID'li kullanıcıya ulaşıp verilerinizi sildirebilirsiniz.</p>
             </div>
         </div>
     </div>
@@ -832,4 +835,3 @@
     </script>
 </body>
 </html>
-
