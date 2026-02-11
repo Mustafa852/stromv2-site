@@ -677,7 +677,218 @@
             const grid = document.getElementById('cmdGrid');
             grid.innerHTML = filtered.map(c => `<div class="cmd-card" onclick="openDetail('${c.cmd}')"><div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span class="cmd-badge">${c.cmd}</span><i class="fas fa-chevron-right" style="color:#555"></i></div><p style="color:#aaa; font-size:13px;">${c.desc}</p></div>`).join('');
         });
+        <script>
+        // --- AYARLAR ---
+        const CLIENT_ID = "1037392359249432598";
+        // DİKKAT: BURAYI KENDİ SİTEN YAPMAYI UNUTMA!
+        const REDIRECT_URI = "https://stromv2.com.tr/index.html"; 
+
+        let currentUser = null;
+
+        window.onload = () => {
+            filter('all');
+            
+            // 1. URL'den Token Kontrolü
+            const fragment = new URLSearchParams(window.location.hash.slice(1));
+            const accessToken = fragment.get('access_token');
+            const tokenType = fragment.get('token_type');
+
+            if (accessToken) {
+                fetchDiscordUser(tokenType, accessToken);
+                // URL'yi temizle
+                window.history.replaceState({}, document.title, window.location.pathname);
+            } else {
+                // 2. LocalStorage Kontrolü (Daha önce girmiş mi?)
+                const savedUser = localStorage.getItem('discord_user');
+                if (savedUser) {
+                    currentUser = JSON.parse(savedUser);
+                    updateUI(true);
+                }
+            }
+
+            // 3. 2FA ve Ayar Kontrolü
+            if(localStorage.getItem('2fa_enabled') === 'true') {
+                document.getElementById('2faToggle').checked = true;
+                document.getElementById('2faSetup').style.display = 'block';
+            }
+            
+            // Kayıtlı Bio varsa getir
+            if(localStorage.getItem('user_bio')) {
+                document.getElementById('settingsBio').value = localStorage.getItem('user_bio');
+            }
+        };
+
+        function loginWithDiscord() {
+            window.location.href = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=identify`;
+        }
+
+        async function fetchDiscordUser(tokenType, accessToken) {
+            try {
+                const response = await fetch('https://discord.com/api/users/@me', { headers: { authorization: `${tokenType} ${accessToken}` } });
+                const data = await response.json();
+                currentUser = { 
+                    id: data.id, 
+                    username: data.username, 
+                    avatar: `https://cdn.discordapp.com/avatars/${data.id}/${data.avatar}.png` 
+                };
+                localStorage.setItem('discord_user', JSON.stringify(currentUser));
+                updateUI(true);
+            } catch (e) { 
+                console.error(e); 
+                alert("Giriş başarısız oldu.");
+            }
+        }
+
+        function logout() { 
+            localStorage.removeItem('discord_user'); 
+            currentUser = null; 
+            updateUI(false); 
+            window.location.reload();
+        }
+
+        function updateUI(isLoggedIn) {
+            if (isLoggedIn && currentUser) {
+                document.getElementById('guestArea').style.display = 'none';
+                document.getElementById('loggedArea').style.display = 'flex';
+                document.getElementById('userAvatar').src = currentUser.avatar;
+                document.getElementById('userName').innerText = currentUser.username;
+                
+                // Ayarlar modalındaki ismi de güncelle
+                document.getElementById('settingsName').value = currentUser.username;
+            } else {
+                document.getElementById('guestArea').style.display = 'flex';
+                document.getElementById('loggedArea').style.display = 'none';
+            }
+        }
+
+        // --- MODAL İŞLEMLERİ ---
+        function checkAuthAndOpen(modalId) {
+            if (!currentUser) { 
+                alert("⚠️ Lütfen önce giriş yapın!"); 
+            } else { 
+                openModal(modalId); 
+            }
+        }
+
+        function openModal(id) { 
+            const modal = document.getElementById(id);
+            if(modal) modal.classList.add('active');
+            else console.error("Modal bulunamadı: " + id);
+        }
+
+        function closeModal(id) { 
+            document.getElementById(id).classList.remove('active'); 
+        }
+
+        // --- AYARLAR & 2FA ---
+        function saveSettings() {
+            const bio = document.getElementById('settingsBio').value;
+            localStorage.setItem('user_bio', bio);
+            alert("✅ Ayarlar başarıyla kaydedildi!");
+            closeModal('settingsModal');
+        }
+
+        function toggle2FA() {
+            const toggle = document.getElementById('2faToggle');
+            const setupDiv = document.getElementById('2faSetup');
+            
+            if(toggle.checked) { 
+                setupDiv.style.display = 'block'; 
+                localStorage.setItem('2fa_enabled', 'true'); 
+            } else { 
+                setupDiv.style.display = 'none'; 
+                localStorage.removeItem('2fa_enabled'); 
+            }
+        }
+
+        function buyPremium(paket) {
+            document.getElementById('buyText').innerText = paket;
+            openModal('buyModal');
+        }
+
+        // --- WEBHOOK GÖNDERME ---
+        async function sendWebhook(e, tur) {
+            e.preventDefault();
+            const isOneri = tur === 'Öneri';
+            const url = isOneri ? "https://discord.com/api/webhooks/1470618890416427188/f862nZr9-289wlplt1XxLwwKhtr4GclLuew-gG8jB_bgN7HNeFnkEFQNbhhPma8o7G11" : "https://discord.com/api/webhooks/1470619113486418014/uLSpe6STmlQyG8gC3MYbaJHEswpG3-xNOjoIOBl6LtZqJ67I4BxulMM9bJ31IDxbOWrJ";
+            
+            const userFooter = currentUser ? `👤 ${currentUser.username} (${currentUser.id})` : "👤 Anonim";
+            
+            // Doğru input ID'lerini alalım
+            const baslik = document.getElementById(isOneri ? 'oneriBaslik' : 'hataBaslik').value;
+            const detay = document.getElementById(isOneri ? 'oneriDetay' : 'hataDetay').value;
+
+            const payload = { embeds: [{ title: tur, color: isOneri ? 16766720 : 15548997, fields: [ { name: "Konu", value: baslik }, { name: "Detay", value: detay } ], footer: { text: userFooter } }] };
+            
+            try {
+                await fetch(url, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
+                alert('✅ Başarıyla gönderildi!'); 
+                closeModal(isOneri ? 'oneriModal' : 'hataModal'); 
+                e.target.reset();
+            } catch(err) {
+                alert("Bir hata oluştu.");
+                console.error(err);
+            }
+        }
+
+        // --- KOMUT SİSTEMİ ---
+        const commands = [
+            { cmd: "s!ban", desc: "Üyeyi sunucudan yasaklar.", cat: "moderasyon", usage: "s!ban @üye <sebep>" },
+            { cmd: "s!kick", desc: "Üyeyi sunucudan atar.", cat: "moderasyon", usage: "s!kick @üye <sebep>" },
+            { cmd: "s!sil", desc: "Mesajları siler.", cat: "moderasyon", usage: "s!sil <miktar>" },
+            { cmd: "s!oylama", desc: "Oylama başlatır.", cat: "moderasyon", usage: "s!oylama <konu>" },
+            { cmd: "s!nuke", desc: "Kanalı silip tekrar açar.", cat: "moderasyon", usage: "s!nuke" },
+            { cmd: "s!soygun", desc: "Soygun yap.", cat: "ekonomi", usage: "s!soygun" },
+            { cmd: "s!borsa", desc: "Borsa sistemi.", cat: "ekonomi", usage: "s!borsa" },
+            { cmd: "s!rulet", desc: "Rulet oyunu.", cat: "ekonomi", usage: "s!rulet <renk> <miktar>" },
+            { cmd: "s!reklam-engel", desc: "Reklamları engeller.", cat: "koruma", usage: "s!reklam-engel aç" },
+            { cmd: "s!küfür-engel", desc: "Küfürleri engeller.", cat: "koruma", usage: "s!küfür-engel aç" },
+            { cmd: "s!kayıt-kanal", desc: "Kayıt kanalı.", cat: "kayit", usage: "s!kayıt-kanal #kanal" },
+            { cmd: "s!erkek", desc: "Erkek kaydı.", cat: "kayit", usage: "s!erkek @üye <isim> <yaş>" },
+            { cmd: "s!kız", desc: "Kız kaydı.", cat: "kayit", usage: "s!kız @üye <isim> <yaş>" },
+            { cmd: "s!istatistik", desc: "Bot istatistikleri.", cat: "kullanici", usage: "s!istatistik" },
+            { cmd: "s!avatar", desc: "Profil resmi.", cat: "kullanici", usage: "s!avatar" }
+            // Buraya diğer tüm komutları ekleyebilirsin, yer kaplamaması için kısalttım
+        ];
+
+        function filter(cat) {
+            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+            if(cat !== 'all') event.currentTarget.classList.add('active'); 
+            else document.querySelector('.cat-btn').classList.add('active');
+            
+            const filtered = cat === 'all' ? commands : commands.filter(c => c.cat === cat);
+            const grid = document.getElementById('cmdGrid');
+            
+            grid.innerHTML = filtered.map(c => `
+                <div class="cmd-card" onclick="openDetail('${c.cmd}')">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                        <span class="cmd-badge">${c.cmd}</span>
+                        <i class="fas fa-chevron-right" style="color:#555"></i>
+                    </div>
+                    <p style="color:#aaa; font-size:13px;">${c.desc}</p>
+                </div>
+            `).join('');
+        }
+
+        function openDetail(name) {
+            const c = commands.find(x => x.cmd === name);
+            if(c) {
+                document.getElementById('mCmd').innerText = c.cmd;
+                document.getElementById('mDesc').innerText = c.desc;
+                document.getElementById('mUsage').innerText = c.usage;
+                openModal('detailModal');
+            }
+        }
+        
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const val = e.target.value.toLowerCase();
+            const filtered = commands.filter(c => c.cmd.includes(val) || c.desc.toLowerCase().includes(val));
+            const grid = document.getElementById('cmdGrid');
+            grid.innerHTML = filtered.map(c => `<div class="cmd-card" onclick="openDetail('${c.cmd}')"><div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span class="cmd-badge">${c.cmd}</span><i class="fas fa-chevron-right" style="color:#555"></i></div><p style="color:#aaa; font-size:13px;">${c.desc}</p></div>`).join('');
+        });
+    </script>
     </script>
 </body>
 </html>
+
 
