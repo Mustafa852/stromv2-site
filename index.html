@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StromV2 | Profesyonel Discord Botu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* --- MODERN RESET & DEĞİŞKENLER --- */
+        :root {
+            --primary: #5865F2;       
+            --primary-dark: #4752c4;
+            --accent: #FFD700;        
+            --danger: #ed4245;        
+            --success: #3ba55c;       
+            --bg-body: #09090b;       
+            --bg-nav: rgba(9, 9, 11, 0.9);
+            --bg-card: #18181b;       
+            --border: #2f3136;
+            --text-main: #ffffff;
+            --text-muted: #a1a1aa;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
+        
+        body { 
+            background-color: var(--bg-body); 
+            color: var(--text-main); 
+            overflow-x: hidden;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        /* --- NAVBAR --- */
+        nav {
+            position: fixed; top: 0; width: 100%; height: 80px; z-index: 1000;
+            background: var(--bg-nav); backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 5%;
+        }
+
+        .logo { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 24px; color: white; cursor: pointer; }
+        .logo-img { 
+            width: 45px; height: 45px; border-radius: 12px; 
+            background: url('https://cdn.discordapp.com/attachments/1037395473243324536/1464269388130811904/0d4ca3f7dc262fe2b57d567adcfcbe1f.png?ex=698bece2&is=698a9b62&hm=b9072ad70e4d3eafaa58e97eb39c55356161d4128a27cf44694aed602f7c4024&') center/cover;
+            box-shadow: 0 0 20px rgba(88, 101, 242, 0.4);
+        }
+
+        .nav-links { display: flex; gap: 30px; }
+        .nav-item { 
+            background: none; border: none; color: var(--text-muted); font-size: 15px; font-weight: 600; 
+            cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 8px; text-decoration: none;
+        }
+        .nav-item:hover { color: white; transform: translateY(-2px); }
+
+        /* USER PROFILE AREA */
+        .user-area { display: flex; gap: 15px; align-items: center; }
+        .login-btn {
+            background: var(--bg-card); border: 1px solid var(--border); color: white; padding: 10px 20px;
+            border-radius: 10px; font-weight: 700; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 8px;
+        }
+        .login-btn:hover { background: #27272a; border-color: var(--primary); }
+        
+        .profile-box { display: none; align-items: center; gap: 10px; background: #18181b; padding: 6px 15px 6px 6px; border-radius: 50px; border: 1px solid var(--border); }
+        .profile-box.active { display: flex; }
+        .profile-img { width: 35px; height: 35px; border-radius: 50%; border: 2px solid var(--success); }
+        .profile-name { font-weight: 700; font-size: 14px; color: white; }
+        .logout-btn { background: none; border: none; color: var(--danger); cursor: pointer; font-size: 18px; margin-left: 5px; }
+
+        /* --- HERO SECTION --- */
+        .hero { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 20px; position: relative; }
+        .hero::before {
+            content: ''; position: absolute; width: 600px; height: 600px; background: var(--primary);
+            filter: blur(150px); opacity: 0.15; border-radius: 50%; z-index: -1;
+        }
+        .hero h1 { font-size: 5rem; font-weight: 900; line-height: 1.1; margin-bottom: 20px; }
+        .hero h1 span { background: linear-gradient(135deg, #fff 0%, var(--primary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { font-size: 1.3rem; color: var(--text-muted); max-width: 700px; margin-bottom: 40px; }
+        .hero-btns { display: flex; gap: 20px; }
+        
+        .cta-btn {
+            background: var(--primary); color: white; padding: 12px 24px; border-radius: 10px; 
+            font-weight: 700; text-decoration: none; transition: 0.3s; display: flex; align-items: center; gap: 8px;
+            box-shadow: 0 8px 20px rgba(88, 101, 242, 0.25);
+        }
+        .cta-btn:hover { background: var(--primary-dark); transform: translateY(-2px); }
+
+        /* --- DASHBOARD --- */
+        .dashboard { display: grid; grid-template-columns: 280px 1fr; gap: 40px; padding: 120px 5%; max-width: 1600px; margin: 0 auto; }
+        .sidebar { position: sticky; top: 100px; height: calc(100vh - 140px); overflow-y: auto; background: var(--bg-card); border: 1px solid var(--border); border-radius: 24px; padding: 25px; }
+        .cat-btn { width: 100%; text-align: left; background: transparent; border: none; padding: 14px 16px; border-radius: 12px; color: var(--text-muted); font-weight: 600; font-size: 15px; cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 12px; margin-bottom: 5px; }
+        .cat-btn:hover, .cat-btn.active { background: var(--primary); color: white; }
+        
+        .cmd-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
+        .cmd-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; padding: 25px; cursor: pointer; transition: 0.3s; position: relative; }
+        .cmd-card:hover { transform: translateY(-5px); border-color: var(--primary); }
+        .cmd-name { font-family: 'Consolas', monospace; color: var(--primary); font-size: 18px; font-weight: 700; background: rgba(88, 101, 242, 0.1); padding: 5px 10px; border-radius: 8px; }
+        .cmd-desc { color: var(--text-muted); font-size: 14px; margin-top: 10px; line-height: 1.6; }
+
+        /* --- MODALS --- */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); z-index: 2000; justify-content: center; align-items: center; }
+        .modal-overlay.active { display: flex; }
+        .modal-box { background: #111113; width: 500px; padding: 35px; border-radius: 24px; border: 1px solid var(--border); position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.8); }
+        .close-btn { position: absolute; top: 25px; right: 25px; background: none; border: none; color: var(--text-muted); font-size: 24px; cursor: pointer; }
+
+        /* Login Modal Buttons */
+        .login-option { width: 100%; padding: 15px; border-radius: 12px; border: none; font-weight: 700; font-size: 16px; margin-bottom: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.3s; color: white; }
+        .btn-discord { background: #5865F2; } .btn-discord:hover { background: #4752c4; }
+        .btn-google { background: white; color: #333; } .btn-google:hover { background: #f0f0f0; }
+        .btn-github { background: #333; } .btn-github:hover { background: #222; }
+
+        /* Form Elements */
+        .input-group { margin-bottom: 20px; }
+        .input-label { display: block; font-size: 13px; font-weight: 700; color: #b9bbbe; margin-bottom: 8px; text-transform: uppercase; }
+        .form-control { width: 100%; background: #18181b; border: 2px solid #27272a; padding: 14px; border-radius: 12px; color: white; outline: none; transition: 0.3s; }
+        .form-control:focus { border-color: var(--primary); }
+        .submit-btn { width: 100%; padding: 16px; background: var(--primary); border: none; border-radius: 12px; color: white; font-weight: 800; cursor: pointer; transition: 0.3s; }
+
+        /* Responsive */
+        @media (max-width: 900px) { .dashboard { grid-template-columns: 1fr; } .sidebar { display: none; } .nav-links { display: none; } }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">
+            <div class="logo-img"></div>
+            Strom<span>V2</span>
+        </div>
+        
+        <div class="nav-links">
+            <a href="#anasayfa" class="nav-item"><i class="fas fa-home"></i> Ana Sayfa</a>
+            <a href="#komutlar" class="nav-item"><i class="fas fa-terminal"></i> Komutlar</a>
+            
+            <button onclick="checkAuthAndOpen('oneriModal')" class="nav-item"><i class="far fa-lightbulb" style="color: var(--accent);"></i> Öneri</button>
+            <button onclick="checkAuthAndOpen('hataModal')" class="nav-item"><i class="fas fa-bug" style="color: var(--danger);"></i> Hata Bildir</button>
+        </div>
+
+        <div class="user-area">
+            <button id="loginBtn" class="login-btn" onclick="openModal('loginModal')">
+                <i class="fas fa-sign-in-alt"></i> Giriş Yap
+            </button>
+            
+            <div id="userProfile" class="profile-box">
+                <img id="userAvatar" src="" class="profile-img">
+                <span id="userName" class="profile-name">Kullanıcı</span>
+                <button onclick="logout()" class="logout-btn" title="Çıkış Yap"><i class="fas fa-sign-out-alt"></i></button>
+            </div>
+            
+            <a href="https://discord.com/api/oauth2/authorize?client_id=1037392359249432598&permissions=8&scope=bot" target="_blank" class="cta-btn">
+                <i class="fab fa-discord"></i> Ekle
+            </a>
+        </div>
+    </nav>
+
+    <section id="anasayfa" class="hero">
+        <h1>Sunucunu <span>StromV2</span> İle<br>Geleceğe Taşı</h1>
+        <p>Gelişmiş Ekonomi, Kumar, Koruma ve Moderasyon sistemleri tek bir botta. 250+ Komut ve <b>Kesintisiz Güç</b> ile tanışın.</p>
+        <div class="hero-btns">
+            <a href="#komutlar" class="cta-btn" style="padding: 16px 40px; font-size: 18px;">Komutları Keşfet</a>
+        </div>
+    </section>
+
+    <div id="komutlar" class="dashboard">
+        <div class="sidebar">
+            <div class="input-label" style="margin-bottom: 15px;">KATEGORİLER</div>
+            <button class="cat-btn active" onclick="filter('all')"><i class="fas fa-th-large"></i> Tümü</button>
+            <button class="cat-btn" onclick="filter('moderasyon')"><i class="fas fa-gavel" style="color: #ed4245;"></i> Moderasyon</button>
+            <button class="cat-btn" onclick="filter('ekonomi')"><i class="fas fa-coins" style="color: #FFD700;"></i> Ekonomi & Kumar</button>
+            <button class="cat-btn" onclick="filter('koruma')"><i class="fas fa-shield-alt" style="color: #3ba55c;"></i> Koruma</button>
+            <button class="cat-btn" onclick="filter('eglence')"><i class="fas fa-gamepad" style="color: #9b59b6;"></i> Eğlence</button>
+            <button class="cat-btn" onclick="filter('kullanici')"><i class="fas fa-user" style="color: #1abc9c;"></i> Kullanıcı</button>
+        </div>
+
+        <div class="content">
+            <div style="margin-bottom: 30px;">
+                <input type="text" id="searchInput" class="form-control" placeholder="Komut ara... (Örn: soygun, ban, kayıt)">
+            </div>
+            <div class="cmd-grid" id="cmdGrid"></div>
+        </div>
+    </div>
+
+    <div id="loginModal" class="modal-overlay">
+        <div class="modal-box" style="text-align: center;">
+            <button class="close-btn" onclick="closeModal('loginModal')"><i class="fas fa-times"></i></button>
+            <h2 style="margin-bottom: 10px;">Giriş Yap</h2>
+            <p style="color: var(--text-muted); margin-bottom: 30px;">Öneri ve Hata bildirimi yapmak için giriş yapmalısın.</p>
+            
+            <button onclick="loginWithDiscord()" class="login-option btn-discord">
+                <i class="fab fa-discord"></i> Discord ile Giriş Yap
+            </button>
+            <button class="login-option btn-google" style="opacity: 0.6; cursor: not-allowed;" title="Bakımda">
+                <i class="fab fa-google"></i> Google ile Giriş Yap (Bakımda)
+            </button>
+            <button class="login-option btn-github" style="opacity: 0.6; cursor: not-allowed;" title="Bakımda">
+                <i class="fab fa-github"></i> GitHub ile Giriş Yap (Bakımda)
+            </button>
+        </div>
+    </div>
+
+    <div id="detailModal" class="modal-overlay">
+        <div class="modal-box">
+            <button class="close-btn" onclick="closeModal('detailModal')"><i class="fas fa-times"></i></button>
+            <h2 id="mCmd" style="color: var(--primary); font-family: monospace; font-size: 32px; margin-bottom: 10px;"></h2>
+            <p id="mDesc" style="color: var(--text-muted); margin-bottom: 20px; line-height: 1.6;"></p>
+            <div class="input-label">KULLANIM</div>
+            <div id="mUsage" style="background: black; padding: 15px; border-radius: 10px; font-family: monospace; color: var(--accent); border: 1px solid var(--border);"></div>
+        </div>
+    </div>
+
+    <div id="oneriModal" class="modal-overlay">
+        <div class="modal-box">
+            <button class="close-btn" onclick="closeModal('oneriModal')"><i class="fas fa-times"></i></button>
+            <h2 style="margin-bottom: 20px;">💡 Öneri Yap</h2>
+            <form onsubmit="sendWebhook(event, 'Öneri')">
+                <div class="input-group">
+                    <label class="input-label">Kategori</label>
+                    <select id="oneriKategori" class="form-control" required>
+                        <option value="Yeni Komut">Yeni Komut İsteği</option>
+                        <option value="Web Sitesi">Web Sitesi</option>
+                        <option value="Ekonomi">Ekonomi Sistemi</option>
+                        <option value="Diğer">Diğer</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label class="input-label">Başlık</label>
+                    <input type="text" id="oneriBaslik" class="form-control" placeholder="Örn: Yeni oyun" required>
+                </div>
+                <div class="input-group">
+                    <label class="input-label">Detay</label>
+                    <textarea id="oneriDetay" class="form-control" placeholder="Açıklama..." required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Gönder</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="hataModal" class="modal-overlay">
+        <div class="modal-box" style="border-color: rgba(237, 66, 69, 0.3);">
+            <button class="close-btn" onclick="closeModal('hataModal')"><i class="fas fa-times"></i></button>
+            <h2 style="margin-bottom: 20px;">🚨 Hata Bildir</h2>
+            <form onsubmit="sendWebhook(event, 'Hata')">
+                <div class="input-group">
+                    <label class="input-label">Hata Türü</label>
+                    <select id="hataKategori" class="form-control" required>
+                        <option value="Komut Hatası">Komut Çalışmıyor</option>
+                        <option value="Yanlış Cevap">Yanlış Cevap</option>
+                        <option value="Bug">Web Sitesi Bug</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label class="input-label">Hatalı Komut</label>
+                    <input type="text" id="hataBaslik" class="form-control" placeholder="Örn: s!soygun" required>
+                </div>
+                <div class="input-group">
+                    <label class="input-label">Detay</label>
+                    <textarea id="hataDetay" class="form-control" placeholder="Nasıl oldu?" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn" style="background: var(--danger);">Bildir</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // --- AYARLAR (BURAYI DOLDURMAN ŞART) ---
+        const CLIENT_ID = "1037392359249432598"; // Discord Developer Portal'dan al
+        const REDIRECT_URI = "http://127.0.0.1:5500/index.html"; // Sitenin tam adresi (Sonunda /index.html olsun)
+
+        // --- DEĞİŞKENLER ---
+        let currentUser = null;
+
+        // --- GİRİŞ SİSTEMİ (OAUTH2) ---
+        window.onload = () => {
+            filter('all');
+            
+            // URL'de Token var mı kontrol et (Giriş yapıp dönmüş mü?)
+            const fragment = new URLSearchParams(window.location.hash.slice(1));
+            const accessToken = fragment.get('access_token');
+            const tokenType = fragment.get('token_type');
+
+            if (accessToken) {
+                // Token varsa kullanıcıyı çek
+                fetchDiscordUser(tokenType, accessToken);
+                // URL'yi temizle (Güvenlik ve estetik için)
+                window.history.replaceState({}, document.title, "/index.html");
+            } else {
+                // Token yoksa LocalStorage kontrol et (Daha önce girmiş mi?)
+                const savedUser = localStorage.getItem('discord_user');
+                if (savedUser) {
+                    currentUser = JSON.parse(savedUser);
+                    updateUI(true);
+                }
+            }
+        };
+
+        function loginWithDiscord() {
+            // Discord Giriş Linki Oluşturma
+            const authUrl = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=identify`;
+            window.location.href = authUrl;
+        }
+
+        async function fetchDiscordUser(tokenType, accessToken) {
+            try {
+                const response = await fetch('https://discord.com/api/users/@me', {
+                    headers: { authorization: `${tokenType} ${accessToken}` }
+                });
+                const data = await response.json();
+                
+                // Kullanıcıyı kaydet
+                currentUser = {
+                    id: data.id,
+                    username: data.username,
+                    avatar: `https://cdn.discordapp.com/avatars/${data.id}/${data.avatar}.png`
+                };
+                localStorage.setItem('discord_user', JSON.stringify(currentUser));
+                updateUI(true);
+            } catch (error) {
+                console.error("Giriş hatası:", error);
+                alert("Giriş yapılırken bir hata oluştu.");
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('discord_user');
+            currentUser = null;
+            updateUI(false);
+            alert("Çıkış yapıldı.");
+        }
+
+        function updateUI(isLoggedIn) {
+            const loginBtn = document.getElementById('loginBtn');
+            const userProfile = document.getElementById('userProfile');
+            
+            if (isLoggedIn && currentUser) {
+                loginBtn.style.display = 'none';
+                userProfile.classList.add('active');
+                document.getElementById('userAvatar').src = currentUser.avatar;
+                document.getElementById('userName').innerText = currentUser.username;
+                closeModal('loginModal');
+            } else {
+                loginBtn.style.display = 'flex';
+                userProfile.classList.remove('active');
+            }
+        }
+
+        function checkAuthAndOpen(modalId) {
+            if (!currentUser) {
+                alert("⚠️ Bu özelliği kullanmak için önce giriş yapmalısın!");
+                openModal('loginModal');
+            } else {
+                openModal(modalId);
+            }
+        }
+
+        // --- WEBHOOK GÖNDERME (KULLANICI BİLGİLİ) ---
+        async function sendWebhook(e, tur) {
+            e.preventDefault();
+            const isOneri = tur === 'Öneri';
+            const url = isOneri 
+                ? "https://discord.com/api/webhooks/1470618890416427188/f862nZr9-289wlplt1XxLwwKhtr4GclLuew-gG8jB_bgN7HNeFnkEFQNbhhPma8o7G11" 
+                : "https://discord.com/api/webhooks/1470619113486418014/uLSpe6STmlQyG8gC3MYbaJHEswpG3-xNOjoIOBl6LtZqJ67I4BxulMM9bJ31IDxbOWrJ";
+
+            // Kullanıcı Bilgilerini Ekle
+            const userFooter = currentUser 
+                ? `👤 Gönderen: ${currentUser.username} (ID: ${currentUser.id})` 
+                : "👤 Gönderen: Anonim (Hata Var)";
+
+            const payload = {
+                username: "StromV2 Web Panel",
+                avatar_url: currentUser ? currentUser.avatar : "",
+                embeds: [{
+                    title: `${isOneri ? '💡 Yeni Öneri' : '🚨 Hata Bildirimi'}`,
+                    color: isOneri ? 16766720 : 15548997,
+                    fields: [
+                        { name: "Kategori", value: document.getElementById(isOneri ? 'oneriKategori' : 'hataKategori').value, inline: true },
+                        { name: "Konu", value: document.getElementById(isOneri ? 'oneriBaslik' : 'hataBaslik').value, inline: true },
+                        { name: "Açıklama", value: `\`\`\`${document.getElementById(isOneri ? 'oneriDetay' : 'hataDetay').value}\`\`\`` }
+                    ],
+                    footer: { text: userFooter }
+                }]
+            };
+
+            await fetch(url, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
+            alert('✅ Başarıyla gönderildi!');
+            closeModal(isOneri ? 'oneriModal' : 'hataModal');
+            e.target.reset();
+        }
+
+        // --- KOMUT LİSTELEME ---
+        const commands = [
+            { cmd: "s!soygun", desc: "Mekan seçmeli, ekip bonuslu soygun.", cat: "ekonomi", usage: "s!soygun" },
+            { cmd: "s!borsa", desc: "Kripto para (SC, SBC) alım satımı.", cat: "ekonomi", usage: "s!borsa al <kod> <miktar>" },
+            { cmd: "s!atyarışı", desc: "Animasyonlu ve bahisli at yarışı.", cat: "ekonomi", usage: "s!atyarışı <miktar> <no>" },
+            { cmd: "s!rulet", desc: "Rulet oyna (Kırmızı/Siyah/Yeşil).", cat: "ekonomi", usage: "s!rulet <renk> <miktar>" },
+            { cmd: "s!ban", desc: "Kullanıcıyı sunucudan yasaklar.", cat: "moderasyon", usage: "s!ban @üye <sebep>" },
+            { cmd: "s!kick", desc: "Kullanıcıyı sunucudan atar.", cat: "moderasyon", usage: "s!kick @üye <sebep>" },
+            { cmd: "s!reklam-engel", desc: "Reklamları engeller.", cat: "koruma", usage: "s!reklam-engel aç" },
+            { cmd: "s!küfür-engel", desc: "Küfürleri sansürler.", cat: "koruma", usage: "s!küfür-engel aç" },
+            { cmd: "s!istatistik", desc: "Bot verilerini gösterir.", cat: "kullanici", usage: "s!istatistik" },
+            { cmd: "s!avatar", desc: "Profil resmini gösterir.", cat: "kullanici", usage: "s!avatar" }
+        ];
+
+        function filter(cat) {
+            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+            if(cat !== 'all') event.currentTarget.classList.add('active'); 
+            else document.querySelector('.cat-btn').classList.add('active');
+
+            const filtered = cat === 'all' ? commands : commands.filter(c => c.cat === cat);
+            const grid = document.getElementById('cmdGrid');
+            
+            grid.innerHTML = filtered.map(c => `
+                <div class="cmd-card" onclick="openDetail('${c.cmd}')">
+                    <div class="card-header">
+                        <span class="cmd-name">${c.cmd}</span>
+                        <i class="fas fa-chevron-right cmd-icon"></i>
+                    </div>
+                    <p class="cmd-desc">${c.desc}</p>
+                </div>
+            `).join('');
+        }
+
+        function openDetail(name) {
+            const c = commands.find(x => x.cmd === name);
+            document.getElementById('mCmd').innerText = c.cmd;
+            document.getElementById('mDesc').innerText = c.desc;
+            document.getElementById('mUsage').innerText = c.usage;
+            openModal('detailModal');
+        }
+
+        function openModal(id) { document.getElementById(id).classList.add('active'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const val = e.target.value.toLowerCase();
+            const filtered = commands.filter(c => c.cmd.includes(val) || c.desc.toLowerCase().includes(val));
+            const grid = document.getElementById('cmdGrid');
+            grid.innerHTML = filtered.map(c => `
+                <div class="cmd-card" onclick="openDetail('${c.cmd}')">
+                    <div class="card-header">
+                        <span class="cmd-name">${c.cmd}</span>
+                        <i class="fas fa-chevron-right cmd-icon"></i>
+                    </div>
+                    <p class="cmd-desc">${c.desc}</p>
+                </div>
+            `).join('');
+        });
+    </script>
+</body>
+</html>
