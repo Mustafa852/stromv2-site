@@ -15,7 +15,7 @@
             --secondary-glow: rgba(211, 59, 245, 0.6);
             --accent: #FFD700;    
             --danger: #ff2e43;    
-            --success: #00ff88; /* Neon Yeşil */
+            --success: #00ff88;
             --bg-body: #050507;   
             --bg-glass: rgba(20, 20, 25, 0.6);
             --border: rgba(255, 255, 255, 0.08);
@@ -34,26 +34,21 @@
                 radial-gradient(circle at 85% 30%, rgba(211, 59, 245, 0.08), transparent 25%);
         }
 
-        /* --- ARKA PLAN IŞIKLARI (BLOBS) --- */
+        /* --- BACKGROUND BLOBS --- */
         .glow-blob {
             position: fixed; width: 500px; height: 500px; background: var(--primary);
             filter: blur(180px); opacity: 0.15; border-radius: 50%; z-index: -1; animation: float 15s infinite ease-in-out;
         }
         .blob-1 { top: -100px; left: -100px; background: var(--primary); }
         .blob-2 { bottom: -100px; right: -100px; background: var(--secondary); animation-delay: 5s; }
-
         @keyframes float { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(40px, 60px); } }
 
-        /* --- RGB ANİMASYONU --- */
-        @keyframes rgb-flow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+        /* --- RGB TEXT --- */
         .rgb-text {
             background: linear-gradient(45deg, #5865F2, #d33bf5, #00d4ff);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-size: 200%; animation: rgb-flow 5s infinite linear;
         }
+        @keyframes rgb-flow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
         /* --- NAVBAR --- */
         nav {
@@ -62,44 +57,24 @@
             display: flex; align-items: center; justify-content: space-between; padding: 0 5%;
             border-bottom: 1px solid var(--border);
         }
-        nav::after {
-            content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 1px;
-            background: linear-gradient(90deg, transparent, var(--primary), var(--secondary), transparent);
-        }
-
         .logo { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 24px; color: white; cursor: pointer; }
         .logo-img { 
             width: 45px; height: 45px; border-radius: 12px; 
             background: url('https://i.hizliresim.com/a3su1pc.png') center/cover;
             box-shadow: 0 0 25px var(--primary-glow); border: 2px solid rgba(255,255,255,0.1);
         }
-
         .nav-links { display: flex; gap: 30px; }
         .nav-item { 
             color: var(--text-muted); font-size: 15px; font-weight: 600; cursor: pointer; transition: 0.3s; text-decoration: none; 
             display: flex; align-items: center; gap: 8px; background: none; border: none; padding: 8px 12px; border-radius: 8px;
         }
         .nav-item:hover { color: white; background: rgba(255,255,255,0.05); text-shadow: 0 0 10px rgba(255,255,255,0.5); }
-
         .auth-buttons { display: flex; gap: 15px; align-items: center; }
 
-        /* RGB Buton */
-        .btn-rgb {
-            position: relative; padding: 2px; border-radius: 12px; 
-            background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8);
-            background-size: 400%; animation: rgb-flow 8s linear infinite; cursor: pointer; transition: 0.3s;
-        }
-        .btn-rgb:hover { transform: translateY(-2px); box-shadow: 0 0 25px rgba(88, 101, 242, 0.4); }
-        .btn-rgb-inner {
-            background: #000; color: white; padding: 10px 24px; border-radius: 10px; 
-            display: flex; align-items: center; gap: 8px; font-weight: 700; height: 100%; width: 100%;
-        }
-
         /* --- HERO --- */
-        .hero { height: 95vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 20px; position: relative; }
+        .hero { height: 90vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 20px; position: relative; }
         .hero h1 { font-size: 5rem; font-weight: 900; margin-bottom: 20px; line-height: 1.1; letter-spacing: -2px; }
         .hero p { font-size: 1.3rem; color: var(--text-muted); max-width: 700px; margin-bottom: 40px; line-height: 1.6; }
-        
         .cta-btn {
             background: linear-gradient(135deg, var(--primary), var(--secondary)); 
             color: white; padding: 16px 40px; border-radius: 14px; font-weight: 800; font-size: 18px;
@@ -108,129 +83,94 @@
         }
         .cta-btn:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 20px 60px rgba(211, 59, 245, 0.5); }
 
+        /* --- İSTATİSTİKLER --- */
+        .stats-section {
+            display: flex; justify-content: center; gap: 50px; padding: 60px 5%; margin-top: -50px; position: relative; z-index: 2;
+        }
+        .stat-card {
+            background: rgba(20, 20, 25, 0.6); backdrop-filter: blur(10px); border: 1px solid var(--border);
+            padding: 30px; border-radius: 20px; text-align: center; width: 250px; transition: 0.3s;
+        }
+        .stat-card:hover { transform: translateY(-10px); border-color: var(--primary); box-shadow: 0 10px 30px rgba(88, 101, 242, 0.2); }
+        .stat-number { font-size: 42px; font-weight: 900; color: white; margin-bottom: 5px; }
+        .stat-label { color: var(--text-muted); font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        .stat-icon { font-size: 24px; color: var(--accent); margin-bottom: 15px; }
+
         /* --- PREMIUM --- */
         .premium-section { padding: 100px 5%; position: relative; }
         .section-title { text-align: center; margin-bottom: 60px; }
         .section-title h2 { font-size: 3.5rem; font-weight: 800; margin-bottom: 10px; }
-        
         .pricing-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; }
-        
         .price-card {
-            background: rgba(25, 25, 30, 0.6); backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.05); border-radius: 24px; padding: 35px; 
-            width: 320px; text-align: center; transition: 0.4s; position: relative; overflow: hidden;
+            background: rgba(25, 25, 30, 0.6); backdrop-filter: blur(10px); border: 1px solid var(--border); 
+            border-radius: 24px; padding: 35px; width: 320px; text-align: center; transition: 0.4s; position: relative; overflow: hidden;
         }
-        .price-card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px;
-            background: linear-gradient(90deg, transparent, var(--primary), var(--secondary), transparent);
-            transform: translateX(-100%); transition: 0.5s;
-        }
-        .price-card:hover::before { transform: translateX(100%); }
         .price-card:hover { transform: translateY(-15px); border-color: rgba(255,255,255,0.2); box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 30px rgba(88, 101, 242, 0.2); }
-
-        .plan-name { font-size: 22px; font-weight: 800; color: white; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
-        .plan-price { font-size: 42px; font-weight: 900; color: white; margin-bottom: 25px; text-shadow: 0 0 20px rgba(255,255,255,0.3); }
-        .plan-price span { font-size: 16px; color: var(--text-muted); font-weight: 500; }
+        .plan-name { font-size: 22px; font-weight: 800; color: white; margin-bottom: 15px; text-transform: uppercase; }
+        .plan-price { font-size: 42px; font-weight: 900; color: white; margin-bottom: 25px; }
+        .buy-btn { width: 100%; padding: 14px; border-radius: 12px; border: none; font-weight: 800; font-size: 16px; cursor: pointer; transition: 0.3s; background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.1); }
+        .buy-btn:hover { background: var(--primary); box-shadow: 0 0 20px var(--primary-glow); border-color: var(--primary); }
         .plan-features { list-style: none; margin-bottom: 35px; text-align: left; }
         .plan-features li { margin-bottom: 12px; color: #ccc; display: flex; align-items: center; gap: 12px; font-size: 15px; }
-        .plan-features li i { color: var(--success); font-size: 14px; background: rgba(59, 165, 92, 0.1); padding: 5px; border-radius: 50%; }
+        .plan-features li i { color: var(--success); }
 
-        .buy-btn {
-            width: 100%; padding: 14px; border-radius: 12px; border: none; font-weight: 800; font-size: 16px;
-            cursor: pointer; transition: 0.3s; background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.1);
-        }
-        .buy-btn:hover { background: var(--primary); box-shadow: 0 0 20px var(--primary-glow); border-color: var(--primary); }
-
-        /* --- DASHBOARD (KOMUTLAR) --- */
+        /* --- DASHBOARD --- */
         .dashboard { display: grid; grid-template-columns: 280px 1fr; gap: 40px; padding: 80px 5%; }
+        .sidebar { position: sticky; top: 100px; height: calc(100vh - 140px); overflow-y: auto; background: var(--bg-glass); backdrop-filter: blur(10px); border-radius: 20px; padding: 25px; border: 1px solid var(--border); }
+        .cat-btn { width: 100%; text-align: left; background: none; border: none; padding: 14px 16px; color: var(--text-muted); font-weight: 700; font-size: 15px; cursor: pointer; display: flex; align-items: center; gap: 12px; border-radius: 12px; margin-bottom: 6px; transition: 0.3s; }
+        .cat-btn:hover, .cat-btn.active { background: linear-gradient(90deg, rgba(88,101,242,0.2), transparent); color: var(--primary); border-left: 3px solid var(--primary); }
         
-        .sidebar { 
-            position: sticky; top: 100px; height: calc(100vh - 140px); overflow-y: auto; 
-            background: var(--bg-glass); backdrop-filter: blur(10px);
-            border-radius: 20px; padding: 25px; border: 1px solid var(--border); 
-        }
-        .cat-btn { 
-            width: 100%; text-align: left; background: none; border: none; padding: 14px 16px; 
-            color: var(--text-muted); font-weight: 700; font-size: 15px; cursor: pointer; 
-            display: flex; align-items: center; gap: 12px; border-radius: 12px; margin-bottom: 6px; transition: 0.3s;
-        }
-        .cat-btn:hover { background: rgba(255,255,255,0.05); color: white; padding-left: 20px; }
-        .cat-btn.active { background: linear-gradient(90deg, rgba(88,101,242,0.2), transparent); color: var(--primary); border-left: 3px solid var(--primary); }
-
         .cmd-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
-        .cmd-card { 
-            background: rgba(20, 20, 25, 0.4); border: 1px solid var(--border); border-radius: 18px; padding: 25px; 
-            cursor: pointer; transition: 0.4s; position: relative; overflow: hidden; backdrop-filter: blur(5px);
-        }
-        .cmd-card:hover { 
-            border-color: var(--primary); transform: translateY(-7px); background: rgba(30, 30, 40, 0.6);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.4), 0 0 20px rgba(88, 101, 242, 0.15);
-        }
-        .cmd-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-        .cmd-badge { 
-            background: rgba(88, 101, 242, 0.1); color: #8ea1ff; padding: 6px 14px; border-radius: 8px; 
-            font-family: 'Courier New', monospace; font-weight: 800; border: 1px solid rgba(88, 101, 242, 0.2);
-            transition: 0.3s;
-        }
-        .cmd-card:hover .cmd-badge { background: var(--primary); color: white; box-shadow: 0 0 15px var(--primary-glow); }
-        .cmd-desc { color: #aaa; font-size: 14px; line-height: 1.6; }
-        .cmd-icon { opacity: 0; transform: translateX(-10px); transition: 0.3s; color: var(--accent); }
-        .cmd-card:hover .cmd-icon { opacity: 1; transform: translateX(0); }
+        .cmd-card { background: rgba(20, 20, 25, 0.4); border: 1px solid var(--border); border-radius: 18px; padding: 25px; cursor: pointer; transition: 0.4s; position: relative; overflow: hidden; }
+        .cmd-card:hover { border-color: var(--primary); transform: translateY(-7px); background: rgba(30, 30, 40, 0.6); box-shadow: 0 15px 40px rgba(0,0,0,0.4); }
+        .cmd-badge { background: rgba(88, 101, 242, 0.1); color: #8ea1ff; padding: 6px 14px; border-radius: 8px; font-family: monospace; font-weight: 800; }
 
-        /* --- MODALS (Modernize Edildi) --- */
+        /* --- FAQ (SSS) BÖLÜMÜ --- */
+        .faq-section { padding: 80px 5%; max-width: 1000px; margin: 0 auto; }
+        .faq-item { margin-bottom: 15px; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; background: rgba(20, 20, 25, 0.4); transition: 0.3s; }
+        .faq-question { padding: 20px; cursor: pointer; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
+        .faq-answer { max-height: 0; overflow: hidden; padding: 0 20px; color: var(--text-muted); transition: 0.3s ease; font-size: 15px; line-height: 1.6; }
+        .faq-item.active { border-color: var(--primary); background: rgba(88, 101, 242, 0.05); }
+        .faq-item.active .faq-answer { max-height: 200px; padding-bottom: 20px; }
+        .faq-icon { transition: 0.3s; }
+        .faq-item.active .faq-icon { transform: rotate(180deg); color: var(--primary); }
+
+        /* --- FOOTER --- */
+        footer { border-top: 1px solid var(--border); padding: 60px 5% 30px; background: #020203; margin-top: 100px; }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px; }
+        .footer-col h3 { color: white; margin-bottom: 20px; font-size: 18px; }
+        .footer-col a { display: block; color: var(--text-muted); text-decoration: none; margin-bottom: 10px; transition: 0.2s; font-size: 14px; cursor: pointer; }
+        .footer-col a:hover { color: var(--primary); padding-left: 5px; }
+        .footer-bottom { text-align: center; border-top: 1px solid var(--border); padding-top: 30px; color: #555; font-size: 13px; }
+        .social-links { display: flex; gap: 15px; }
+        .social-btn { width: 40px; height: 40px; border-radius: 10px; background: rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center; color: white; transition: 0.3s; text-decoration: none; }
+        .social-btn:hover { background: var(--primary); transform: translateY(-3px); }
+
+        /* --- MODALS & BUTTONS --- */
+        .btn-rgb { position: relative; padding: 2px; border-radius: 12px; background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8); background-size: 400%; animation: rgb-flow 8s linear infinite; cursor: pointer; transition: 0.3s; }
+        .btn-rgb:hover { transform: translateY(-2px); box-shadow: 0 0 25px rgba(88, 101, 242, 0.4); }
+        .btn-rgb-inner { background: #000; color: white; padding: 10px 24px; border-radius: 10px; display: flex; align-items: center; gap: 8px; font-weight: 700; height: 100%; width: 100%; }
+        
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(8px); }
         .modal-overlay.active { display: flex; animation: fadeIn 0.3s ease; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        .modal-box { 
-            background: #111113; width: 550px; padding: 40px; border-radius: 24px; 
-            border: 1px solid var(--border); position: relative; box-shadow: 0 0 60px rgba(0,0,0,0.9);
-            transform: scale(0.9); animation: popIn 0.3s ease forwards;
-        }
-        @keyframes popIn { to { transform: scale(1); } }
-
-        .modal-box::after { 
-            content: ''; position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px; 
-            background: linear-gradient(45deg, var(--primary), transparent, var(--secondary)); 
-            z-index: -1; border-radius: 26px; opacity: 0.3;
-        }
-
-        .close-btn { 
-            position: absolute; top: 20px; right: 20px; 
-            background: rgba(255,255,255,0.08); 
-            border: 1px solid rgba(255,255,255,0.1); 
-            color: white; 
-            width: 36px; height: 36px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 16px; cursor: pointer; transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); 
-        }
-        .close-btn:hover { 
-            background: var(--danger); 
-            transform: rotate(180deg) scale(1.1); 
-            border-color: var(--danger); 
-            box-shadow: 0 0 15px rgba(255, 46, 67, 0.5);
-        }
-
-        .form-control { 
-            width: 100%; background: #09090b; border: 1px solid #27272a; padding: 16px; border-radius: 12px; 
-            color: white; margin-bottom: 15px; outline: none; transition: 0.3s; font-size: 15px;
-        }
-        .form-control:focus { border-color: var(--primary); box-shadow: 0 0 20px rgba(88, 101, 242, 0.15); background: #121215; }
+        .modal-box { background: #111113; width: 550px; padding: 40px; border-radius: 24px; border: 1px solid var(--border); position: relative; box-shadow: 0 0 60px rgba(0,0,0,0.9); transform: scale(0.9); animation: popIn 0.3s ease forwards; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } } @keyframes popIn { to { transform: scale(1); } }
         
-        .submit-btn { 
-            width: 100%; padding: 16px; background: linear-gradient(90deg, var(--primary), var(--secondary)); 
-            color: white; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; 
-            transition: 0.3s; font-size: 16px; text-transform: uppercase; letter-spacing: 1px;
-        }
-        .submit-btn:hover { filter: brightness(1.2); transform: scale(1.02); box-shadow: 0 10px 30px rgba(88, 101, 242, 0.3); }
+        .close-btn { position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; cursor: pointer; transition: 0.3s; }
+        .close-btn:hover { background: var(--danger); transform: rotate(180deg) scale(1.1); border-color: var(--danger); }
+        .form-control { width: 100%; background: #09090b; border: 1px solid #27272a; padding: 16px; border-radius: 12px; color: white; margin-bottom: 15px; outline: none; transition: 0.3s; }
+        .form-control:focus { border-color: var(--primary); box-shadow: 0 0 20px rgba(88, 101, 242, 0.15); }
+        .submit-btn { width: 100%; padding: 16px; background: linear-gradient(90deg, var(--primary), var(--secondary)); color: white; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; transition: 0.3s; }
+        .submit-btn:hover { filter: brightness(1.2); transform: scale(1.02); }
 
-        /* Profil Alanı */
+        .spinner { border: 4px solid rgba(255, 255, 255, 0.1); border-top: 4px solid var(--accent); border-radius: 50%; width: 60px; height: 60px; animation: spin 1s linear infinite; margin: 0 auto 20px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .success-checkmark { color: var(--success); font-size: 60px; animation: popIn 0.5s ease; margin-bottom: 20px; text-shadow: 0 0 20px var(--success); }
+
         .profile-area { display: none; align-items: center; gap: 12px; background: rgba(255,255,255,0.05); padding: 5px 15px 5px 5px; border-radius: 50px; border: 1px solid var(--border); cursor: pointer; transition: 0.3s; }
-        .profile-area:hover { background: rgba(255,255,255,0.1); border-color: var(--primary); }
-        .profile-dropdown { display: none; position: absolute; top: 60px; right: 0; background: #16161a; border: 1px solid var(--border); width: 220px; border-radius: 16px; padding: 10px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); z-index: 1001; }
         .profile-area:hover .profile-dropdown { display: block; }
+        .profile-dropdown { display: none; position: absolute; top: 60px; right: 0; background: #16161a; border: 1px solid var(--border); width: 220px; border-radius: 16px; padding: 10px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); z-index: 1001; }
 
-        /* 2FA Switch */
         .toggle-switch { position: relative; display: inline-block; width: 55px; height: 30px; }
         .toggle-switch input { opacity: 0; width: 0; height: 0; }
         .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #333; transition: .4s; border-radius: 34px; }
@@ -238,27 +178,13 @@
         input:checked + .slider { background-color: var(--success); box-shadow: 0 0 15px var(--success); }
         input:checked + .slider:before { transform: translateX(25px); }
 
-        /* --- YENİ EKLENEN STATUS MODAL ANİMASYONLARI --- */
-        .spinner {
-            border: 4px solid rgba(255, 255, 255, 0.1);
-            border-top: 4px solid var(--accent);
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
-        }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        /* LEGAL MODAL STYLES */
+        .legal-text { color: var(--text-muted); line-height: 1.6; font-size: 14px; max-height: 400px; overflow-y: auto; padding-right: 10px; }
+        .legal-text h3 { color: white; margin-top: 20px; margin-bottom: 10px; border-bottom: 1px solid var(--border); padding-bottom: 5px; }
+        .legal-text ul { padding-left: 20px; margin-bottom: 10px; }
+        .legal-text li { margin-bottom: 5px; }
 
-        .success-checkmark {
-            color: var(--success);
-            font-size: 60px;
-            animation: popIn 0.5s ease;
-            margin-bottom: 20px;
-            text-shadow: 0 0 20px var(--success);
-        }
-
-        @media (max-width: 900px) { .dashboard { grid-template-columns: 1fr; } .sidebar { display: none; } .nav-links { display: none; } }
+        @media (max-width: 900px) { .dashboard { grid-template-columns: 1fr; } .sidebar { display: none; } .nav-links { display: none; } .stats-section { flex-wrap: wrap; gap: 20px; } }
     </style>
 </head>
     <link rel="shortcut icon" href="https://i.hizliresim.com/a3su1pc.png" type="image/x-icon">
@@ -272,7 +198,6 @@
             <div class="logo-img"></div>
             <span class="rgb-text">StromV2</span>
         </div>
-        
         <div class="nav-links">
             <a href="#anasayfa" class="nav-item"><i class="fas fa-home"></i> Ana Sayfa</a>
             <a href="#premium" class="nav-item" style="color: var(--accent);"><i class="fas fa-crown"></i> Premium</a>
@@ -280,22 +205,15 @@
             <button onclick="checkAuthAndOpen('oneriModal')" class="nav-item"><i class="far fa-lightbulb"></i> Öneri</button>
             <button onclick="checkAuthAndOpen('hataModal')" class="nav-item"><i class="fas fa-bug" style="color: var(--danger);"></i> Hata</button>
         </div>
-
         <div class="auth-buttons">
             <div id="guestArea" style="display: flex; gap: 15px;">
-                <div class="btn-rgb" onclick="loginWithDiscord()">
-                    <div class="btn-rgb-inner"><i class="fas fa-sign-in-alt"></i> Giriş Yap</div>
-                </div>
-                <div class="btn-rgb" onclick="loginWithDiscord()">
-                    <div class="btn-rgb-inner"><i class="fas fa-user-plus"></i> Kayıt Ol</div>
-                </div>
+                <div class="btn-rgb" onclick="loginWithDiscord()"><div class="btn-rgb-inner"><i class="fas fa-sign-in-alt"></i> Giriş Yap</div></div>
+                <div class="btn-rgb" onclick="loginWithDiscord()"><div class="btn-rgb-inner"><i class="fas fa-user-plus"></i> Kayıt Ol</div></div>
             </div>
-
             <div id="loggedArea" class="profile-area">
                 <img id="userAvatar" src="" style="width: 40px; height: 40px; border-radius: 50%;">
                 <span id="userName" style="font-weight: 700; font-size: 14px; color: white;">Kullanıcı</span>
                 <i class="fas fa-chevron-down" style="font-size: 12px; color: #888;"></i>
-                
                 <div class="profile-dropdown">
                     <div class="nav-item" onclick="openModal('settingsModal')" style="padding: 10px; margin-bottom: 5px;"><i class="fas fa-cog"></i> Ayarlar</div>
                     <div class="nav-item" onclick="openModal('securityModal')" style="padding: 10px; margin-bottom: 5px;"><i class="fas fa-shield-alt"></i> 2FA Güvenlik</div>
@@ -311,41 +229,57 @@
         <a href="#premium" class="cta-btn"><i class="fas fa-rocket"></i> Botu Şimdi Ekle</a>
     </section>
 
+    <div class="stats-section">
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-server"></i></div>
+            <div class="stat-number" data-target="250">0</div>
+            <div class="stat-label">Sunucu</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-users"></i></div>
+            <div class="stat-number" data-target="15000">0</div>
+            <div class="stat-label">Kullanıcı</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-bolt"></i></div>
+            <div class="stat-number" data-target="99">0</div>
+            <div class="stat-label">% Uptime</div>
+        </div>
+    </div>
+
     <section id="premium" class="premium-section">
         <div class="section-title">
             <h2><span class="rgb-text">Premium</span> Paketleri</h2>
             <p style="color: var(--text-muted);">Sunucunuzun sınırlarını neon ışıklarla çizin.</p>
         </div>
-
         <div class="pricing-grid">
             <div class="price-card">
                 <div class="plan-name">📅 1 Aylık</div>
                 <div class="plan-price">100 <span>TL</span></div>
                 <ul class="plan-features">
                     <li><i class="fas fa-check"></i> Tüm Komutlar</li>
+                  
                     <li><i class="fas fa-check"></i> 7/24 Destek</li>
                 </ul>
                 <button onclick="buyPremium('1 Aylık')" class="buy-btn">Satın Al</button>
             </div>
-
             <div class="price-card" style="border-color: var(--accent);">
                 <div style="position: absolute; top: 15px; right: -30px; background: var(--accent); color: black; font-weight: 800; font-size: 10px; padding: 5px 30px; transform: rotate(45deg);">POPÜLER</div>
                 <div class="plan-name" style="color: var(--accent);">🔥 6 Aylık</div>
                 <div class="plan-price">350 <span>TL</span></div>
                 <ul class="plan-features">
                     <li><i class="fas fa-check"></i> %15 İndirim</li>
-                     <li><i class="fas fa-check"></i> Tüm Komutlar</li>
-                    <li><i class="fas fa-check"></i> VIP Rolü (Discord)</li>
+                   <li><i class="fas fa-check"></i> Tüm Komutlar</li>
+                    <li><i class="fas fa-check"></i> VIP Rolü</li>
                 </ul>
                 <button onclick="buyPremium('6 Aylık')" class="buy-btn" style="background: var(--accent); color: black;">Satın Al</button>
             </div>
-
             <div class="price-card" style="border-color: var(--secondary);">
                 <div class="plan-name" style="color: var(--secondary);">♾️ Sınırsız</div>
                 <div class="plan-price">850 <span>TL</span></div>
                 <ul class="plan-features">
                     <li><i class="fas fa-check"></i> Ömür Boyu Erişim</li>
-                    <li><i class="fas fa-check"></i> Sponsor Rolü (Discord)</li>
+                    <li><i class="fas fa-check"></i> Sponsor Rolü</li>
                     <li><i class="fas fa-check"></i> Erken Erişim</li>
                      <li><i class="fas fa-check"></i> Tüm Komutlar</li>
                 </ul>
@@ -377,12 +311,70 @@
         </div>
     </div>
 
+    <div class="section-title" style="margin-top: 50px;">
+        <h2>Sıkça Sorulan <span class="rgb-text">Sorular</span></h2>
+    </div>
+    <div class="faq-section">
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-question">Botu sunucuma nasıl eklerim? <i class="fas fa-chevron-down faq-icon"></i></div>
+            <div class="faq-answer">Yukarıdaki "Botu Şimdi Ekle" butonuna basarak Discord yetkilendirme sayfası üzerinden sunucunuzu seçip ekleyebilirsiniz.</div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-question">Premium satın aldıktan sonra ne yapmalıyım? <i class="fas fa-chevron-down faq-icon"></i></div>
+            <div class="faq-answer">Bionluk üzerinden satın aldıktan sonra Bionluk üzerinden iletişime geçin.</div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-question">İade politikanız nedir? <i class="fas fa-chevron-down faq-icon"></i></div>
+            <div class="faq-answer">Dijital ürünlerde teknik bir sorun yaşanmadığı sürece iade yapılmamaktadır. Ancak teknik sorunlarda %100 destek garantisi veriyoruz.</div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-question">Bot güvenli mi? <i class="fas fa-chevron-down faq-icon"></i></div>
+            <div class="faq-answer">Evet, StromV2 Discord'un resmi politikalarına uygun olarak geliştirilmiştir ve verileriniz güvenle saklanır.</div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <div class="logo" style="margin-bottom: 20px;">
+                    <div class="logo-img" style="width: 35px; height: 35px;"></div>
+                    <span class="rgb-text" style="font-size: 20px;">StromV2</span>
+                </div>
+                <p style="color: #888; font-size: 14px; line-height: 1.6;">Discord sunucularınız için en gelişmiş yönetim, eğlence ve koruma botu. Sınırları kaldırın.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Hızlı Linkler</h3>
+                <a href="#anasayfa">Ana Sayfa</a>
+                <a href="#premium">Premium</a>
+                <a href="#komutlar">Komutlar</a>
+                <a href="https://bionluk.com/mustafa852" target="_blank">Mağaza (Bionluk)</a>
+            </div>
+            <div class="footer-col">
+                <h3>Yasal</h3>
+                <a onclick="openModal('kullanimModal')">Kullanım Şartları</a>
+                <a onclick="openModal('gizlilikModal')">Gizlilik Politikası</a>
+                <a onclick="openModal('iadeModal')">İade Koşulları</a>
+            </div>
+            <div class="footer-col">
+                <h3>Bizi Takip Et</h3>
+                <div class="social-links">
+                    <a href="#" class="social-btn"><i class="fab fa-discord"></i></a>
+                    <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-btn"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2024 StromV2. Tüm hakları saklıdır. Designed by <b>lord__</b>
+        </div>
+    </footer>
+
     <div id="settingsModal" class="modal-overlay">
         <div class="modal-box">
             <button class="close-btn" onclick="closeModal('settingsModal')"><i class="fas fa-times"></i></button>
             <h2 style="margin-bottom: 20px;">⚙️ Profil Ayarları</h2>
-            <label style="color:#aaa; font-size:12px; margin-bottom:5px; display:block;">KULLANICI ADI (GÖRÜNEN)</label>
-            <input type="text" id="settingsName" class="form-control" placeholder="Adınız">
+            <label style="color:#aaa; font-size:12px; margin-bottom:5px; display:block;">KULLANICI ADI</label>
+            <input type="text" id="settingsName" class="form-control">
             <label style="color:#aaa; font-size:12px; margin-bottom:5px; display:block;">DURUM MESAJI</label>
             <input type="text" id="settingsBio" class="form-control" placeholder="Örn: StromV2 Kullanıyorum...">
             <button onclick="saveSettings()" class="submit-btn">Kaydet</button>
@@ -394,20 +386,13 @@
             <button class="close-btn" onclick="closeModal('securityModal')"><i class="fas fa-times"></i></button>
             <h2 style="margin-bottom: 20px;">🛡️ 2FA Güvenlik</h2>
             <div style="background: #000; padding: 20px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #333;">
-                <div>
-                    <h3 style="font-size: 16px; color: white;">İki Faktörlü Doğrulama</h3>
-                    <p style="font-size: 12px; color: #888;">Hesabınızı ekstra koruyun.</p>
-                </div>
-                <label class="toggle-switch">
-                    <input type="checkbox" id="2faToggle" onchange="toggle2FA()">
-                    <span class="slider"></span>
-                </label>
+                <div><h3 style="font-size: 16px; color: white;">İki Faktörlü Doğrulama</h3><p style="font-size: 12px; color: #888;">Hesabınızı ekstra koruyun.</p></div>
+                <label class="toggle-switch"><input type="checkbox" id="2faToggle" onchange="toggle2FA()"><span class="slider"></span></label>
             </div>
             <div id="2faSetup" style="display: none; text-align: center; margin-top: 20px;">
-                <p style="color: #ccc; margin-bottom: 10px;">Aşağıdaki QR kodunu Google Authenticator ile taratın:</p>
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=StromV2-Secret" style="border-radius: 10px; border: 2px solid white;">
-                <input type="text" class="form-control" placeholder="Kod: 123 456" style="margin-top: 15px; text-align: center; font-size: 18px; letter-spacing: 5px;">
-                <button class="submit-btn" onclick="closeModal('securityModal'); alert('2FA Aktif!')">Onayla</button>
+                <p style="color: #ccc; margin-bottom: 10px;">QR Kodunu Taratın:</p>
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=StromV2-Secret" style="border-radius: 10px;">
+                <button class="submit-btn" onclick="closeModal('securityModal'); alert('2FA Aktif!')" style="margin-top:15px;">Onayla</button>
             </div>
         </div>
     </div>
@@ -418,7 +403,7 @@
             <i class="fas fa-shopping-cart" style="font-size: 50px; color: var(--accent); margin-bottom: 20px;"></i>
             <h2 style="margin-bottom: 10px; color: white;">Paket Satın Al</h2>
             <p id="buyText" style="color: #ccc; margin-bottom: 20px; font-size: 18px;"></p>
-            <a href="https://discord.gg/DwvhC2WArV" target="_blank" class="submit-btn" style="text-decoration: none; display: block;">Destek Sunucusuna Git</a>
+            <a href="https://bionluk.com/mustafa852/Ben-premium-komutlar-ile-ayricalikli-ozellikler-sunuyorum-837735" target="_blank" class="submit-btn" style="text-decoration: none; display: block;">Mağazaya Git</a>
         </div>
     </div>
 
@@ -438,16 +423,11 @@
             <h2>💡 Öneri Yap</h2>
             <form onsubmit="sendWebhook(event, 'Öneri')">
                 <label style="color:#aaa; font-size:12px; margin-top:10px; display:block;">KATEGORİ</label>
-                <select id="oneriKategori" class="form-control" style="cursor: pointer;">
-                    <option value="Yeni Komut İsteği">✨ Yeni Komut İsteği</option>
-                    <option value="Web Sitesi Önerisi">🌐 Web Sitesi Önerisi</option>
-                    <option value="Bot İyileştirme">🔧 Bot İyileştirme</option>
-                    <option value="Genel Öneri">💡 Genel Öneri</option>
-                </select>
-                <label style="color:#aaa; font-size:12px; display:block;">KONU BAŞLIĞI</label>
-                <input type="text" id="oneriBaslik" class="form-control" placeholder="Örn: Müzik sistemi" required>
-                <label style="color:#aaa; font-size:12px; display:block;">DETAYLI AÇIKLAMA</label>
-                <textarea id="oneriDetay" class="form-control" placeholder="Ne eklemeliyiz? Detaylı anlat..." required></textarea>
+                <select id="oneriKategori" class="form-control"><option>✨ Yeni Komut İsteği</option><option>🌐 Web Sitesi</option><option>💡 Diğer</option></select>
+                <label style="color:#aaa; font-size:12px; display:block;">KONU</label>
+                <input type="text" id="oneriBaslik" class="form-control" required>
+                <label style="color:#aaa; font-size:12px; display:block;">DETAY</label>
+                <textarea id="oneriDetay" class="form-control" required></textarea>
                 <button type="submit" class="submit-btn">Gönder</button>
             </form>
         </div>
@@ -458,17 +438,12 @@
             <button class="close-btn" onclick="closeModal('hataModal')"><i class="fas fa-times"></i></button>
             <h2>🚨 Hata Bildir</h2>
             <form onsubmit="sendWebhook(event, 'Hata')">
-                <label style="color:#aaa; font-size:12px; margin-top:10px; display:block;">HATA TÜRÜ</label>
-                <select id="hataKategori" class="form-control" style="cursor: pointer;">
-                    <option value="Komut Hatası">🤖 Komut Hatası</option>
-                    <option value="Web Sitesi Bug">🕸️ Web Sitesi Bug</option>
-                    <option value="Yazım Hatası">📝 Yazım Hatası</option>
-                    <option value="Diğer">❓ Diğer</option>
-                </select>
-                <label style="color:#aaa; font-size:12px; display:block;">HATALI YER</label>
-                <input type="text" id="hataBaslik" class="form-control" placeholder="Örn: s!ban komutu" required>
+                <label style="color:#aaa; font-size:12px; margin-top:10px; display:block;">TÜR</label>
+                <select id="hataKategori" class="form-control"><option>🤖 Komut Hatası</option><option>🕸️ Site Bug</option></select>
+                <label style="color:#aaa; font-size:12px; display:block;">YER</label>
+                <input type="text" id="hataBaslik" class="form-control" required>
                 <label style="color:#aaa; font-size:12px; display:block;">NASIL OLUŞTU?</label>
-                <textarea id="hataDetay" class="form-control" placeholder="Hatayı nasıl aldın?" required></textarea>
+                <textarea id="hataDetay" class="form-control" required></textarea>
                 <button type="submit" class="submit-btn" style="background: linear-gradient(90deg, #ff0000, #ff4d4d);">Bildir</button>
             </form>
         </div>
@@ -476,30 +451,95 @@
 
     <div id="statusModal" class="modal-overlay" style="z-index: 3000;">
         <div class="modal-box" style="width: 400px; text-align: center; padding: 50px;">
-            
-            <div id="loadingAnim">
-                <div class="spinner"></div>
-                <h3 style="color: var(--text-muted); font-weight: 600;">Gönderiliyor...</h3>
-            </div>
+            <div id="loadingAnim"><div class="spinner"></div><h3 style="color: var(--text-muted);">Gönderiliyor...</h3></div>
+            <div id="successAnim" style="display: none;"><i class="fas fa-check-circle success-checkmark"></i><h3 style="color: white;">Başarılı!</h3><p style="color:#aaa;">Mesajınız iletildi.</p></div>
+        </div>
+    </div>
 
-            <div id="successAnim" style="display: none;">
-                <i class="fas fa-check-circle success-checkmark"></i>
-                <h3 style="color: white; margin-bottom: 10px;">Başarılı!</h3>
-                <p style="color: #aaa;">Mesajınız iletildi.</p>
+    <div id="kullanimModal" class="modal-overlay">
+        <div class="modal-box" style="width: 700px;">
+            <button class="close-btn" onclick="closeModal('kullanimModal')"><i class="fas fa-times"></i></button>
+            <h2 style="margin-bottom: 20px; color: var(--accent);">📜 Kullanım Şartları</h2>
+            <div class="legal-text">
+                <h3>1) Kullanım Şartları</h3>
+                <ul>
+                    <li>Botu yavaşlatacak davranışlarda bulunmayın.</li>
+                    <li>Bota DM üzerinden spam yapmayın.</li>
+                    <li>Botu amacı dışında kullanmak yasaktır.</li>
+                    <li>Yukarıdaki şartlara uymazsanız botun "karaliste" bölümüne alınırsınız.</li>
+                </ul>
+                <h3>2) Veri Silme</h3>
+                <p>StromV2#2951 isim etiketli (1037392359249432598) ID'li bottan verilerinizin silinmesini istiyorsanız <strong>lord__</strong> isim etiketli (846736343593779230) ID'li kullanıcıya ulaşıp verilerinizi sildirebilirsiniz.</p>
             </div>
+        </div>
+    </div>
 
+    <div id="gizlilikModal" class="modal-overlay">
+        <div class="modal-box" style="width: 700px;">
+            <button class="close-btn" onclick="closeModal('gizlilikModal')"><i class="fas fa-times"></i></button>
+            <h2 style="margin-bottom: 20px; color: var(--success);">🔒 Gizlilik Politikası</h2>
+            <div class="legal-text">
+                <h3>1) Saklanan Verileriniz</h3>
+                <p><strong>Komut Kullanılarak Saklanan Veriler:</strong> Kullanıcı ID'si, Kullanılan sunucu ID'si, Kullanıcı verileri.</p>
+                
+                <h3>2) Otomatik Saklanılan Veriler</h3>
+                <p><strong>Sunucu:</strong> ID'si, ismi, profil fotoğrafı, üye sayısı, sunucu sahibi, kanal sayısı.</p>
+                <p><strong>Üye:</strong> ID'si, ismi, hesap oluşturulma tarihi.</p>
+
+                <h3>3) Verilerinizin Korunumu</h3>
+                <p>Verileriniz, şifrelenme yöntemiyle, erişime kısıtlı bir veri tabanlarında saklanır. Verilerinizin gizlenimi hakkında endişeniz varsa bilet oluşturarak yardım alabilirsiniz.</p>
+
+                <h3>4) Verilerinizin Silinimi</h3>
+                <p>Verilerinizin silinmesi hakkında talep oluşturmakta özgürsünüz. Verilerinizin tamamen silinmesi için <strong>lord__</strong> kullanıcısına Direkt Mesaj atarak verilerinizi silebilirsiniz. Talebiniz, alındıktan 30 gün içinde işleme alınır.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="iadeModal" class="modal-overlay">
+        <div class="modal-box" style="width: 600px;">
+            <button class="close-btn" onclick="closeModal('iadeModal')"><i class="fas fa-times"></i></button>
+            <h2 style="margin-bottom: 20px; color: var(--danger);">💸 İade Koşulları</h2>
+            <div class="legal-text" style="text-align: center; padding: 20px;">
+                <i class="fas fa-hand-holding-usd" style="font-size: 50px; color: var(--text-muted); margin-bottom: 20px;"></i>
+                <p style="font-size: 16px;">
+                    "Dijital ürünlerde teknik bir sorun yaşanmadığı sürece iade yapılmamaktadır. Ancak teknik sorunlarda <strong>%100 destek garantisi</strong> veriyoruz."
+                </p>
+                <p style="margin-top: 20px; font-size: 13px; color: #666;">
+                    Satın alım yaparak bu koşulu kabul etmiş sayılırsınız.
+                </p>
+            </div>
         </div>
     </div>
 
     <script>
-        // --- AYARLAR ---
         const CLIENT_ID = "1037392359249432598";
         const REDIRECT_URI = "https://stromv2.com.tr/index.html"; 
-
         let currentUser = null;
+
+        function animateStats() {
+            const counters = document.querySelectorAll('.stat-number');
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const speed = 200; 
+                const updateCount = () => {
+                    const count = +counter.innerText;
+                    const inc = target / speed;
+                    if(count < target) {
+                        counter.innerText = Math.ceil(count + inc);
+                        setTimeout(updateCount, 15);
+                    } else {
+                        counter.innerText = target + (target > 100 ? "+" : "%");
+                    }
+                };
+                updateCount();
+            });
+        }
+
+        function toggleFaq(element) { element.classList.toggle('active'); }
 
         window.onload = () => {
             filter('all');
+            animateStats(); 
             const fragment = new URLSearchParams(window.location.hash.slice(1));
             const accessToken = fragment.get('access_token');
             const tokenType = fragment.get('token_type');
@@ -514,18 +554,11 @@
                     updateUI(true);
                 }
             }
-            if(localStorage.getItem('2fa_enabled') === 'true') {
-                document.getElementById('2faToggle').checked = true;
-                document.getElementById('2faSetup').style.display = 'block';
-            }
-            if(localStorage.getItem('user_bio')) {
-                document.getElementById('settingsBio').value = localStorage.getItem('user_bio');
-            }
+            if(localStorage.getItem('2fa_enabled') === 'true') document.getElementById('2faToggle').checked = true;
+            if(localStorage.getItem('user_bio')) document.getElementById('settingsBio').value = localStorage.getItem('user_bio');
         };
 
-        function loginWithDiscord() {
-            window.location.href = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=identify`;
-        }
+        function loginWithDiscord() { window.location.href = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=identify`; }
 
         async function fetchDiscordUser(tokenType, accessToken) {
             try {
@@ -560,10 +593,8 @@
         function closeModal(id) { document.getElementById(id).classList.remove('active'); }
 
         function saveSettings() {
-            const bio = document.getElementById('settingsBio').value;
-            localStorage.setItem('user_bio', bio);
-            alert("✅ Ayarlar başarıyla kaydedildi!");
-            closeModal('settingsModal');
+            localStorage.setItem('user_bio', document.getElementById('settingsBio').value);
+            alert("✅ Kaydedildi!"); closeModal('settingsModal');
         }
 
         function toggle2FA() {
@@ -572,31 +603,20 @@
             else { document.getElementById('2faSetup').style.display = 'none'; localStorage.removeItem('2fa_enabled'); }
         }
 
-        function buyPremium(paket) {
-            window.open("https://bionluk.com/mustafa852/Ben-premium-komutlar-ile-ayricalikli-ozellikler-sunuyorum-837735", "_blank");
-        }
+        function buyPremium(paket) { window.open("https://bionluk.com/mustafa852/Ben-premium-komutlar-ile-ayricalikli-ozellikler-sunuyorum-837735", "_blank"); }
 
-        // --- YENİ WEBHOOK GÖNDERME FONKSİYONU ---
         async function sendWebhook(e, tur) {
             e.preventDefault();
-            
-            // 1. Önce formu kapat
             const isOneri = tur === 'Öneri';
             closeModal(isOneri ? 'oneriModal' : 'hataModal');
-
-            // 2. Yükleniyor Modalını Aç
+            
             const statusModal = document.getElementById('statusModal');
-            const loadingAnim = document.getElementById('loadingAnim');
-            const successAnim = document.getElementById('successAnim');
-
             statusModal.classList.add('active');
-            loadingAnim.style.display = 'block';
-            successAnim.style.display = 'none';
+            document.getElementById('loadingAnim').style.display = 'block';
+            document.getElementById('successAnim').style.display = 'none';
 
-            // Verileri Hazırla
             const url = isOneri ? "https://discord.com/api/webhooks/1470618890416427188/f862nZr9-289wlplt1XxLwwKhtr4GclLuew-gG8jB_bgN7HNeFnkEFQNbhhPma8o7G11" : "https://discord.com/api/webhooks/1470619113486418014/uLSpe6STmlQyG8gC3MYbaJHEswpG3-xNOjoIOBl6LtZqJ67I4BxulMM9bJ31IDxbOWrJ";
             const userFooter = currentUser ? `👤 ${currentUser.username} (${currentUser.id})` : "👤 Anonim";
-            
             let kategori = isOneri ? document.getElementById('oneriKategori').value : document.getElementById('hataKategori').value;
             const baslik = document.getElementById(isOneri ? 'oneriBaslik' : 'hataBaslik').value;
             const detay = document.getElementById(isOneri ? 'oneriDetay' : 'hataDetay').value;
@@ -604,29 +624,16 @@
             const payload = { embeds: [{ title: `${tur} Bildirimi`, color: isOneri ? 16766720 : 15548997, fields: [ { name: "📂 Kategori", value: kategori, inline: true }, { name: "📝 Konu", value: baslik, inline: true }, { name: "📄 Detaylar", value: detay } ], footer: { text: userFooter } }] };
             
             try {
-                // 3. Gönderim Yap
                 await fetch(url, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
-                
-                // 4. Biraz bekle (animasyon görünsün) sonra Başarılı'yı göster
                 setTimeout(() => {
-                    loadingAnim.style.display = 'none';
-                    successAnim.style.display = 'block';
-
-                    // 5. 2 saniye sonra modali tamamen kapat
-                    setTimeout(() => {
-                        statusModal.classList.remove('active');
-                        e.target.reset();
-                    }, 2000);
+                    document.getElementById('loadingAnim').style.display = 'none';
+                    document.getElementById('successAnim').style.display = 'block';
+                    setTimeout(() => { statusModal.classList.remove('active'); e.target.reset(); }, 2000);
                 }, 1000);
-
-            } catch (err) {
-                console.error(err);
-                alert("Bir hata oluştu.");
-                statusModal.classList.remove('active');
-            }
+            } catch(err) { console.error(err); statusModal.classList.remove('active'); }
         }
 
-        // --- FULL KOMUT LİSTESİ ---
+        // --- FULL KOMUT LİSTESİ (HER KATEGORİ EKSİKSİZ) ---
         const commands = [
             // MODERASYON
             { cmd: "s!ban", desc: "Üyeyi sunucudan yasaklar.", cat: "moderasyon", usage: "s!ban @üye <sebep>" },
@@ -825,5 +832,3 @@
     </script>
 </body>
 </html>
-
-
