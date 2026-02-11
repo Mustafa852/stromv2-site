@@ -395,16 +395,6 @@
         </div>
     </div>
 
-    <div id="buyModal" class="modal-overlay">
-        <div class="modal-box" style="text-align: center;">
-            <button class="close-btn" onclick="closeModal('buyModal')"><i class="fas fa-times"></i></button>
-            <i class="fas fa-shopping-cart" style="font-size: 50px; color: var(--accent); margin-bottom: 20px;"></i>
-            <h2 style="margin-bottom: 10px; color: white;">Paket Satın Al</h2>
-            <p id="buyText" style="color: #ccc; margin-bottom: 20px; font-size: 18px;"></p>
-            <a href="https://discord.gg/DwvhC2WArV" target="_blank" class="submit-btn" style="text-decoration: none; display: block;">Destek Sunucusuna Git</a>
-        </div>
-    </div>
-
     <div id="detailModal" class="modal-overlay">
         <div class="modal-box">
             <button class="close-btn" onclick="closeModal('detailModal')"><i class="fas fa-times"></i></button>
@@ -539,8 +529,8 @@
         }
 
         function buyPremium(paket) {
-            document.getElementById('buyText').innerText = paket;
-            openModal('buyModal');
+            // Direkt Bionluk linkine gönder
+            window.open("https://bionluk.com/mustafa852/Ben-premium-komutlar-ile-ayricalikli-ozellikler-sunuyorum-837735", "_blank");
         }
 
         async function sendWebhook(e, tur) {
@@ -676,7 +666,7 @@
             { cmd: "s!davet", desc: "Botun davet linki.", cat: "rutbe", usage: "s!davet" },
             { cmd: "s!rütbe-ekle", desc: "Rütbe ayarlar.", cat: "rutbe", usage: "s!rütbe-ekle @rol <sayı>" },
             { cmd: "s!rütbeler", desc: "Rütbeleri listeler.", cat: "rutbe", usage: "s!rütbeler" },
-            { cmd: "s!rütbe-sıfırla", desc: "Rütbe ayarlarını siler.", cat: "rutbe", usage: "s!rütbe-sıfırla" },
+            { cmd: "s!rütbe-sıfırla", desc: "Rütbeleri siler.", cat: "rutbe", usage: "s!rütbe-sıfırla" },
             { cmd: "s!davetleri-sıfırla", desc: "Davetleri sıfırlar.", cat: "rutbe", usage: "s!davetleri-sıfırla" },
             { cmd: "s!bonus-ekle", desc: "Bonus davet ekler.", cat: "rutbe", usage: "s!bonus-ekle @üye <sayı>" },
             { cmd: "s!rütbe-davetkanal", desc: "Log kanalını ayarlar.", cat: "rutbe", usage: "s!rütbe-davetkanal #kanal" },
@@ -757,4 +747,3 @@
     </script>
 </body>
 </html>
-
