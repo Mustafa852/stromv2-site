@@ -15,6 +15,7 @@
             --secondary-glow: rgba(211, 59, 245, 0.6);
             --accent: #FFD700;    
             --danger: #ff2e43;    
+            --success: #00ff88; /* Neon Yeşil */
             --bg-body: #050507;   
             --bg-glass: rgba(20, 20, 25, 0.6);
             --border: rgba(255, 255, 255, 0.08);
@@ -140,10 +141,9 @@
         }
         .buy-btn:hover { background: var(--primary); box-shadow: 0 0 20px var(--primary-glow); border-color: var(--primary); }
 
-        /* --- DASHBOARD (KOMUTLAR - YENİLENDİ) --- */
+        /* --- DASHBOARD (KOMUTLAR) --- */
         .dashboard { display: grid; grid-template-columns: 280px 1fr; gap: 40px; padding: 80px 5%; }
         
-        /* Sidebar */
         .sidebar { 
             position: sticky; top: 100px; height: calc(100vh - 140px); overflow-y: auto; 
             background: var(--bg-glass); backdrop-filter: blur(10px);
@@ -157,7 +157,6 @@
         .cat-btn:hover { background: rgba(255,255,255,0.05); color: white; padding-left: 20px; }
         .cat-btn.active { background: linear-gradient(90deg, rgba(88,101,242,0.2), transparent); color: var(--primary); border-left: 3px solid var(--primary); }
 
-        /* Komut Kartları (Garibanlıktan Kurtuldu) */
         .cmd-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
         .cmd-card { 
             background: rgba(20, 20, 25, 0.4); border: 1px solid var(--border); border-radius: 18px; padding: 25px; 
@@ -196,7 +195,6 @@
             z-index: -1; border-radius: 26px; opacity: 0.3;
         }
 
-        /* KAPATMA BUTONU (HAVALI & DÖNEN) */
         .close-btn { 
             position: absolute; top: 20px; right: 20px; 
             background: rgba(255,255,255,0.08); 
@@ -213,7 +211,6 @@
             box-shadow: 0 0 15px rgba(255, 46, 67, 0.5);
         }
 
-        /* Form */
         .form-control { 
             width: 100%; background: #09090b; border: 1px solid #27272a; padding: 16px; border-radius: 12px; 
             color: white; margin-bottom: 15px; outline: none; transition: 0.3s; font-size: 15px;
@@ -240,6 +237,26 @@
         .slider:before { position: absolute; content: ""; height: 22px; width: 22px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; }
         input:checked + .slider { background-color: var(--success); box-shadow: 0 0 15px var(--success); }
         input:checked + .slider:before { transform: translateX(25px); }
+
+        /* --- YENİ EKLENEN STATUS MODAL ANİMASYONLARI --- */
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-top: 4px solid var(--accent);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        .success-checkmark {
+            color: var(--success);
+            font-size: 60px;
+            animation: popIn 0.5s ease;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px var(--success);
+        }
 
         @media (max-width: 900px) { .dashboard { grid-template-columns: 1fr; } .sidebar { display: none; } .nav-links { display: none; } }
     </style>
@@ -395,6 +412,16 @@
         </div>
     </div>
 
+    <div id="buyModal" class="modal-overlay">
+        <div class="modal-box" style="text-align: center;">
+            <button class="close-btn" onclick="closeModal('buyModal')"><i class="fas fa-times"></i></button>
+            <i class="fas fa-shopping-cart" style="font-size: 50px; color: var(--accent); margin-bottom: 20px;"></i>
+            <h2 style="margin-bottom: 10px; color: white;">Paket Satın Al</h2>
+            <p id="buyText" style="color: #ccc; margin-bottom: 20px; font-size: 18px;"></p>
+            <a href="https://discord.gg/DwvhC2WArV" target="_blank" class="submit-btn" style="text-decoration: none; display: block;">Destek Sunucusuna Git</a>
+        </div>
+    </div>
+
     <div id="detailModal" class="modal-overlay">
         <div class="modal-box">
             <button class="close-btn" onclick="closeModal('detailModal')"><i class="fas fa-times"></i></button>
@@ -444,6 +471,23 @@
                 <textarea id="hataDetay" class="form-control" placeholder="Hatayı nasıl aldın?" required></textarea>
                 <button type="submit" class="submit-btn" style="background: linear-gradient(90deg, #ff0000, #ff4d4d);">Bildir</button>
             </form>
+        </div>
+    </div>
+
+    <div id="statusModal" class="modal-overlay" style="z-index: 3000;">
+        <div class="modal-box" style="width: 400px; text-align: center; padding: 50px;">
+            
+            <div id="loadingAnim">
+                <div class="spinner"></div>
+                <h3 style="color: var(--text-muted); font-weight: 600;">Gönderiliyor...</h3>
+            </div>
+
+            <div id="successAnim" style="display: none;">
+                <i class="fas fa-check-circle success-checkmark"></i>
+                <h3 style="color: white; margin-bottom: 10px;">Başarılı!</h3>
+                <p style="color: #aaa;">Mesajınız iletildi.</p>
+            </div>
+
         </div>
     </div>
 
@@ -529,13 +573,27 @@
         }
 
         function buyPremium(paket) {
-            // Direkt Bionluk linkine gönder
             window.open("https://bionluk.com/mustafa852/Ben-premium-komutlar-ile-ayricalikli-ozellikler-sunuyorum-837735", "_blank");
         }
 
+        // --- YENİ WEBHOOK GÖNDERME FONKSİYONU ---
         async function sendWebhook(e, tur) {
             e.preventDefault();
+            
+            // 1. Önce formu kapat
             const isOneri = tur === 'Öneri';
+            closeModal(isOneri ? 'oneriModal' : 'hataModal');
+
+            // 2. Yükleniyor Modalını Aç
+            const statusModal = document.getElementById('statusModal');
+            const loadingAnim = document.getElementById('loadingAnim');
+            const successAnim = document.getElementById('successAnim');
+
+            statusModal.classList.add('active');
+            loadingAnim.style.display = 'block';
+            successAnim.style.display = 'none';
+
+            // Verileri Hazırla
             const url = isOneri ? "https://discord.com/api/webhooks/1470618890416427188/f862nZr9-289wlplt1XxLwwKhtr4GclLuew-gG8jB_bgN7HNeFnkEFQNbhhPma8o7G11" : "https://discord.com/api/webhooks/1470619113486418014/uLSpe6STmlQyG8gC3MYbaJHEswpG3-xNOjoIOBl6LtZqJ67I4BxulMM9bJ31IDxbOWrJ";
             const userFooter = currentUser ? `👤 ${currentUser.username} (${currentUser.id})` : "👤 Anonim";
             
@@ -544,8 +602,28 @@
             const detay = document.getElementById(isOneri ? 'oneriDetay' : 'hataDetay').value;
 
             const payload = { embeds: [{ title: `${tur} Bildirimi`, color: isOneri ? 16766720 : 15548997, fields: [ { name: "📂 Kategori", value: kategori, inline: true }, { name: "📝 Konu", value: baslik, inline: true }, { name: "📄 Detaylar", value: detay } ], footer: { text: userFooter } }] };
-            await fetch(url, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
-            alert('✅ Başarıyla gönderildi!'); closeModal(isOneri ? 'oneriModal' : 'hataModal'); e.target.reset();
+            
+            try {
+                // 3. Gönderim Yap
+                await fetch(url, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
+                
+                // 4. Biraz bekle (animasyon görünsün) sonra Başarılı'yı göster
+                setTimeout(() => {
+                    loadingAnim.style.display = 'none';
+                    successAnim.style.display = 'block';
+
+                    // 5. 2 saniye sonra modali tamamen kapat
+                    setTimeout(() => {
+                        statusModal.classList.remove('active');
+                        e.target.reset();
+                    }, 2000);
+                }, 1000);
+
+            } catch (err) {
+                console.error(err);
+                alert("Bir hata oluştu.");
+                statusModal.classList.remove('active');
+            }
         }
 
         // --- FULL KOMUT LİSTESİ ---
@@ -666,7 +744,7 @@
             { cmd: "s!davet", desc: "Botun davet linki.", cat: "rutbe", usage: "s!davet" },
             { cmd: "s!rütbe-ekle", desc: "Rütbe ayarlar.", cat: "rutbe", usage: "s!rütbe-ekle @rol <sayı>" },
             { cmd: "s!rütbeler", desc: "Rütbeleri listeler.", cat: "rutbe", usage: "s!rütbeler" },
-            { cmd: "s!rütbe-sıfırla", desc: "Rütbeleri siler.", cat: "rutbe", usage: "s!rütbe-sıfırla" },
+            { cmd: "s!rütbe-sıfırla", desc: "Rütbe ayarlarını siler.", cat: "rutbe", usage: "s!rütbe-sıfırla" },
             { cmd: "s!davetleri-sıfırla", desc: "Davetleri sıfırlar.", cat: "rutbe", usage: "s!davetleri-sıfırla" },
             { cmd: "s!bonus-ekle", desc: "Bonus davet ekler.", cat: "rutbe", usage: "s!bonus-ekle @üye <sayı>" },
             { cmd: "s!rütbe-davetkanal", desc: "Log kanalını ayarlar.", cat: "rutbe", usage: "s!rütbe-davetkanal #kanal" },
