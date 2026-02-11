@@ -3,20 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StromV2</title>
+    <title>StromV2 | Neon & Güç</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* --- NEON DEĞİŞKENLER --- */
+        /* --- NEON DEĞİŞKENLER (Ultra Modern) --- */
         :root {
             --primary: #5865F2;
-            --primary-glow: rgba(88, 101, 242, 0.5);
-            --secondary: #d33bf5; /* Neon Mor */
-            --accent: #FFD700;    /* Altın */
-            --danger: #ff2e43;    /* Neon Kırmızı */
-            --bg-body: #050507;   /* Daha Koyu Siyah */
-            --bg-glass: rgba(20, 20, 25, 0.7); /* Buzlu Cam */
-            --border: rgba(255, 255, 255, 0.1);
+            --primary-glow: rgba(88, 101, 242, 0.6);
+            --secondary: #d33bf5; 
+            --secondary-glow: rgba(211, 59, 245, 0.6);
+            --accent: #FFD700;    
+            --danger: #ff2e43;    
+            --bg-body: #050507;   
+            --bg-glass: rgba(20, 20, 25, 0.6);
+            --border: rgba(255, 255, 255, 0.08);
             --text-main: #ffffff;
             --text-muted: #b0b3b8;
         }
@@ -28,20 +29,19 @@
             color: var(--text-main); 
             overflow-x: hidden;
             background-image: 
-                linear-gradient(rgba(88, 101, 242, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(88, 101, 242, 0.05) 1px, transparent 1px);
-            background-size: 40px 40px;
+                radial-gradient(circle at 15% 50%, rgba(88, 101, 242, 0.08), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(211, 59, 245, 0.08), transparent 25%);
         }
 
         /* --- ARKA PLAN IŞIKLARI (BLOBS) --- */
         .glow-blob {
-            position: fixed; width: 600px; height: 600px; background: var(--primary);
-            filter: blur(150px); opacity: 0.15; border-radius: 50%; z-index: -1; animation: float 10s infinite ease-in-out;
+            position: fixed; width: 500px; height: 500px; background: var(--primary);
+            filter: blur(180px); opacity: 0.15; border-radius: 50%; z-index: -1; animation: float 15s infinite ease-in-out;
         }
         .blob-1 { top: -100px; left: -100px; background: var(--primary); }
         .blob-2 { bottom: -100px; right: -100px; background: var(--secondary); animation-delay: 5s; }
 
-        @keyframes float { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(30px, 50px); } }
+        @keyframes float { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(40px, 60px); } }
 
         /* --- RGB ANİMASYONU --- */
         @keyframes rgb-flow {
@@ -57,34 +57,32 @@
         /* --- NAVBAR --- */
         nav {
             position: fixed; top: 0; width: 100%; height: 80px; z-index: 1000;
-            background: rgba(5, 5, 7, 0.85); backdrop-filter: blur(20px);
+            background: rgba(5, 5, 7, 0.8); backdrop-filter: blur(20px);
             display: flex; align-items: center; justify-content: space-between; padding: 0 5%;
             border-bottom: 1px solid var(--border);
         }
-        /* Navbar Altı RGB Çizgi */
         nav::after {
-            content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px;
-            background: linear-gradient(90deg, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000);
-            background-size: 400%; animation: rgb-flow 20s linear infinite; opacity: 0.7;
+            content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary), var(--secondary), transparent);
         }
 
         .logo { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 24px; color: white; cursor: pointer; }
         .logo-img { 
             width: 45px; height: 45px; border-radius: 12px; 
             background: url('https://i.hizliresim.com/a3su1pc.png') center/cover;
-            box-shadow: 0 0 20px var(--primary-glow); border: 2px solid rgba(255,255,255,0.1);
+            box-shadow: 0 0 25px var(--primary-glow); border: 2px solid rgba(255,255,255,0.1);
         }
 
-        .nav-links { display: flex; gap: 25px; }
+        .nav-links { display: flex; gap: 30px; }
         .nav-item { 
             color: var(--text-muted); font-size: 15px; font-weight: 600; cursor: pointer; transition: 0.3s; text-decoration: none; 
             display: flex; align-items: center; gap: 8px; background: none; border: none; padding: 8px 12px; border-radius: 8px;
         }
-        .nav-item:hover { color: white; background: rgba(255,255,255,0.05); }
+        .nav-item:hover { color: white; background: rgba(255,255,255,0.05); text-shadow: 0 0 10px rgba(255,255,255,0.5); }
 
         .auth-buttons { display: flex; gap: 15px; align-items: center; }
 
-        /* RGB Buton (Giriş/Kayıt) */
+        /* RGB Buton */
         .btn-rgb {
             position: relative; padding: 2px; border-radius: 12px; 
             background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8);
@@ -109,7 +107,7 @@
         }
         .cta-btn:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 20px 60px rgba(211, 59, 245, 0.5); }
 
-        /* --- PREMIUM KARTLARI (NEON) --- */
+        /* --- PREMIUM --- */
         .premium-section { padding: 100px 5%; position: relative; }
         .section-title { text-align: center; margin-bottom: 60px; }
         .section-title h2 { font-size: 3.5rem; font-weight: 800; margin-bottom: 10px; }
@@ -121,24 +119,17 @@
             border: 1px solid rgba(255,255,255,0.05); border-radius: 24px; padding: 35px; 
             width: 320px; text-align: center; transition: 0.4s; position: relative; overflow: hidden;
         }
-        /* Kart Üstü RGB Çizgi */
         .price-card::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px;
             background: linear-gradient(90deg, transparent, var(--primary), var(--secondary), transparent);
             transform: translateX(-100%); transition: 0.5s;
         }
         .price-card:hover::before { transform: translateX(100%); }
-        
-        .price-card:hover { 
-            transform: translateY(-15px); 
-            border-color: rgba(255,255,255,0.2);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 30px rgba(88, 101, 242, 0.2); 
-        }
+        .price-card:hover { transform: translateY(-15px); border-color: rgba(255,255,255,0.2); box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 30px rgba(88, 101, 242, 0.2); }
 
         .plan-name { font-size: 22px; font-weight: 800; color: white; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
         .plan-price { font-size: 42px; font-weight: 900; color: white; margin-bottom: 25px; text-shadow: 0 0 20px rgba(255,255,255,0.3); }
         .plan-price span { font-size: 16px; color: var(--text-muted); font-weight: 500; }
-        
         .plan-features { list-style: none; margin-bottom: 35px; text-align: left; }
         .plan-features li { margin-bottom: 12px; color: #ccc; display: flex; align-items: center; gap: 12px; font-size: 15px; }
         .plan-features li i { color: var(--success); font-size: 14px; background: rgba(59, 165, 92, 0.1); padding: 5px; border-radius: 50%; }
@@ -149,7 +140,7 @@
         }
         .buy-btn:hover { background: var(--primary); box-shadow: 0 0 20px var(--primary-glow); border-color: var(--primary); }
 
-        /* --- DASHBOARD --- */
+        /* --- DASHBOARD (KOMUTLAR - YENİLENDİ) --- */
         .dashboard { display: grid; grid-template-columns: 280px 1fr; gap: 40px; padding: 80px 5%; }
         
         /* Sidebar */
@@ -166,49 +157,80 @@
         .cat-btn:hover { background: rgba(255,255,255,0.05); color: white; padding-left: 20px; }
         .cat-btn.active { background: linear-gradient(90deg, rgba(88,101,242,0.2), transparent); color: var(--primary); border-left: 3px solid var(--primary); }
 
-        /* Komut Kartları */
-        .cmd-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        /* Komut Kartları (Garibanlıktan Kurtuldu) */
+        .cmd-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
         .cmd-card { 
-            background: var(--bg-glass); border: 1px solid var(--border); border-radius: 18px; padding: 25px; 
-            cursor: pointer; transition: 0.3s; position: relative; overflow: hidden;
+            background: rgba(20, 20, 25, 0.4); border: 1px solid var(--border); border-radius: 18px; padding: 25px; 
+            cursor: pointer; transition: 0.4s; position: relative; overflow: hidden; backdrop-filter: blur(5px);
         }
         .cmd-card:hover { 
-            border-color: var(--secondary); transform: translateY(-5px); 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 20px rgba(211, 59, 245, 0.05);
+            border-color: var(--primary); transform: translateY(-7px); background: rgba(30, 30, 40, 0.6);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4), 0 0 20px rgba(88, 101, 242, 0.15);
         }
-        .cmd-badge { background: rgba(88, 101, 242, 0.15); color: #8ea1ff; padding: 5px 12px; border-radius: 8px; font-family: monospace; font-weight: 800; border: 1px solid rgba(88, 101, 242, 0.2); }
+        .cmd-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .cmd-badge { 
+            background: rgba(88, 101, 242, 0.1); color: #8ea1ff; padding: 6px 14px; border-radius: 8px; 
+            font-family: 'Courier New', monospace; font-weight: 800; border: 1px solid rgba(88, 101, 242, 0.2);
+            transition: 0.3s;
+        }
+        .cmd-card:hover .cmd-badge { background: var(--primary); color: white; box-shadow: 0 0 15px var(--primary-glow); }
+        .cmd-desc { color: #aaa; font-size: 14px; line-height: 1.6; }
+        .cmd-icon { opacity: 0; transform: translateX(-10px); transition: 0.3s; color: var(--accent); }
+        .cmd-card:hover .cmd-icon { opacity: 1; transform: translateX(0); }
 
-        /* --- MODALS --- */
+        /* --- MODALS (Modernize Edildi) --- */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(8px); }
-        .modal-overlay.active { display: flex; }
+        .modal-overlay.active { display: flex; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
         .modal-box { 
             background: #111113; width: 550px; padding: 40px; border-radius: 24px; 
-            border: 1px solid var(--border); position: relative; box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            border: 1px solid var(--border); position: relative; box-shadow: 0 0 60px rgba(0,0,0,0.9);
+            transform: scale(0.9); animation: popIn 0.3s ease forwards;
         }
-        .modal-box::after { /* Modal Glow */
+        @keyframes popIn { to { transform: scale(1); } }
+
+        .modal-box::after { 
             content: ''; position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px; 
             background: linear-gradient(45deg, var(--primary), transparent, var(--secondary)); 
             z-index: -1; border-radius: 26px; opacity: 0.3;
         }
 
+        /* KAPATMA BUTONU (HAVALI & DÖNEN) */
+        .close-btn { 
+            position: absolute; top: 20px; right: 20px; 
+            background: rgba(255,255,255,0.08); 
+            border: 1px solid rgba(255,255,255,0.1); 
+            color: white; 
+            width: 36px; height: 36px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 16px; cursor: pointer; transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); 
+        }
+        .close-btn:hover { 
+            background: var(--danger); 
+            transform: rotate(180deg) scale(1.1); 
+            border-color: var(--danger); 
+            box-shadow: 0 0 15px rgba(255, 46, 67, 0.5);
+        }
+
         /* Form */
         .form-control { 
-            width: 100%; background: #000; border: 1px solid #333; padding: 15px; border-radius: 12px; 
-            color: white; margin-bottom: 15px; outline: none; transition: 0.3s; 
+            width: 100%; background: #09090b; border: 1px solid #27272a; padding: 16px; border-radius: 12px; 
+            color: white; margin-bottom: 15px; outline: none; transition: 0.3s; font-size: 15px;
         }
-        .form-control:focus { border-color: var(--secondary); box-shadow: 0 0 15px rgba(211, 59, 245, 0.2); }
+        .form-control:focus { border-color: var(--primary); box-shadow: 0 0 20px rgba(88, 101, 242, 0.15); background: #121215; }
         
         .submit-btn { 
-            width: 100%; padding: 15px; background: linear-gradient(90deg, var(--primary), var(--secondary)); 
+            width: 100%; padding: 16px; background: linear-gradient(90deg, var(--primary), var(--secondary)); 
             color: white; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; 
-            transition: 0.3s; font-size: 16px;
+            transition: 0.3s; font-size: 16px; text-transform: uppercase; letter-spacing: 1px;
         }
-        .submit-btn:hover { filter: brightness(1.2); transform: scale(1.02); }
+        .submit-btn:hover { filter: brightness(1.2); transform: scale(1.02); box-shadow: 0 10px 30px rgba(88, 101, 242, 0.3); }
 
         /* Profil Alanı */
         .profile-area { display: none; align-items: center; gap: 12px; background: rgba(255,255,255,0.05); padding: 5px 15px 5px 5px; border-radius: 50px; border: 1px solid var(--border); cursor: pointer; transition: 0.3s; }
         .profile-area:hover { background: rgba(255,255,255,0.1); border-color: var(--primary); }
-        .profile-dropdown { display: none; position: absolute; top: 60px; right: 0; background: #16161a; border: 1px solid var(--border); width: 220px; border-radius: 16px; padding: 10px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .profile-dropdown { display: none; position: absolute; top: 60px; right: 0; background: #16161a; border: 1px solid var(--border); width: 220px; border-radius: 16px; padding: 10px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); z-index: 1001; }
         .profile-area:hover .profile-dropdown { display: block; }
 
         /* 2FA Switch */
@@ -338,6 +360,18 @@
         </div>
     </div>
 
+    <div id="settingsModal" class="modal-overlay">
+        <div class="modal-box">
+            <button class="close-btn" onclick="closeModal('settingsModal')"><i class="fas fa-times"></i></button>
+            <h2 style="margin-bottom: 20px;">⚙️ Profil Ayarları</h2>
+            <label style="color:#aaa; font-size:12px; margin-bottom:5px; display:block;">KULLANICI ADI (GÖRÜNEN)</label>
+            <input type="text" id="settingsName" class="form-control" placeholder="Adınız">
+            <label style="color:#aaa; font-size:12px; margin-bottom:5px; display:block;">DURUM MESAJI</label>
+            <input type="text" id="settingsBio" class="form-control" placeholder="Örn: StromV2 Kullanıyorum...">
+            <button onclick="saveSettings()" class="submit-btn">Kaydet</button>
+        </div>
+    </div>
+
     <div id="securityModal" class="modal-overlay">
         <div class="modal-box">
             <button class="close-btn" onclick="closeModal('securityModal')"><i class="fas fa-times"></i></button>
@@ -386,8 +420,17 @@
             <button class="close-btn" onclick="closeModal('oneriModal')"><i class="fas fa-times"></i></button>
             <h2>💡 Öneri Yap</h2>
             <form onsubmit="sendWebhook(event, 'Öneri')">
-                <input type="text" id="oneriBaslik" class="form-control" placeholder="Başlık" required style="margin-top: 15px;">
-                <textarea id="oneriDetay" class="form-control" placeholder="Detaylar..." required></textarea>
+                <label style="color:#aaa; font-size:12px; margin-top:10px; display:block;">KATEGORİ</label>
+                <select id="oneriKategori" class="form-control" style="cursor: pointer;">
+                    <option value="Yeni Komut İsteği">✨ Yeni Komut İsteği</option>
+                    <option value="Web Sitesi Önerisi">🌐 Web Sitesi Önerisi</option>
+                    <option value="Bot İyileştirme">🔧 Bot İyileştirme</option>
+                    <option value="Genel Öneri">💡 Genel Öneri</option>
+                </select>
+                <label style="color:#aaa; font-size:12px; display:block;">KONU BAŞLIĞI</label>
+                <input type="text" id="oneriBaslik" class="form-control" placeholder="Örn: Müzik sistemi" required>
+                <label style="color:#aaa; font-size:12px; display:block;">DETAYLI AÇIKLAMA</label>
+                <textarea id="oneriDetay" class="form-control" placeholder="Ne eklemeliyiz? Detaylı anlat..." required></textarea>
                 <button type="submit" class="submit-btn">Gönder</button>
             </form>
         </div>
@@ -398,8 +441,17 @@
             <button class="close-btn" onclick="closeModal('hataModal')"><i class="fas fa-times"></i></button>
             <h2>🚨 Hata Bildir</h2>
             <form onsubmit="sendWebhook(event, 'Hata')">
-                <input type="text" id="hataBaslik" class="form-control" placeholder="Hatalı Komut" required style="margin-top: 15px;">
-                <textarea id="hataDetay" class="form-control" placeholder="Nasıl oluştu?" required></textarea>
+                <label style="color:#aaa; font-size:12px; margin-top:10px; display:block;">HATA TÜRÜ</label>
+                <select id="hataKategori" class="form-control" style="cursor: pointer;">
+                    <option value="Komut Hatası">🤖 Komut Hatası</option>
+                    <option value="Web Sitesi Bug">🕸️ Web Sitesi Bug</option>
+                    <option value="Yazım Hatası">📝 Yazım Hatası</option>
+                    <option value="Diğer">❓ Diğer</option>
+                </select>
+                <label style="color:#aaa; font-size:12px; display:block;">HATALI YER</label>
+                <input type="text" id="hataBaslik" class="form-control" placeholder="Örn: s!ban komutu" required>
+                <label style="color:#aaa; font-size:12px; display:block;">NASIL OLUŞTU?</label>
+                <textarea id="hataDetay" class="form-control" placeholder="Hatayı nasıl aldın?" required></textarea>
                 <button type="submit" class="submit-btn" style="background: linear-gradient(90deg, #ff0000, #ff4d4d);">Bildir</button>
             </form>
         </div>
@@ -408,7 +460,7 @@
     <script>
         // --- AYARLAR ---
         const CLIENT_ID = "1037392359249432598";
-        const REDIRECT_URI = "https://stromv2.com.tr/index.html"; // Vercel linkin veya domainin
+        const REDIRECT_URI = "https://stromv2.com.tr/index.html"; 
 
         let currentUser = null;
 
@@ -428,7 +480,13 @@
                     updateUI(true);
                 }
             }
-            if(localStorage.getItem('2fa_enabled') === 'true') document.getElementById('2faToggle').checked = true;
+            if(localStorage.getItem('2fa_enabled') === 'true') {
+                document.getElementById('2faToggle').checked = true;
+                document.getElementById('2faSetup').style.display = 'block';
+            }
+            if(localStorage.getItem('user_bio')) {
+                document.getElementById('settingsBio').value = localStorage.getItem('user_bio');
+            }
         };
 
         function loginWithDiscord() {
@@ -445,7 +503,7 @@
             } catch (e) { console.error(e); }
         }
 
-        function logout() { localStorage.removeItem('discord_user'); currentUser = null; updateUI(false); }
+        function logout() { localStorage.removeItem('discord_user'); currentUser = null; updateUI(false); window.location.reload(); }
 
         function updateUI(isLoggedIn) {
             if (isLoggedIn && currentUser) {
@@ -453,6 +511,7 @@
                 document.getElementById('loggedArea').style.display = 'flex';
                 document.getElementById('userAvatar').src = currentUser.avatar;
                 document.getElementById('userName').innerText = currentUser.username;
+                document.getElementById('settingsName').value = currentUser.username;
             } else {
                 document.getElementById('guestArea').style.display = 'flex';
                 document.getElementById('loggedArea').style.display = 'none';
@@ -461,6 +520,16 @@
 
         function checkAuthAndOpen(modalId) {
             if (!currentUser) { alert("⚠️ Lütfen önce giriş yapın!"); } else { openModal(modalId); }
+        }
+
+        function openModal(id) { document.getElementById(id).classList.add('active'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+
+        function saveSettings() {
+            const bio = document.getElementById('settingsBio').value;
+            localStorage.setItem('user_bio', bio);
+            alert("✅ Ayarlar başarıyla kaydedildi!");
+            closeModal('settingsModal');
         }
 
         function toggle2FA() {
@@ -474,7 +543,22 @@
             openModal('buyModal');
         }
 
-        // --- BÜTÜN KOMUTLAR (FULL LİSTE) ---
+        async function sendWebhook(e, tur) {
+            e.preventDefault();
+            const isOneri = tur === 'Öneri';
+            const url = isOneri ? "https://discord.com/api/webhooks/1470618890416427188/f862nZr9-289wlplt1XxLwwKhtr4GclLuew-gG8jB_bgN7HNeFnkEFQNbhhPma8o7G11" : "https://discord.com/api/webhooks/1470619113486418014/uLSpe6STmlQyG8gC3MYbaJHEswpG3-xNOjoIOBl6LtZqJ67I4BxulMM9bJ31IDxbOWrJ";
+            const userFooter = currentUser ? `👤 ${currentUser.username} (${currentUser.id})` : "👤 Anonim";
+            
+            let kategori = isOneri ? document.getElementById('oneriKategori').value : document.getElementById('hataKategori').value;
+            const baslik = document.getElementById(isOneri ? 'oneriBaslik' : 'hataBaslik').value;
+            const detay = document.getElementById(isOneri ? 'oneriDetay' : 'hataDetay').value;
+
+            const payload = { embeds: [{ title: `${tur} Bildirimi`, color: isOneri ? 16766720 : 15548997, fields: [ { name: "📂 Kategori", value: kategori, inline: true }, { name: "📝 Konu", value: baslik, inline: true }, { name: "📄 Detaylar", value: detay } ], footer: { text: userFooter } }] };
+            await fetch(url, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
+            alert('✅ Başarıyla gönderildi!'); closeModal(isOneri ? 'oneriModal' : 'hataModal'); e.target.reset();
+        }
+
+        // --- FULL KOMUT LİSTESİ ---
         const commands = [
             // MODERASYON
             { cmd: "s!ban", desc: "Üyeyi sunucudan yasaklar.", cat: "moderasyon", usage: "s!ban @üye <sebep>" },
@@ -592,7 +676,7 @@
             { cmd: "s!davet", desc: "Botun davet linki.", cat: "rutbe", usage: "s!davet" },
             { cmd: "s!rütbe-ekle", desc: "Rütbe ayarlar.", cat: "rutbe", usage: "s!rütbe-ekle @rol <sayı>" },
             { cmd: "s!rütbeler", desc: "Rütbeleri listeler.", cat: "rutbe", usage: "s!rütbeler" },
-            { cmd: "s!rütbe-sıfırla", desc: "Rütbeleri siler.", cat: "rutbe", usage: "s!rütbe-sıfırla" },
+            { cmd: "s!rütbe-sıfırla", desc: "Rütbe ayarlarını siler.", cat: "rutbe", usage: "s!rütbe-sıfırla" },
             { cmd: "s!davetleri-sıfırla", desc: "Davetleri sıfırlar.", cat: "rutbe", usage: "s!davetleri-sıfırla" },
             { cmd: "s!bonus-ekle", desc: "Bonus davet ekler.", cat: "rutbe", usage: "s!bonus-ekle @üye <sayı>" },
             { cmd: "s!rütbe-davetkanal", desc: "Log kanalını ayarlar.", cat: "rutbe", usage: "s!rütbe-davetkanal #kanal" },
@@ -637,53 +721,39 @@
 
         function filter(cat) {
             document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-            if(cat !== 'all') event.currentTarget.classList.add('active'); else document.querySelector('.cat-btn').classList.add('active');
+            if(cat !== 'all') event.currentTarget.classList.add('active'); 
+            else document.querySelector('.cat-btn').classList.add('active');
+            
             const filtered = cat === 'all' ? commands : commands.filter(c => c.cat === cat);
             const grid = document.getElementById('cmdGrid');
+            
             grid.innerHTML = filtered.map(c => `
                 <div class="cmd-card" onclick="openDetail('${c.cmd}')">
-                    <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                    <div class="cmd-header">
                         <span class="cmd-badge">${c.cmd}</span>
-                        <i class="fas fa-chevron-right" style="color:#555"></i>
+                        <i class="fas fa-chevron-right cmd-icon"></i>
                     </div>
-                    <p style="color:#aaa; font-size:13px;">${c.desc}</p>
+                    <p class="cmd-desc">${c.desc}</p>
                 </div>
             `).join('');
         }
 
         function openDetail(name) {
             const c = commands.find(x => x.cmd === name);
-            document.getElementById('mCmd').innerText = c.cmd;
-            document.getElementById('mDesc').innerText = c.desc;
-            document.getElementById('mUsage').innerText = c.usage;
-            openModal('detailModal');
-        }
-
-        function openModal(id) { document.getElementById(id).classList.add('active'); }
-        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-
-        async function sendWebhook(e, tur) {
-            e.preventDefault();
-            const isOneri = tur === 'Öneri';
-            const url = isOneri ? "https://discord.com/api/webhooks/1470618890416427188/f862nZr9-289wlplt1XxLwwKhtr4GclLuew-gG8jB_bgN7HNeFnkEFQNbhhPma8o7G11" : "https://discord.com/api/webhooks/1470619113486418014/uLSpe6STmlQyG8gC3MYbaJHEswpG3-xNOjoIOBl6LtZqJ67I4BxulMM9bJ31IDxbOWrJ";
-            const userFooter = currentUser ? `👤 ${currentUser.username} (${currentUser.id})` : "👤 Anonim";
-            const payload = { embeds: [{ title: tur, color: isOneri ? 16766720 : 15548997, fields: [ { name: "Konu", value: document.getElementById(isOneri ? 'oneriBaslik' : 'hataBaslik').value }, { name: "Detay", value: document.getElementById(isOneri ? 'oneriDetay' : 'hataDetay').value } ], footer: { text: userFooter } }] };
-            await fetch(url, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
-            alert('Gönderildi!'); closeModal(isOneri ? 'oneriModal' : 'hataModal'); e.target.reset();
+            if(c) {
+                document.getElementById('mCmd').innerText = c.cmd;
+                document.getElementById('mDesc').innerText = c.desc;
+                document.getElementById('mUsage').innerText = c.usage;
+                openModal('detailModal');
+            }
         }
         
         document.getElementById('searchInput').addEventListener('input', (e) => {
             const val = e.target.value.toLowerCase();
             const filtered = commands.filter(c => c.cmd.includes(val) || c.desc.toLowerCase().includes(val));
             const grid = document.getElementById('cmdGrid');
-            grid.innerHTML = filtered.map(c => `<div class="cmd-card" onclick="openDetail('${c.cmd}')"><div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span class="cmd-badge">${c.cmd}</span><i class="fas fa-chevron-right" style="color:#555"></i></div><p style="color:#aaa; font-size:13px;">${c.desc}</p></div>`).join('');
+            grid.innerHTML = filtered.map(c => `<div class="cmd-card" onclick="openDetail('${c.cmd}')"><div class="cmd-header"><span class="cmd-badge">${c.cmd}</span><i class="fas fa-chevron-right cmd-icon"></i></div><p class="cmd-desc">${c.desc}</p></div>`).join('');
         });
-        
     </script>
 </body>
 </html>
-
-
-
-
-
