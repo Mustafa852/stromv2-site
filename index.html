@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StromV2 | Neon & Güç</title>
+    <title>StromV2</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* --- NEON DEĞİŞKENLER --- */
+        /* --- NEON & RGB DEĞİŞKENLER --- */
         :root {
             --primary: #5865F2;
             --primary-glow: rgba(88, 101, 242, 0.6);
@@ -17,7 +17,7 @@
             --danger: #ff2e43;    
             --success: #00ff88;
             --bg-body: #050507;   
-            --bg-glass: rgba(20, 20, 25, 0.6);
+            --bg-glass: rgba(20, 20, 25, 0.7);
             --border: rgba(255, 255, 255, 0.08);
             --text-main: #ffffff;
             --text-muted: #b0b3b8;
@@ -34,21 +34,25 @@
                 radial-gradient(circle at 85% 30%, rgba(211, 59, 245, 0.08), transparent 25%);
         }
 
-        /* --- ARKA PLAN VE ANİMASYONLAR --- */
+        /* --- BACKGROUND BLOBS --- */
         .glow-blob { position: fixed; width: 500px; height: 500px; background: var(--primary); filter: blur(180px); opacity: 0.15; border-radius: 50%; z-index: -1; animation: float 15s infinite ease-in-out; }
         .blob-1 { top: -100px; left: -100px; background: var(--primary); }
         .blob-2 { bottom: -100px; right: -100px; background: var(--secondary); animation-delay: 5s; }
         @keyframes float { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(40px, 60px); } }
-        
-        .rgb-text { background: linear-gradient(45deg, #5865F2, #d33bf5, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-size: 200%; animation: rgb-flow 5s infinite linear; }
+
+        /* --- RGB TEXT --- */
+        .rgb-text {
+            background: linear-gradient(45deg, #5865F2, #d33bf5, #00d4ff);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-size: 200%; animation: rgb-flow 5s infinite linear;
+        }
         @keyframes rgb-flow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
         /* --- NAVBAR --- */
         nav { position: fixed; top: 0; width: 100%; height: 80px; z-index: 1000; background: rgba(5, 5, 7, 0.8); backdrop-filter: blur(20px); display: flex; align-items: center; justify-content: space-between; padding: 0 5%; border-bottom: 1px solid var(--border); }
         .logo { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 24px; color: white; cursor: pointer; }
         .logo-img { width: 45px; height: 45px; border-radius: 12px; background: url('https://i.hizliresim.com/a3su1pc.png') center/cover; box-shadow: 0 0 25px var(--primary-glow); border: 2px solid rgba(255,255,255,0.1); }
-        .nav-links { display: flex; gap: 30px; }
-        .nav-item { color: var(--text-muted); font-size: 15px; font-weight: 600; cursor: pointer; transition: 0.3s; text-decoration: none; display: flex; align-items: center; gap: 8px; background: none; border: none; padding: 8px 12px; border-radius: 8px; }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-item { color: var(--text-muted); font-size: 14px; font-weight: 600; cursor: pointer; transition: 0.3s; text-decoration: none; display: flex; align-items: center; gap: 8px; background: none; border: none; padding: 8px 12px; border-radius: 8px; }
         .nav-item:hover { color: white; background: rgba(255,255,255,0.05); text-shadow: 0 0 10px rgba(255,255,255,0.5); }
         .auth-buttons { display: flex; gap: 15px; align-items: center; }
 
@@ -67,13 +71,6 @@
         .stat-label { color: var(--text-muted); font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
         .stat-icon { font-size: 24px; color: var(--accent); margin-bottom: 15px; }
 
-        /* --- OYLAMA ALANI (YENİ) --- */
-        .vote-section { padding: 40px 5%; text-align: center; background: rgba(88, 101, 242, 0.05); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-        .vote-box { max-width: 600px; margin: 0 auto; }
-        .vote-stars { font-size: 32px; color: #333; cursor: pointer; transition: 0.2s; display: inline-block; margin-bottom: 20px; }
-        .vote-stars i { margin: 0 5px; transition: 0.2s; }
-        .vote-stars i.active, .vote-stars i:hover { color: var(--accent); text-shadow: 0 0 15px var(--accent); }
-        
         /* --- PREMIUM --- */
         .premium-section { padding: 100px 5%; position: relative; }
         .section-title { text-align: center; margin-bottom: 60px; }
@@ -99,16 +96,37 @@
         .cmd-card:hover { border-color: var(--primary); transform: translateY(-7px); background: rgba(30, 30, 40, 0.6); box-shadow: 0 15px 40px rgba(0,0,0,0.4); }
         .cmd-badge { background: rgba(88, 101, 242, 0.1); color: #8ea1ff; padding: 6px 14px; border-radius: 8px; font-family: monospace; font-weight: 800; }
 
-        /* --- EKİP --- */
+        /* --- YENİ YORUMLAR (SITE İÇİ) --- */
+        .reviews-section { padding: 80px 5%; background: linear-gradient(to top, #020203, rgba(88, 101, 242, 0.05)); border-top: 1px solid var(--border); }
+        .reviews-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; flex-wrap: wrap; gap: 20px; }
+        .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        .review-card {
+            background: rgba(25, 25, 30, 0.6); backdrop-filter: blur(10px); border: 1px solid var(--border);
+            padding: 25px; border-radius: 16px; transition: 0.3s; position: relative;
+        }
+        .review-card:hover { transform: translateY(-5px); border-color: var(--primary); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .review-head { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
+        .review-avatar { width: 45px; height: 45px; border-radius: 50%; background-color: #333; object-fit: cover; border: 2px solid var(--border); }
+        .review-info h4 { color: white; font-size: 16px; margin-bottom: 2px; }
+        .review-stars { color: var(--accent); font-size: 13px; }
+        .review-body { color: var(--text-muted); font-size: 14px; line-height: 1.6; font-style: italic; }
+        .review-date { font-size: 11px; color: #555; position: absolute; top: 25px; right: 25px; }
+
+        /* --- OYLAMA MODALI İÇİN YILDIZLAR --- */
+        .vote-stars-input { font-size: 35px; color: #333; cursor: pointer; text-align: center; margin: 20px 0; }
+        .vote-stars-input i { transition: 0.2s; padding: 0 5px; }
+        .vote-stars-input i:hover, .vote-stars-input i.active { color: var(--accent); text-shadow: 0 0 20px var(--accent); }
+
+        /* --- EKİP (GÜNCELLENDİ) --- */
         .team-section { padding: 80px 5%; text-align: center; }
         .team-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
         .team-card { background: rgba(25, 25, 30, 0.6); backdrop-filter: blur(10px); border: 1px solid var(--border); border-radius: 24px; padding: 30px; width: 280px; transition: 0.3s; }
         .team-card:hover { border-color: var(--accent); transform: translateY(-10px); box-shadow: 0 10px 40px rgba(255, 215, 0, 0.1); }
-        .team-img { width: 100px; height: 100px; border-radius: 50%; margin-bottom: 20px; border: 3px solid var(--border); object-fit: cover; }
-        .team-name { font-size: 20px; font-weight: 700; color: white; margin-bottom: 5px; }
+        .team-img { width: 120px; height: 120px; border-radius: 50%; margin-bottom: 20px; border: 4px solid var(--primary); object-fit: cover; box-shadow: 0 0 20px var(--primary-glow); }
+        .team-name { font-size: 22px; font-weight: 700; color: white; margin-bottom: 5px; }
         .team-role { color: var(--accent); font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* --- SSS --- */
+        /* --- SSS & FOOTER --- */
         .faq-section { padding: 80px 5%; max-width: 1000px; margin: 0 auto; }
         .faq-item { margin-bottom: 15px; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; background: rgba(20, 20, 25, 0.4); transition: 0.3s; }
         .faq-question { padding: 20px; cursor: pointer; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
@@ -118,7 +136,6 @@
         .faq-icon { transition: 0.3s; }
         .faq-item.active .faq-icon { transform: rotate(180deg); color: var(--primary); }
 
-        /* --- FOOTER --- */
         footer { border-top: 1px solid var(--border); padding: 60px 5% 30px; background: #020203; margin-top: 100px; }
         .footer-content { display: flex; justify-content: space-around; align-items: flex-start; flex-wrap: wrap; gap: 40px; margin-bottom: 40px; text-align: center; }
         .footer-col { flex: 1; min-width: 250px; max-width: 400px; }
@@ -211,14 +228,6 @@
         <a href="#premium" class="cta-btn"><i class="fas fa-rocket"></i> Botu Şimdi Ekle</a>
     </section>
 
-    <div class="vote-section">
-        <div class="vote-box">
-            <h2 style="margin-bottom: 10px;">Botumuzu <span class="rgb-text">Değerlendir</span></h2>
-            <p style="color: var(--text-muted); margin-bottom: 20px;">Düşünceleriniz bizim için çok değerli.</p>
-            <button id="voteBtn" onclick="checkAuthAndOpen('voteModal')" class="cta-btn" style="background: rgba(255,255,255,0.1); border: 1px solid var(--border);">⭐ Oy Ver & Yorum Yap</button>
-        </div>
-    </div>
-
     <div class="stats-section">
         <div class="stat-card">
             <div class="stat-icon"><i class="fas fa-server"></i></div>
@@ -245,10 +254,10 @@
         <div class="pricing-grid">
             <div class="price-card">
                 <div class="plan-name">📅 1 Aylık</div>
-                <div class="plan-price">65 <span>TL</span></div>
+                <div class="plan-price">100 <span>TL</span></div>
                 <ul class="plan-features">
                     <li><i class="fas fa-check"></i> Tüm Komutlar</li>
-                    <li><i class="fas fa-check"></i> Reklam Engel</li>
+                  
                     <li><i class="fas fa-check"></i> 7/24 Destek</li>
                 </ul>
                 <button onclick="buyPremium('1 Aylık')" class="buy-btn">Satın Al</button>
@@ -259,7 +268,7 @@
                 <div class="plan-price">350 <span>TL</span></div>
                 <ul class="plan-features">
                     <li><i class="fas fa-check"></i> %15 İndirim</li>
-                    <li><i class="fas fa-check"></i> Özel Profil</li>
+                      <li><i class="fas fa-check"></i> Tüm Komutlar</li>
                     <li><i class="fas fa-check"></i> VIP Rolü</li>
                 </ul>
                 <button onclick="buyPremium('6 Aylık')" class="buy-btn" style="background: var(--accent); color: black;">Satın Al</button>
@@ -271,6 +280,7 @@
                     <li><i class="fas fa-check"></i> Ömür Boyu Erişim</li>
                     <li><i class="fas fa-check"></i> Sponsor Rolü</li>
                     <li><i class="fas fa-check"></i> Erken Erişim</li>
+                       <li><i class="fas fa-check"></i> Tüm Komutlar</li>
                 </ul>
                 <button onclick="buyPremium('Sınırsız')" class="buy-btn" style="background: var(--secondary); box-shadow: 0 0 20px rgba(211, 59, 245, 0.3);">Satın Al</button>
             </div>
@@ -284,11 +294,24 @@
         </div>
         <div class="team-grid">
             <div class="team-card">
-                <img src="https://i.hizliresim.com/a3su1pc.png" class="team-img" alt="Founder">
+                <img src="https://i.hizliresim.com/15up9hd.gif" class="team-img" alt="Founder">
                 <h3 class="team-name">lord__</h3>
                 <span class="team-role">KURUCU & GELİŞTİRİCİ</span>
             </div>
         </div>
+    </section>
+
+    <section class="reviews-section">
+        <div class="reviews-header">
+            <div>
+                <h2 style="font-size: 32px; font-weight: 800; color: white;">Kullanıcı <span class="rgb-text">Yorumları</span></h2>
+                <p style="color: var(--text-muted);">Sizden gelenler.</p>
+            </div>
+            <button onclick="checkAuthAndOpen('rateModal')" class="cta-btn" style="padding: 12px 25px; font-size: 14px;">💬 Yorum Yap</button>
+        </div>
+        
+        <div class="reviews-grid" id="reviewsContainer">
+            </div>
     </section>
 
     <div id="komutlar" class="dashboard">
@@ -364,19 +387,21 @@
         </div>
     </footer>
 
-    <div id="voteModal" class="modal-overlay">
+    <div id="rateModal" class="modal-overlay">
         <div class="modal-box">
-            <button class="close-btn" onclick="closeModal('voteModal')"><i class="fas fa-times"></i></button>
-            <h2 id="voteTitle">⭐ Bizi Değerlendir</h2>
-            <div class="vote-stars" id="starsContainer">
-                <i class="far fa-star" onclick="rate(1)"></i>
-                <i class="far fa-star" onclick="rate(2)"></i>
-                <i class="far fa-star" onclick="rate(3)"></i>
-                <i class="far fa-star" onclick="rate(4)"></i>
-                <i class="far fa-star" onclick="rate(5)"></i>
+            <button class="close-btn" onclick="closeModal('rateModal')"><i class="fas fa-times"></i></button>
+            <h2 style="margin-bottom: 20px;">⭐ Puanla ve Yorum Yap</h2>
+            
+            <div class="vote-stars-input" id="starInput">
+                <i class="far fa-star" onclick="setRating(1)"></i>
+                <i class="far fa-star" onclick="setRating(2)"></i>
+                <i class="far fa-star" onclick="setRating(3)"></i>
+                <i class="far fa-star" onclick="setRating(4)"></i>
+                <i class="far fa-star" onclick="setRating(5)"></i>
             </div>
-            <textarea id="voteComment" class="form-control" placeholder="Bot hakkındaki düşünceleriniz..." rows="4"></textarea>
-            <button onclick="submitVote()" class="submit-btn">Gönder</button>
+            
+            <textarea id="reviewText" class="form-control" rows="4" placeholder="Bot hakkındaki düşüncelerin..."></textarea>
+            <button onclick="submitReview()" class="submit-btn">Yorumu Gönder</button>
         </div>
     </div>
 
@@ -480,7 +505,7 @@
                     <li>Yukarıdaki şartlara uymazsanız botun "karaliste" bölümüne alınırsınız.</li>
                 </ul>
                 <h3>2) Veri Silme</h3>
-                <p>StromV2#2951 isim etiketli ve ID'li bottan verilerinizin silinmesini istiyorsanız <strong>lord__</strong> isim etiketli ve ID'li kullanıcıya ulaşıp verilerinizi sildirebilirsiniz.</p>
+                <p>StromV2#2951 isim etiketli (1037392359249432598) ID'li bottan verilerinizin silinmesini istiyorsanız <strong>lord__</strong> isim etiketli (846736343593779230) ID'li kullanıcıya ulaşıp verilerinizi sildirebilirsiniz.</p>
             </div>
         </div>
     </div>
@@ -519,8 +544,78 @@
         const CLIENT_ID = "1037392359249432598";
         const REDIRECT_URI = "https://stromv2.com.tr/index.html"; 
         let currentUser = null;
-        let currentRating = 0;
+        let selectedRating = 0;
 
+        // --- YORUM SİSTEMİ (LOCAL STORAGE + DUMMY DATA) ---
+        const defaultReviews = [
+            { name: "Ahmet Y.", comment: "Harika bot! Sunucum artık çok daha güvenli.", stars: 5, avatar: "https://cdn.discordapp.com/embed/avatars/0.png" },
+            { name: "Melis K.", comment: "Eğlence komutlarına bayıldık, teşekkürler.", stars: 5, avatar: "https://cdn.discordapp.com/embed/avatars/1.png" },
+            { name: "Caner T.", comment: "Destek ekibi çok hızlı, sorunumu hemen çözdüler.", stars: 4, avatar: "https://cdn.discordapp.com/embed/avatars/2.png" }
+        ];
+
+        function loadReviews() {
+            const container = document.getElementById('reviewsContainer');
+            container.innerHTML = "";
+            
+            // Kullanıcının kendi yorumunu al
+            const userReview = JSON.parse(localStorage.getItem('userReview'));
+            let allReviews = [...defaultReviews];
+
+            // Eğer kullanıcı yorum yaptıysa en başa ekle
+            if(userReview) {
+                allReviews.unshift(userReview);
+            }
+
+            allReviews.forEach(r => {
+                let starsHtml = "";
+                for(let i=0; i<5; i++) {
+                    if(i < r.stars) starsHtml += '<i class="fas fa-star"></i>';
+                    else starsHtml += '<i class="far fa-star"></i>';
+                }
+
+                const card = `
+                    <div class="review-card">
+                        <div class="review-head">
+                            <img src="${r.avatar}" class="review-avatar">
+                            <div class="review-info">
+                                <h4>${r.name}</h4>
+                                <div class="review-stars">${starsHtml}</div>
+                            </div>
+                        </div>
+                        <p class="review-body">"${r.comment}"</p>
+                    </div>
+                `;
+                container.innerHTML += card;
+            });
+        }
+
+        function setRating(n) {
+            selectedRating = n;
+            const stars = document.querySelectorAll('#starInput i');
+            stars.forEach((star, index) => {
+                if(index < n) { star.classList.remove('far'); star.classList.add('fas', 'active'); }
+                else { star.classList.remove('fas', 'active'); star.classList.add('far'); }
+            });
+        }
+
+        function submitReview() {
+            if(selectedRating === 0) { alert("Lütfen puan verin!"); return; }
+            const text = document.getElementById('reviewText').value;
+            
+            const reviewData = {
+                name: currentUser ? currentUser.username : "Misafir Kullanıcı",
+                avatar: currentUser ? currentUser.avatar : "https://cdn.discordapp.com/embed/avatars/0.png",
+                stars: selectedRating,
+                comment: text
+            };
+
+            localStorage.setItem('userReview', JSON.stringify(reviewData));
+            loadReviews(); // Listeyi güncelle
+            closeModal('rateModal');
+            alert("Yorumunuz başarıyla eklendi! ✅");
+        }
+
+        // --- İSTATİSTİK SAYAÇ ---
         function animateStats() {
             const counters = document.querySelectorAll('.stat-number');
             counters.forEach(counter => {
@@ -529,8 +624,12 @@
                 const updateCount = () => {
                     const count = +counter.innerText;
                     const inc = target / speed;
-                    if(count < target) { counter.innerText = Math.ceil(count + inc); setTimeout(updateCount, 15); } 
-                    else { counter.innerText = target + (target > 100 ? "+" : "%"); }
+                    if(count < target) {
+                        counter.innerText = Math.ceil(count + inc);
+                        setTimeout(updateCount, 15);
+                    } else {
+                        counter.innerText = target + (target > 100 ? "+" : "%");
+                    }
                 };
                 updateCount();
             });
@@ -538,52 +637,10 @@
 
         function toggleFaq(element) { element.classList.toggle('active'); }
 
-        // --- OYLAMA SİSTEMİ ---
-        function rate(n) {
-            currentRating = n;
-            const stars = document.querySelectorAll('#starsContainer i');
-            stars.forEach((star, index) => {
-                if(index < n) { star.classList.remove('far'); star.classList.add('fas', 'active'); } 
-                else { star.classList.remove('fas', 'active'); star.classList.add('far'); }
-            });
-        }
-
-        async function submitVote() {
-            if(currentRating === 0) { alert("Lütfen yıldız seçin!"); return; }
-            const comment = document.getElementById('voteComment').value;
-            
-            // Webhook'a gönder
-            const url = "https://discord.com/api/webhooks/1470618890416427188/f862nZr9-289wlplt1XxLwwKhtr4GclLuew-gG8jB_bgN7HNeFnkEFQNbhhPma8o7G11"; 
-            const userFooter = currentUser ? `👤 ${currentUser.username} (${currentUser.id})` : "👤 Anonim";
-            const payload = { embeds: [{ title: `⭐ Yeni Değerlendirme: ${currentRating}/5`, color: 16766720, fields: [ { name: "Yorum", value: comment || "Yorum yok." } ], footer: { text: userFooter } }] };
-            
-            await fetch(url, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
-            
-            // LocalStorage'a kaydet (Bu kişi oy verdi)
-            localStorage.setItem('hasVoted', 'true');
-            localStorage.setItem('userRating', currentRating);
-            localStorage.setItem('userComment', comment);
-            
-            alert("Değerlendirmeniz için teşekkürler! ✅");
-            closeModal('voteModal');
-            updateVoteButton();
-        }
-
-        function updateVoteButton() {
-            const hasVoted = localStorage.getItem('hasVoted');
-            const btn = document.getElementById('voteBtn');
-            if(hasVoted) {
-                btn.innerText = "✏️ Yorumunu Düzenle";
-                if(localStorage.getItem('userRating')) rate(parseInt(localStorage.getItem('userRating')));
-                if(localStorage.getItem('userComment')) document.getElementById('voteComment').value = localStorage.getItem('userComment');
-                document.getElementById('voteTitle').innerText = "Değerlendirmeni Düzenle";
-            }
-        }
-
         window.onload = () => {
             filter('all');
             animateStats(); 
-            updateVoteButton(); // Oylama butonunu kontrol et
+            loadReviews(); // Yorumları Yükle
 
             const fragment = new URLSearchParams(window.location.hash.slice(1));
             const accessToken = fragment.get('access_token');
@@ -678,7 +735,9 @@
             } catch(err) { console.error(err); statusModal.classList.remove('active'); }
         }
 
+        // --- FULL KOMUT LİSTESİ ---
         const commands = [
+            // MODERASYON
             { cmd: "s!ban", desc: "Üyeyi sunucudan yasaklar.", cat: "moderasyon", usage: "s!ban @üye <sebep>" },
             { cmd: "s!kick", desc: "Üyeyi sunucudan atar.", cat: "moderasyon", usage: "s!kick @üye <sebep>" },
             { cmd: "s!unban", desc: "Yasağı kaldırır.", cat: "moderasyon", usage: "s!unban <id>" },
@@ -701,6 +760,8 @@
             { cmd: "s!bansay", desc: "Sunucudaki yasaklıları sayar.", cat: "moderasyon", usage: "s!bansay" },
             { cmd: "s!oylama", desc: "Oylama başlatır.", cat: "moderasyon", usage: "s!oylama <konu>" },
             { cmd: "s!çoklu-oylama", desc: "Çok seçenekli oylama başlatır.", cat: "moderasyon", usage: "s!çoklu-oylama" },
+
+            // KORUMA
             { cmd: "s!reklam-engel", desc: "Reklam yapılmasını engeller.", cat: "koruma", usage: "s!reklam-engel aç/kapat" },
             { cmd: "s!küfür-engel", desc: "Küfür edilmesini engeller.", cat: "koruma", usage: "s!küfür-engel aç/kapat" },
             { cmd: "s!spam-engel", desc: "Spam yapılmasını engeller.", cat: "koruma", usage: "s!spam-engel aç/kapat" },
@@ -715,6 +776,8 @@
             { cmd: "s!küfür-log", desc: "Küfür log kanalını ayarlar.", cat: "koruma", usage: "s!küfür-log #kanal" },
             { cmd: "s!güvenlik", desc: "Fake hesap koruması (Hesap yaşı).", cat: "koruma", usage: "s!güvenlik #kanal" },
             { cmd: "s!güvenlik-sıfırla", desc: "Güvenlik kanalını sıfırlar.", cat: "koruma", usage: "s!güvenlik-sıfırla" },
+
+            // KAYIT
             { cmd: "s!erkek", desc: "Erkek üye kaydı yapar.", cat: "kayit", usage: "s!erkek @üye <isim> <yaş>" },
             { cmd: "s!kız", desc: "Kız üye kaydı yapar.", cat: "kayit", usage: "s!kız @üye <isim> <yaş>" },
             { cmd: "s!kayıt-kanal", desc: "Kayıtların yapılacağı kanalı ayarlar.", cat: "kayit", usage: "s!kayıt-kanal #kanal" },
@@ -725,11 +788,15 @@
             { cmd: "s!otoisim", desc: "Sunucuya girenlere otomatik isim verir.", cat: "kayit", usage: "s!otoisim <isim>" },
             { cmd: "s!otoisim-kapat", desc: "Otoisim sistemini kapatır.", cat: "kayit", usage: "s!otoisim-kapat" },
             { cmd: "s!kayıt-rol-sıfırla", desc: "Kayıt yetkilisini sıfırlar.", cat: "kayit", usage: "s!kayıt-rol-sıfırla" },
+
+            // TICKET
             { cmd: "s!ticket-kur", desc: "Ticket sistemini kurar.", cat: "ticket", usage: "s!ticket-kur #kanal" },
             { cmd: "s!kapat", desc: "Açık olan ticketı kapatır.", cat: "ticket", usage: "s!kapat" },
             { cmd: "s!ticket-ekle", desc: "Ticketa üye ekler.", cat: "ticket", usage: "s!ticket-ekle @üye" },
             { cmd: "s!ticket-kaldır", desc: "Ticketan üye çıkarır.", cat: "ticket", usage: "s!ticket-kaldır @üye" },
             { cmd: "s!ticket-kanal", desc: "Ticket kanalını ayarlar.", cat: "ticket", usage: "s!ticket-kanal #kanal" },
+
+            // EKONOMİ
             { cmd: "s!rulet", desc: "Hileli rulet oyunu (renk bahsi).", cat: "ekonomi", usage: "s!rulet <renk> <miktar>" },
             { cmd: "s!mayıntarlası", desc: "Mayın tarlası bahsi.", cat: "ekonomi", usage: "s!mayıntarlası <miktar>" },
             { cmd: "s!1vs1", desc: "Bahisli düello sistemi.", cat: "ekonomi", usage: "s!1vs1 @üye <miktar>" },
@@ -750,6 +817,8 @@
             { cmd: "s!evlen", desc: "Evlenme teklifi edersin.", cat: "ekonomi", usage: "s!evlen @üye" },
             { cmd: "s!boşan", desc: "Evliliği sonlandırır.", cat: "ekonomi", usage: "s!boşan" },
             { cmd: "s!hesap-sil", desc: "Ekonomi verilerini siler.", cat: "ekonomi", usage: "s!hesap-sil" },
+
+            // OTOROL
             { cmd: "s!otorol", desc: "Gelenlere otomatik rol verir.", cat: "otorol", usage: "s!otorol @rol #kanal" },
             { cmd: "s!otorol-msg", desc: "Otorol mesajını değiştirir.", cat: "otorol", usage: "s!otorol-msg <mesaj>" },
             { cmd: "s!otorol-kapat", desc: "Otorol sistemini kapatır.", cat: "otorol", usage: "s!otorol-kapat" },
@@ -757,20 +826,28 @@
             { cmd: "s!ototag", desc: "Gelenlere otomatik tag verir.", cat: "otorol", usage: "s!ototag <tag>" },
             { cmd: "s!sayaç-ayarla", desc: "Üye sayacı ayarlar.", cat: "otorol", usage: "s!sayaç-ayarla <hedef> #kanal" },
             { cmd: "s!sayaç-sıfırla", desc: "Sayacı kapatır.", cat: "otorol", usage: "s!sayaç-sıfırla" },
+
+            // ÇEKİLİŞ
             { cmd: "s!çekiliş-başlat", desc: "Hızlı çekiliş başlatır.", cat: "cekilis", usage: "s!çekiliş-başlat <süre> <kişi> <ödül>" },
             { cmd: "s!çekiliş-ayarla", desc: "Detaylı çekiliş ayarı.", cat: "cekilis", usage: "s!çekiliş-ayarla" },
             { cmd: "s!çekiliş-bitir", desc: "Çekilişi bitirir.", cat: "cekilis", usage: "s!çekiliş-bitir <msgID>" },
             { cmd: "s!çekiliş-reroll", desc: "Kazananı tekrar seçer.", cat: "cekilis", usage: "s!çekiliş-reroll <msgID>" },
             { cmd: "s!çekiliş-sil", desc: "Çekilişi siler.", cat: "cekilis", usage: "s!çekiliş-sil <msgID>" },
+
+            // BOTLIST
             { cmd: "s!botlist-ayar", desc: "Botlist sistemini kurar.", cat: "botlist", usage: "s!botlist-ayar" },
             { cmd: "s!bot-ekle", desc: "Bot ekleme başvurusu yapar.", cat: "botlist", usage: "s!bot-ekle <id> <prefix>" },
             { cmd: "s!botlist-onayla", desc: "Botu onaylar.", cat: "botlist", usage: "s!botlist-onayla <id>" },
             { cmd: "s!botlist-reddet", desc: "Botu reddeder.", cat: "botlist", usage: "s!botlist-reddet <id>" },
             { cmd: "s!botlist-kural", desc: "Kuralları belirler.", cat: "botlist", usage: "s!botlist-kural" },
+
+            // ABONE
             { cmd: "s!abone-yetkili", desc: "Abone yetkilisini ayarlar.", cat: "abone", usage: "s!abone-yetkili @rol" },
             { cmd: "s!abone-rol", desc: "Abone rolünü ayarlar.", cat: "abone", usage: "s!abone-rol @rol" },
             { cmd: "s!abone-log", desc: "Log kanalını ayarlar.", cat: "abone", usage: "s!abone-log #kanal" },
             { cmd: "s!abone", desc: "Abone rolü verir.", cat: "abone", usage: "s!abone @üye" },
+
+            // RÜTBE & DAVET
             { cmd: "s!davetlerim", desc: "Davet sayını gösterir.", cat: "rutbe", usage: "s!davetlerim" },
             { cmd: "s!top", desc: "Davet sıralaması.", cat: "rutbe", usage: "s!top" },
             { cmd: "s!davet", desc: "Botun davet linki.", cat: "rutbe", usage: "s!davet" },
@@ -780,6 +857,8 @@
             { cmd: "s!davetleri-sıfırla", desc: "Davetleri sıfırlar.", cat: "rutbe", usage: "s!davetleri-sıfırla" },
             { cmd: "s!bonus-ekle", desc: "Bonus davet ekler.", cat: "rutbe", usage: "s!bonus-ekle @üye <sayı>" },
             { cmd: "s!rütbe-davetkanal", desc: "Log kanalını ayarlar.", cat: "rutbe", usage: "s!rütbe-davetkanal #kanal" },
+
+            // EĞLENCE
             { cmd: "s!1vs1", desc: "Bahisli düello.", cat: "eglence", usage: "s!1vs1 @üye" },
             { cmd: "s!adamasmaca", desc: "Adam asmaca oyunu.", cat: "eglence", usage: "s!adamasmaca" },
             { cmd: "s!sayıtahmini", desc: "Sayı tahmin oyunu.", cat: "eglence", usage: "s!sayıtahmini" },
@@ -802,6 +881,8 @@
             { cmd: "s!mcskin", desc: "MC skin gösterir.", cat: "eglence", usage: "s!mcskin <isim>" },
             { cmd: "s!kapaklaf", desc: "Kapak laf söyler.", cat: "eglence", usage: "s!kapaklaf" },
             { cmd: "s!atasözü", desc: "Atasözü söyler.", cat: "eglence", usage: "s!atasözü" },
+
+            // KULLANICI
             { cmd: "s!kullanıcı-bilgi", desc: "Profil bilgisi gösterir.", cat: "kullanici", usage: "s!kullanıcı-bilgi @üye" },
             { cmd: "s!avatar", desc: "Profil fotoğrafı.", cat: "kullanici", usage: "s!avatar @üye" },
             { cmd: "s!yetkilerim", desc: "Yetkilerini listeler.", cat: "kullanici", usage: "s!yetkilerim" },
