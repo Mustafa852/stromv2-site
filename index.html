@@ -34,40 +34,21 @@
                 radial-gradient(circle at 85% 30%, rgba(211, 59, 245, 0.08), transparent 25%);
         }
 
-        /* --- BACKGROUND BLOBS --- */
-        .glow-blob {
-            position: fixed; width: 500px; height: 500px; background: var(--primary);
-            filter: blur(180px); opacity: 0.15; border-radius: 50%; z-index: -1; animation: float 15s infinite ease-in-out;
-        }
+        /* --- ARKA PLAN VE ANİMASYONLAR --- */
+        .glow-blob { position: fixed; width: 500px; height: 500px; background: var(--primary); filter: blur(180px); opacity: 0.15; border-radius: 50%; z-index: -1; animation: float 15s infinite ease-in-out; }
         .blob-1 { top: -100px; left: -100px; background: var(--primary); }
         .blob-2 { bottom: -100px; right: -100px; background: var(--secondary); animation-delay: 5s; }
         @keyframes float { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(40px, 60px); } }
-
-        /* --- RGB TEXT --- */
-        .rgb-text {
-            background: linear-gradient(45deg, #5865F2, #d33bf5, #00d4ff);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-size: 200%; animation: rgb-flow 5s infinite linear;
-        }
+        
+        .rgb-text { background: linear-gradient(45deg, #5865F2, #d33bf5, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-size: 200%; animation: rgb-flow 5s infinite linear; }
         @keyframes rgb-flow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
         /* --- NAVBAR --- */
-        nav {
-            position: fixed; top: 0; width: 100%; height: 80px; z-index: 1000;
-            background: rgba(5, 5, 7, 0.8); backdrop-filter: blur(20px);
-            display: flex; align-items: center; justify-content: space-between; padding: 0 5%;
-            border-bottom: 1px solid var(--border);
-        }
+        nav { position: fixed; top: 0; width: 100%; height: 80px; z-index: 1000; background: rgba(5, 5, 7, 0.8); backdrop-filter: blur(20px); display: flex; align-items: center; justify-content: space-between; padding: 0 5%; border-bottom: 1px solid var(--border); }
         .logo { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 24px; color: white; cursor: pointer; }
-        .logo-img { 
-            width: 45px; height: 45px; border-radius: 12px; 
-            background: url('https://i.hizliresim.com/a3su1pc.png') center/cover;
-            box-shadow: 0 0 25px var(--primary-glow); border: 2px solid rgba(255,255,255,0.1);
-        }
+        .logo-img { width: 45px; height: 45px; border-radius: 12px; background: url('https://i.hizliresim.com/a3su1pc.png') center/cover; box-shadow: 0 0 25px var(--primary-glow); border: 2px solid rgba(255,255,255,0.1); }
         .nav-links { display: flex; gap: 30px; }
-        .nav-item { 
-            color: var(--text-muted); font-size: 15px; font-weight: 600; cursor: pointer; transition: 0.3s; text-decoration: none; 
-            display: flex; align-items: center; gap: 8px; background: none; border: none; padding: 8px 12px; border-radius: 8px;
-        }
+        .nav-item { color: var(--text-muted); font-size: 15px; font-weight: 600; cursor: pointer; transition: 0.3s; text-decoration: none; display: flex; align-items: center; gap: 8px; background: none; border: none; padding: 8px 12px; border-radius: 8px; }
         .nav-item:hover { color: white; background: rgba(255,255,255,0.05); text-shadow: 0 0 10px rgba(255,255,255,0.5); }
         .auth-buttons { display: flex; gap: 15px; align-items: center; }
 
@@ -75,36 +56,30 @@
         .hero { height: 90vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 20px; position: relative; }
         .hero h1 { font-size: 5rem; font-weight: 900; margin-bottom: 20px; line-height: 1.1; letter-spacing: -2px; }
         .hero p { font-size: 1.3rem; color: var(--text-muted); max-width: 700px; margin-bottom: 40px; line-height: 1.6; }
-        .cta-btn {
-            background: linear-gradient(135deg, var(--primary), var(--secondary)); 
-            color: white; padding: 16px 40px; border-radius: 14px; font-weight: 800; font-size: 18px;
-            text-decoration: none; display: inline-flex; align-items: center; gap: 10px;
-            box-shadow: 0 10px 40px rgba(88, 101, 242, 0.4); transition: 0.3s; border: 1px solid rgba(255,255,255,0.2);
-        }
+        .cta-btn { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 16px 40px; border-radius: 14px; font-weight: 800; font-size: 18px; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 10px 40px rgba(88, 101, 242, 0.4); transition: 0.3s; border: 1px solid rgba(255,255,255,0.2); }
         .cta-btn:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 20px 60px rgba(211, 59, 245, 0.5); }
 
         /* --- İSTATİSTİKLER --- */
-        .stats-section {
-            display: flex; justify-content: center; gap: 50px; padding: 60px 5%; margin-top: -50px; position: relative; z-index: 2;
-        }
-        .stat-card {
-            background: rgba(20, 20, 25, 0.6); backdrop-filter: blur(10px); border: 1px solid var(--border);
-            padding: 30px; border-radius: 20px; text-align: center; width: 250px; transition: 0.3s;
-        }
+        .stats-section { display: flex; justify-content: center; gap: 50px; padding: 60px 5%; margin-top: -50px; position: relative; z-index: 2; }
+        .stat-card { background: rgba(20, 20, 25, 0.6); backdrop-filter: blur(10px); border: 1px solid var(--border); padding: 30px; border-radius: 20px; text-align: center; width: 250px; transition: 0.3s; }
         .stat-card:hover { transform: translateY(-10px); border-color: var(--primary); box-shadow: 0 10px 30px rgba(88, 101, 242, 0.2); }
         .stat-number { font-size: 42px; font-weight: 900; color: white; margin-bottom: 5px; }
         .stat-label { color: var(--text-muted); font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
         .stat-icon { font-size: 24px; color: var(--accent); margin-bottom: 15px; }
 
+        /* --- OYLAMA ALANI (YENİ) --- */
+        .vote-section { padding: 40px 5%; text-align: center; background: rgba(88, 101, 242, 0.05); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+        .vote-box { max-width: 600px; margin: 0 auto; }
+        .vote-stars { font-size: 32px; color: #333; cursor: pointer; transition: 0.2s; display: inline-block; margin-bottom: 20px; }
+        .vote-stars i { margin: 0 5px; transition: 0.2s; }
+        .vote-stars i.active, .vote-stars i:hover { color: var(--accent); text-shadow: 0 0 15px var(--accent); }
+        
         /* --- PREMIUM --- */
         .premium-section { padding: 100px 5%; position: relative; }
         .section-title { text-align: center; margin-bottom: 60px; }
         .section-title h2 { font-size: 3.5rem; font-weight: 800; margin-bottom: 10px; }
         .pricing-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; }
-        .price-card {
-            background: rgba(25, 25, 30, 0.6); backdrop-filter: blur(10px); border: 1px solid var(--border); 
-            border-radius: 24px; padding: 35px; width: 320px; text-align: center; transition: 0.4s; position: relative; overflow: hidden;
-        }
+        .price-card { background: rgba(25, 25, 30, 0.6); backdrop-filter: blur(10px); border: 1px solid var(--border); border-radius: 24px; padding: 35px; width: 320px; text-align: center; transition: 0.4s; position: relative; overflow: hidden; }
         .price-card:hover { transform: translateY(-15px); border-color: rgba(255,255,255,0.2); box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 30px rgba(88, 101, 242, 0.2); }
         .plan-name { font-size: 22px; font-weight: 800; color: white; margin-bottom: 15px; text-transform: uppercase; }
         .plan-price { font-size: 42px; font-weight: 900; color: white; margin-bottom: 25px; }
@@ -119,40 +94,21 @@
         .sidebar { position: sticky; top: 100px; height: calc(100vh - 140px); overflow-y: auto; background: var(--bg-glass); backdrop-filter: blur(10px); border-radius: 20px; padding: 25px; border: 1px solid var(--border); }
         .cat-btn { width: 100%; text-align: left; background: none; border: none; padding: 14px 16px; color: var(--text-muted); font-weight: 700; font-size: 15px; cursor: pointer; display: flex; align-items: center; gap: 12px; border-radius: 12px; margin-bottom: 6px; transition: 0.3s; }
         .cat-btn:hover, .cat-btn.active { background: linear-gradient(90deg, rgba(88,101,242,0.2), transparent); color: var(--primary); border-left: 3px solid var(--primary); }
-        
         .cmd-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
         .cmd-card { background: rgba(20, 20, 25, 0.4); border: 1px solid var(--border); border-radius: 18px; padding: 25px; cursor: pointer; transition: 0.4s; position: relative; overflow: hidden; }
         .cmd-card:hover { border-color: var(--primary); transform: translateY(-7px); background: rgba(30, 30, 40, 0.6); box-shadow: 0 15px 40px rgba(0,0,0,0.4); }
         .cmd-badge { background: rgba(88, 101, 242, 0.1); color: #8ea1ff; padding: 6px 14px; border-radius: 8px; font-family: monospace; font-weight: 800; }
 
-        /* --- YENİ BÖLÜM: YETKİLİ EKİBİ (TEAM) --- */
+        /* --- EKİP --- */
         .team-section { padding: 80px 5%; text-align: center; }
         .team-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
-        .team-card {
-            background: rgba(25, 25, 30, 0.6); backdrop-filter: blur(10px); border: 1px solid var(--border);
-            border-radius: 24px; padding: 30px; width: 280px; transition: 0.3s;
-        }
+        .team-card { background: rgba(25, 25, 30, 0.6); backdrop-filter: blur(10px); border: 1px solid var(--border); border-radius: 24px; padding: 30px; width: 280px; transition: 0.3s; }
         .team-card:hover { border-color: var(--accent); transform: translateY(-10px); box-shadow: 0 10px 40px rgba(255, 215, 0, 0.1); }
         .team-img { width: 100px; height: 100px; border-radius: 50%; margin-bottom: 20px; border: 3px solid var(--border); object-fit: cover; }
-        .team-card:hover .team-img { border-color: var(--accent); }
         .team-name { font-size: 20px; font-weight: 700; color: white; margin-bottom: 5px; }
         .team-role { color: var(--accent); font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* --- YENİ BÖLÜM: KULLANICI YORUMLARI (REVIEWS) --- */
-        .reviews-section { padding: 80px 5%; background: linear-gradient(to top, #020203, transparent); }
-        .review-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .review-card {
-            background: rgba(20, 20, 25, 0.4); border: 1px solid var(--border); border-radius: 16px; padding: 25px;
-            transition: 0.3s;
-        }
-        .review-card:hover { border-color: var(--primary); background: rgba(88, 101, 242, 0.05); }
-        .review-header { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
-        .review-avatar { width: 40px; height: 40px; border-radius: 50%; background: #333; }
-        .review-user h4 { color: white; font-size: 16px; }
-        .stars { color: var(--accent); font-size: 14px; margin-top: 2px; }
-        .review-text { color: var(--text-muted); font-size: 14px; line-height: 1.6; }
-
-        /* --- FAQ --- */
+        /* --- SSS --- */
         .faq-section { padding: 80px 5%; max-width: 1000px; margin: 0 auto; }
         .faq-item { margin-bottom: 15px; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; background: rgba(20, 20, 25, 0.4); transition: 0.3s; }
         .faq-question { padding: 20px; cursor: pointer; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
@@ -172,7 +128,7 @@
         .footer-col a:hover { color: var(--primary); transform: translateX(5px); display: inline-block; }
         .footer-bottom { text-align: center; border-top: 1px solid var(--border); padding-top: 30px; color: #555; font-size: 13px; }
 
-        /* --- MODALS & BUTTONS --- */
+        /* --- GENEL BUTONLAR VE MODALLER --- */
         .btn-rgb { position: relative; padding: 2px; border-radius: 12px; background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8); background-size: 400%; animation: rgb-flow 8s linear infinite; cursor: pointer; transition: 0.3s; }
         .btn-rgb:hover { transform: translateY(-2px); box-shadow: 0 0 25px rgba(88, 101, 242, 0.4); }
         .btn-rgb-inner { background: #000; color: white; padding: 10px 24px; border-radius: 10px; display: flex; align-items: center; gap: 8px; font-weight: 700; height: 100%; width: 100%; }
@@ -255,6 +211,14 @@
         <a href="#premium" class="cta-btn"><i class="fas fa-rocket"></i> Botu Şimdi Ekle</a>
     </section>
 
+    <div class="vote-section">
+        <div class="vote-box">
+            <h2 style="margin-bottom: 10px;">Botumuzu <span class="rgb-text">Değerlendir</span></h2>
+            <p style="color: var(--text-muted); margin-bottom: 20px;">Düşünceleriniz bizim için çok değerli.</p>
+            <button id="voteBtn" onclick="checkAuthAndOpen('voteModal')" class="cta-btn" style="background: rgba(255,255,255,0.1); border: 1px solid var(--border);">⭐ Oy Ver & Yorum Yap</button>
+        </div>
+    </div>
+
     <div class="stats-section">
         <div class="stat-card">
             <div class="stat-icon"><i class="fas fa-server"></i></div>
@@ -324,7 +288,7 @@
                 <h3 class="team-name">lord__</h3>
                 <span class="team-role">KURUCU & GELİŞTİRİCİ</span>
             </div>
-            </div>
+        </div>
     </section>
 
     <div id="komutlar" class="dashboard">
@@ -347,44 +311,6 @@
         <div class="content">
             <input type="text" id="searchInput" class="form-control" placeholder="Komut ara..." style="background: rgba(255,255,255,0.05);">
             <div class="cmd-grid" id="cmdGrid"></div>
-        </div>
-    </div>
-
-    <div class="reviews-section">
-        <div class="section-title">
-            <h2>Kullanıcı <span class="rgb-text">Yorumları</span></h2>
-        </div>
-        <div class="review-grid">
-            <div class="review-card">
-                <div class="review-header">
-                    <div class="review-avatar" style="background: url('https://cdn.discordapp.com/embed/avatars/0.png') center/cover;"></div>
-                    <div class="review-user">
-                        <h4>Ahmet Y.</h4>
-                        <div class="stars">★★★★★</div>
-                    </div>
-                </div>
-                <p class="review-text">"Bot gerçekten mükemmel, özellikle koruma sistemi sayesinde sunucum güvende. Tavsiye ederim!"</p>
-            </div>
-            <div class="review-card">
-                <div class="review-header">
-                    <div class="review-avatar" style="background: url('https://cdn.discordapp.com/embed/avatars/1.png') center/cover;"></div>
-                    <div class="review-user">
-                        <h4>Melis K.</h4>
-                        <div class="stars">★★★★★</div>
-                    </div>
-                </div>
-                <p class="review-text">"Premium özellikler fiyatını sonuna kadar hak ediyor. Eğlence komutları da çok iyi."</p>
-            </div>
-            <div class="review-card">
-                <div class="review-header">
-                    <div class="review-avatar" style="background: url('https://cdn.discordapp.com/embed/avatars/2.png') center/cover;"></div>
-                    <div class="review-user">
-                        <h4>Caner T.</h4>
-                        <div class="stars">★★★★☆</div>
-                    </div>
-                </div>
-                <p class="review-text">"Otorol sistemi çok stabil çalışıyor. Destek ekibi de oldukça ilgili. Teşekkürler."</p>
-            </div>
         </div>
     </div>
 
@@ -437,6 +363,22 @@
             &copy; 2026 StromV2. Tüm hakları saklıdır. Designed by <b>lord__</b>
         </div>
     </footer>
+
+    <div id="voteModal" class="modal-overlay">
+        <div class="modal-box">
+            <button class="close-btn" onclick="closeModal('voteModal')"><i class="fas fa-times"></i></button>
+            <h2 id="voteTitle">⭐ Bizi Değerlendir</h2>
+            <div class="vote-stars" id="starsContainer">
+                <i class="far fa-star" onclick="rate(1)"></i>
+                <i class="far fa-star" onclick="rate(2)"></i>
+                <i class="far fa-star" onclick="rate(3)"></i>
+                <i class="far fa-star" onclick="rate(4)"></i>
+                <i class="far fa-star" onclick="rate(5)"></i>
+            </div>
+            <textarea id="voteComment" class="form-control" placeholder="Bot hakkındaki düşünceleriniz..." rows="4"></textarea>
+            <button onclick="submitVote()" class="submit-btn">Gönder</button>
+        </div>
+    </div>
 
     <div id="settingsModal" class="modal-overlay">
         <div class="modal-box">
@@ -550,14 +492,11 @@
             <div class="legal-text">
                 <h3>1) Saklanan Verileriniz</h3>
                 <p><strong>Komut Kullanılarak Saklanan Veriler:</strong> Kullanıcı ID'si, Kullanılan sunucu ID'si, Kullanıcı verileri.</p>
-                
                 <h3>2) Otomatik Saklanılan Veriler</h3>
                 <p><strong>Sunucu:</strong> ID'si, ismi, profil fotoğrafı, üye sayısı, sunucu sahibi, kanal sayısı.</p>
                 <p><strong>Üye:</strong> ID'si, ismi, hesap oluşturulma tarihi.</p>
-
                 <h3>3) Verilerinizin Korunumu</h3>
                 <p>Verileriniz, şifrelenme yöntemiyle, erişime kısıtlı bir veri tabanlarında saklanır. Verilerinizin gizlenimi hakkında endişeniz varsa bilet oluşturarak yardım alabilirsiniz.</p>
-
                 <h3>4) Verilerinizin Silinimi</h3>
                 <p>Verilerinizin silinmesi hakkında talep oluşturmakta özgürsünüz. Verilerinizin tamamen silinmesi için <strong>lord__</strong> kullanıcısına Direkt Mesaj atarak verilerinizi silebilirsiniz. Talebiniz, alındıktan 30 gün içinde işleme alınır.</p>
             </div>
@@ -570,12 +509,8 @@
             <h2 style="margin-bottom: 20px; color: var(--danger);">💸 İade Koşulları</h2>
             <div class="legal-text" style="text-align: center; padding: 20px;">
                 <i class="fas fa-hand-holding-usd" style="font-size: 50px; color: var(--text-muted); margin-bottom: 20px;"></i>
-                <p style="font-size: 16px;">
-                    "Dijital ürünlerde teknik bir sorun yaşanmadığı sürece iade yapılmamaktadır. Ancak teknik sorunlarda <strong>%100 destek garantisi</strong> veriyoruz."
-                </p>
-                <p style="margin-top: 20px; font-size: 13px; color: #666;">
-                    Satın alım yaparak bu koşulu kabul etmiş sayılırsınız.
-                </p>
+                <p style="font-size: 16px;">"Dijital ürünlerde teknik bir sorun yaşanmadığı sürece iade yapılmamaktadır. Ancak teknik sorunlarda <strong>%100 destek garantisi</strong> veriyoruz."</p>
+                <p style="margin-top: 20px; font-size: 13px; color: #666;">Satın alım yaparak bu koşulu kabul etmiş sayılırsınız.</p>
             </div>
         </div>
     </div>
@@ -584,6 +519,7 @@
         const CLIENT_ID = "1037392359249432598";
         const REDIRECT_URI = "https://stromv2.com.tr/index.html"; 
         let currentUser = null;
+        let currentRating = 0;
 
         function animateStats() {
             const counters = document.querySelectorAll('.stat-number');
@@ -593,12 +529,8 @@
                 const updateCount = () => {
                     const count = +counter.innerText;
                     const inc = target / speed;
-                    if(count < target) {
-                        counter.innerText = Math.ceil(count + inc);
-                        setTimeout(updateCount, 15);
-                    } else {
-                        counter.innerText = target + (target > 100 ? "+" : "%");
-                    }
+                    if(count < target) { counter.innerText = Math.ceil(count + inc); setTimeout(updateCount, 15); } 
+                    else { counter.innerText = target + (target > 100 ? "+" : "%"); }
                 };
                 updateCount();
             });
@@ -606,9 +538,53 @@
 
         function toggleFaq(element) { element.classList.toggle('active'); }
 
+        // --- OYLAMA SİSTEMİ ---
+        function rate(n) {
+            currentRating = n;
+            const stars = document.querySelectorAll('#starsContainer i');
+            stars.forEach((star, index) => {
+                if(index < n) { star.classList.remove('far'); star.classList.add('fas', 'active'); } 
+                else { star.classList.remove('fas', 'active'); star.classList.add('far'); }
+            });
+        }
+
+        async function submitVote() {
+            if(currentRating === 0) { alert("Lütfen yıldız seçin!"); return; }
+            const comment = document.getElementById('voteComment').value;
+            
+            // Webhook'a gönder
+            const url = "https://discord.com/api/webhooks/1470618890416427188/f862nZr9-289wlplt1XxLwwKhtr4GclLuew-gG8jB_bgN7HNeFnkEFQNbhhPma8o7G11"; 
+            const userFooter = currentUser ? `👤 ${currentUser.username} (${currentUser.id})` : "👤 Anonim";
+            const payload = { embeds: [{ title: `⭐ Yeni Değerlendirme: ${currentRating}/5`, color: 16766720, fields: [ { name: "Yorum", value: comment || "Yorum yok." } ], footer: { text: userFooter } }] };
+            
+            await fetch(url, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
+            
+            // LocalStorage'a kaydet (Bu kişi oy verdi)
+            localStorage.setItem('hasVoted', 'true');
+            localStorage.setItem('userRating', currentRating);
+            localStorage.setItem('userComment', comment);
+            
+            alert("Değerlendirmeniz için teşekkürler! ✅");
+            closeModal('voteModal');
+            updateVoteButton();
+        }
+
+        function updateVoteButton() {
+            const hasVoted = localStorage.getItem('hasVoted');
+            const btn = document.getElementById('voteBtn');
+            if(hasVoted) {
+                btn.innerText = "✏️ Yorumunu Düzenle";
+                if(localStorage.getItem('userRating')) rate(parseInt(localStorage.getItem('userRating')));
+                if(localStorage.getItem('userComment')) document.getElementById('voteComment').value = localStorage.getItem('userComment');
+                document.getElementById('voteTitle').innerText = "Değerlendirmeni Düzenle";
+            }
+        }
+
         window.onload = () => {
             filter('all');
             animateStats(); 
+            updateVoteButton(); // Oylama butonunu kontrol et
+
             const fragment = new URLSearchParams(window.location.hash.slice(1));
             const accessToken = fragment.get('access_token');
             const tokenType = fragment.get('token_type');
@@ -702,9 +678,7 @@
             } catch(err) { console.error(err); statusModal.classList.remove('active'); }
         }
 
-        // --- FULL KOMUT LİSTESİ (HER KATEGORİ EKSİKSİZ) ---
         const commands = [
-            // MODERASYON
             { cmd: "s!ban", desc: "Üyeyi sunucudan yasaklar.", cat: "moderasyon", usage: "s!ban @üye <sebep>" },
             { cmd: "s!kick", desc: "Üyeyi sunucudan atar.", cat: "moderasyon", usage: "s!kick @üye <sebep>" },
             { cmd: "s!unban", desc: "Yasağı kaldırır.", cat: "moderasyon", usage: "s!unban <id>" },
@@ -727,8 +701,6 @@
             { cmd: "s!bansay", desc: "Sunucudaki yasaklıları sayar.", cat: "moderasyon", usage: "s!bansay" },
             { cmd: "s!oylama", desc: "Oylama başlatır.", cat: "moderasyon", usage: "s!oylama <konu>" },
             { cmd: "s!çoklu-oylama", desc: "Çok seçenekli oylama başlatır.", cat: "moderasyon", usage: "s!çoklu-oylama" },
-
-            // KORUMA
             { cmd: "s!reklam-engel", desc: "Reklam yapılmasını engeller.", cat: "koruma", usage: "s!reklam-engel aç/kapat" },
             { cmd: "s!küfür-engel", desc: "Küfür edilmesini engeller.", cat: "koruma", usage: "s!küfür-engel aç/kapat" },
             { cmd: "s!spam-engel", desc: "Spam yapılmasını engeller.", cat: "koruma", usage: "s!spam-engel aç/kapat" },
@@ -743,8 +715,6 @@
             { cmd: "s!küfür-log", desc: "Küfür log kanalını ayarlar.", cat: "koruma", usage: "s!küfür-log #kanal" },
             { cmd: "s!güvenlik", desc: "Fake hesap koruması (Hesap yaşı).", cat: "koruma", usage: "s!güvenlik #kanal" },
             { cmd: "s!güvenlik-sıfırla", desc: "Güvenlik kanalını sıfırlar.", cat: "koruma", usage: "s!güvenlik-sıfırla" },
-
-            // KAYIT
             { cmd: "s!erkek", desc: "Erkek üye kaydı yapar.", cat: "kayit", usage: "s!erkek @üye <isim> <yaş>" },
             { cmd: "s!kız", desc: "Kız üye kaydı yapar.", cat: "kayit", usage: "s!kız @üye <isim> <yaş>" },
             { cmd: "s!kayıt-kanal", desc: "Kayıtların yapılacağı kanalı ayarlar.", cat: "kayit", usage: "s!kayıt-kanal #kanal" },
@@ -755,15 +725,11 @@
             { cmd: "s!otoisim", desc: "Sunucuya girenlere otomatik isim verir.", cat: "kayit", usage: "s!otoisim <isim>" },
             { cmd: "s!otoisim-kapat", desc: "Otoisim sistemini kapatır.", cat: "kayit", usage: "s!otoisim-kapat" },
             { cmd: "s!kayıt-rol-sıfırla", desc: "Kayıt yetkilisini sıfırlar.", cat: "kayit", usage: "s!kayıt-rol-sıfırla" },
-
-            // TICKET
             { cmd: "s!ticket-kur", desc: "Ticket sistemini kurar.", cat: "ticket", usage: "s!ticket-kur #kanal" },
             { cmd: "s!kapat", desc: "Açık olan ticketı kapatır.", cat: "ticket", usage: "s!kapat" },
             { cmd: "s!ticket-ekle", desc: "Ticketa üye ekler.", cat: "ticket", usage: "s!ticket-ekle @üye" },
             { cmd: "s!ticket-kaldır", desc: "Ticketan üye çıkarır.", cat: "ticket", usage: "s!ticket-kaldır @üye" },
             { cmd: "s!ticket-kanal", desc: "Ticket kanalını ayarlar.", cat: "ticket", usage: "s!ticket-kanal #kanal" },
-
-            // EKONOMİ
             { cmd: "s!rulet", desc: "Hileli rulet oyunu (renk bahsi).", cat: "ekonomi", usage: "s!rulet <renk> <miktar>" },
             { cmd: "s!mayıntarlası", desc: "Mayın tarlası bahsi.", cat: "ekonomi", usage: "s!mayıntarlası <miktar>" },
             { cmd: "s!1vs1", desc: "Bahisli düello sistemi.", cat: "ekonomi", usage: "s!1vs1 @üye <miktar>" },
@@ -784,8 +750,6 @@
             { cmd: "s!evlen", desc: "Evlenme teklifi edersin.", cat: "ekonomi", usage: "s!evlen @üye" },
             { cmd: "s!boşan", desc: "Evliliği sonlandırır.", cat: "ekonomi", usage: "s!boşan" },
             { cmd: "s!hesap-sil", desc: "Ekonomi verilerini siler.", cat: "ekonomi", usage: "s!hesap-sil" },
-
-            // OTOROL
             { cmd: "s!otorol", desc: "Gelenlere otomatik rol verir.", cat: "otorol", usage: "s!otorol @rol #kanal" },
             { cmd: "s!otorol-msg", desc: "Otorol mesajını değiştirir.", cat: "otorol", usage: "s!otorol-msg <mesaj>" },
             { cmd: "s!otorol-kapat", desc: "Otorol sistemini kapatır.", cat: "otorol", usage: "s!otorol-kapat" },
@@ -793,28 +757,20 @@
             { cmd: "s!ototag", desc: "Gelenlere otomatik tag verir.", cat: "otorol", usage: "s!ototag <tag>" },
             { cmd: "s!sayaç-ayarla", desc: "Üye sayacı ayarlar.", cat: "otorol", usage: "s!sayaç-ayarla <hedef> #kanal" },
             { cmd: "s!sayaç-sıfırla", desc: "Sayacı kapatır.", cat: "otorol", usage: "s!sayaç-sıfırla" },
-
-            // ÇEKİLİŞ
             { cmd: "s!çekiliş-başlat", desc: "Hızlı çekiliş başlatır.", cat: "cekilis", usage: "s!çekiliş-başlat <süre> <kişi> <ödül>" },
             { cmd: "s!çekiliş-ayarla", desc: "Detaylı çekiliş ayarı.", cat: "cekilis", usage: "s!çekiliş-ayarla" },
             { cmd: "s!çekiliş-bitir", desc: "Çekilişi bitirir.", cat: "cekilis", usage: "s!çekiliş-bitir <msgID>" },
             { cmd: "s!çekiliş-reroll", desc: "Kazananı tekrar seçer.", cat: "cekilis", usage: "s!çekiliş-reroll <msgID>" },
             { cmd: "s!çekiliş-sil", desc: "Çekilişi siler.", cat: "cekilis", usage: "s!çekiliş-sil <msgID>" },
-
-            // BOTLIST
             { cmd: "s!botlist-ayar", desc: "Botlist sistemini kurar.", cat: "botlist", usage: "s!botlist-ayar" },
             { cmd: "s!bot-ekle", desc: "Bot ekleme başvurusu yapar.", cat: "botlist", usage: "s!bot-ekle <id> <prefix>" },
             { cmd: "s!botlist-onayla", desc: "Botu onaylar.", cat: "botlist", usage: "s!botlist-onayla <id>" },
             { cmd: "s!botlist-reddet", desc: "Botu reddeder.", cat: "botlist", usage: "s!botlist-reddet <id>" },
             { cmd: "s!botlist-kural", desc: "Kuralları belirler.", cat: "botlist", usage: "s!botlist-kural" },
-
-            // ABONE
             { cmd: "s!abone-yetkili", desc: "Abone yetkilisini ayarlar.", cat: "abone", usage: "s!abone-yetkili @rol" },
             { cmd: "s!abone-rol", desc: "Abone rolünü ayarlar.", cat: "abone", usage: "s!abone-rol @rol" },
             { cmd: "s!abone-log", desc: "Log kanalını ayarlar.", cat: "abone", usage: "s!abone-log #kanal" },
             { cmd: "s!abone", desc: "Abone rolü verir.", cat: "abone", usage: "s!abone @üye" },
-
-            // RÜTBE & DAVET
             { cmd: "s!davetlerim", desc: "Davet sayını gösterir.", cat: "rutbe", usage: "s!davetlerim" },
             { cmd: "s!top", desc: "Davet sıralaması.", cat: "rutbe", usage: "s!top" },
             { cmd: "s!davet", desc: "Botun davet linki.", cat: "rutbe", usage: "s!davet" },
@@ -824,8 +780,6 @@
             { cmd: "s!davetleri-sıfırla", desc: "Davetleri sıfırlar.", cat: "rutbe", usage: "s!davetleri-sıfırla" },
             { cmd: "s!bonus-ekle", desc: "Bonus davet ekler.", cat: "rutbe", usage: "s!bonus-ekle @üye <sayı>" },
             { cmd: "s!rütbe-davetkanal", desc: "Log kanalını ayarlar.", cat: "rutbe", usage: "s!rütbe-davetkanal #kanal" },
-
-            // EĞLENCE
             { cmd: "s!1vs1", desc: "Bahisli düello.", cat: "eglence", usage: "s!1vs1 @üye" },
             { cmd: "s!adamasmaca", desc: "Adam asmaca oyunu.", cat: "eglence", usage: "s!adamasmaca" },
             { cmd: "s!sayıtahmini", desc: "Sayı tahmin oyunu.", cat: "eglence", usage: "s!sayıtahmini" },
@@ -848,8 +802,6 @@
             { cmd: "s!mcskin", desc: "MC skin gösterir.", cat: "eglence", usage: "s!mcskin <isim>" },
             { cmd: "s!kapaklaf", desc: "Kapak laf söyler.", cat: "eglence", usage: "s!kapaklaf" },
             { cmd: "s!atasözü", desc: "Atasözü söyler.", cat: "eglence", usage: "s!atasözü" },
-
-            // KULLANICI
             { cmd: "s!kullanıcı-bilgi", desc: "Profil bilgisi gösterir.", cat: "kullanici", usage: "s!kullanıcı-bilgi @üye" },
             { cmd: "s!avatar", desc: "Profil fotoğrafı.", cat: "kullanici", usage: "s!avatar @üye" },
             { cmd: "s!yetkilerim", desc: "Yetkilerini listeler.", cat: "kullanici", usage: "s!yetkilerim" },
