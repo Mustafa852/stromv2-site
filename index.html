@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StromV2</title>
+    <title>StromV2 | Neon & Güç</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -61,6 +61,24 @@
         .cta-btn { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 16px 40px; border-radius: 14px; font-weight: 800; font-size: 18px; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 10px 40px rgba(88, 101, 242, 0.4); transition: 0.3s; border: 1px solid rgba(255,255,255,0.2); }
         .cta-btn:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 20px 60px rgba(211, 59, 245, 0.5); }
 
+        /* --- OYLAMA ALANI (DÜZELTİLDİ: ORTALANDI) --- */
+        .vote-section { 
+            padding: 60px 20px; 
+            background: rgba(88, 101, 242, 0.05); 
+            border-top: 1px solid var(--border); 
+            border-bottom: 1px solid var(--border);
+            display: flex; /* Flexbox ile ortalama */
+            justify-content: center; 
+            align-items: center;
+            text-align: center;
+        }
+        .vote-box { 
+            max-width: 800px; 
+            width: 100%;
+        }
+        .vote-stars { font-size: 32px; color: #333; cursor: pointer; transition: 0.2s; display: inline-block; margin-bottom: 20px; }
+        .vote-stars i { margin: 0 5px; transition: 0.2s; }
+        
         /* --- İSTATİSTİKLER --- */
         .stats-section { display: flex; justify-content: center; gap: 50px; padding: 60px 5%; margin-top: -50px; position: relative; z-index: 2; }
         .stat-card { background: rgba(20, 20, 25, 0.6); backdrop-filter: blur(10px); border: 1px solid var(--border); padding: 30px; border-radius: 20px; text-align: center; width: 250px; transition: 0.3s; }
@@ -108,6 +126,11 @@
         .review-info h4 { color: white; font-size: 16px; margin-bottom: 2px; }
         .review-stars { color: var(--accent); font-size: 13px; }
         .review-body { color: var(--text-muted); font-size: 14px; line-height: 1.6; font-style: italic; }
+
+        /* --- OYLAMA MODALI İÇİN YILDIZLAR --- */
+        .vote-stars-input { font-size: 35px; color: #333; cursor: pointer; text-align: center; margin: 20px 0; }
+        .vote-stars-input i { transition: 0.2s; padding: 0 5px; }
+        .vote-stars-input i:hover, .vote-stars-input i.active { color: var(--accent); text-shadow: 0 0 20px var(--accent); }
 
         /* --- EKİP --- */
         .team-section { padding: 80px 5%; text-align: center; }
@@ -243,7 +266,7 @@
                 <i class="fas fa-chevron-down" style="font-size: 12px; color: #888;"></i>
                 <div class="profile-dropdown">
                     <div class="nav-item" onclick="openModal('profileModal')" style="padding: 10px; margin-bottom: 5px;"><i class="fas fa-id-card"></i> Profilim</div>
-                    <div class="nav-item" onclick="openModal('securityModal')" style="padding: 10px; margin-bottom: 5px;"><i class="fas fa-shield-alt"></i> Güvenlik</div>
+                    <div class="nav-item" onclick="openModal('securityModal')" style="padding: 10px; margin-bottom: 5px;"><i class="fas fa-shield-alt"></i> 2FA Güvenlik</div>
                     <div class="nav-item" onclick="logout()" style="color: var(--danger); padding: 10px;"><i class="fas fa-sign-out-alt"></i> Çıkış Yap</div>
                 </div>
             </div>
@@ -338,45 +361,11 @@
     <div id="profileModal" class="modal-overlay">
         <div class="modal-box">
             <button class="close-btn" onclick="closeModal('profileModal')"><i class="fas fa-times"></i></button>
-            
-            <div class="profile-header">
-                <img id="pAvatar" src="" class="p-avatar">
-                <div class="p-info">
-                    <h3 id="pName">Kullanıcı</h3>
-                    <div class="badge-area">
-                        <span class="badge">Üye</span>
-                        <span id="premiumBadge" class="badge premium" style="display:none;">VIP</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section-header">ABONELİK DURUMU</div>
-            <div id="premiumCard" class="premium-card-display">
-                <i class="fas fa-crown premium-icon"></i>
-                <div class="p-status">Mevcut Plan</div>
-                <div class="p-plan" id="pPlanText">Ücretsiz Üyelik</div>
-                <div class="p-timer" id="pTimer"></div>
-            </div>
-
-            <div class="section-header">PROFİL AYARLARI</div>
-            <input type="text" id="settingsName" class="form-control" placeholder="Görünen İsim Değiştir">
-            <input type="text" id="settingsBio" class="form-control" placeholder="Durum Mesajı">
-            
-            <div class="section-header">TEMA RENGİ</div>
-            <div class="color-picker">
-                <div class="color-dot" style="background:#5865F2" onclick="changeTheme('#5865F2')"></div>
-                <div class="color-dot" style="background:#ff2e43" onclick="changeTheme('#ff2e43')"></div>
-                <div class="color-dot" style="background:#00ff88" onclick="changeTheme('#00ff88')"></div>
-                <div class="color-dot" style="background:#d33bf5" onclick="changeTheme('#d33bf5')"></div>
-                <div class="color-dot" style="background:#FFD700" onclick="changeTheme('#FFD700')"></div>
-            </div>
-
-            <div class="section-header">PROMOSYON KODU</div>
-            <div style="display: flex; gap: 10px;">
-                <input type="text" id="promoCode" class="form-control" placeholder="Kod Giriniz (Örn: STROM2026)" style="margin:0;">
-                <button onclick="redeemCode()" class="submit-btn" style="width: 100px;">Kullan</button>
-            </div>
-
+            <div class="profile-header"><img id="pAvatar" src="" class="p-avatar"><div class="p-info"><h3 id="pName">Kullanıcı</h3><div class="badge-area"><span class="badge">Üye</span><span id="premiumBadge" class="badge premium" style="display:none;">VIP</span></div></div></div>
+            <div class="section-header">ABONELİK DURUMU</div><div id="premiumCard" class="premium-card-display"><i class="fas fa-crown premium-icon"></i><div class="p-status">Mevcut Plan</div><div class="p-plan" id="pPlanText">Ücretsiz Üyelik</div><div class="p-timer" id="pTimer"></div></div>
+            <div class="section-header">PROFİL AYARLARI</div><input type="text" id="settingsName" class="form-control" placeholder="Görünen İsim Değiştir"><input type="text" id="settingsBio" class="form-control" placeholder="Durum Mesajı">
+            <div class="section-header">TEMA RENGİ</div><div class="color-picker"><div class="color-dot" style="background:#5865F2" onclick="changeTheme('#5865F2')"></div><div class="color-dot" style="background:#ff2e43" onclick="changeTheme('#ff2e43')"></div><div class="color-dot" style="background:#00ff88" onclick="changeTheme('#00ff88')"></div><div class="color-dot" style="background:#d33bf5" onclick="changeTheme('#d33bf5')"></div><div class="color-dot" style="background:#FFD700" onclick="changeTheme('#FFD700')"></div></div>
+            <div class="section-header">PROMOSYON KODU</div><div style="display: flex; gap: 10px;"><input type="text" id="promoCode" class="form-control" placeholder="Kod Giriniz (Örn: STROM2026)" style="margin:0;"><button onclick="redeemCode()" class="submit-btn" style="width: 100px;">Kullan</button></div>
             <button onclick="saveSettings()" class="submit-btn" style="margin-top: 20px;">Değişiklikleri Kaydet</button>
         </div>
     </div>
@@ -393,74 +382,11 @@
         </div>
     </div>
 
-    <div id="securityModal" class="modal-overlay">
-        <div class="modal-box">
-            <button class="close-btn" onclick="closeModal('securityModal')"><i class="fas fa-times"></i></button>
-            <h2 style="margin-bottom: 20px;">🛡️ 2FA Güvenlik</h2>
-            <div style="background: #000; padding: 20px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #333;">
-                <div><h3 style="font-size: 16px; color: white;">İki Faktörlü Doğrulama</h3><p style="font-size: 12px; color: #888;">Hesabınızı ekstra koruyun.</p></div>
-                <label class="toggle-switch"><input type="checkbox" id="2faToggle" onchange="toggle2FA()"><span class="slider"></span></label>
-            </div>
-            <div id="2faSetup" style="display: none; text-align: center; margin-top: 20px;">
-                <p style="color: #ccc; margin-bottom: 10px;">QR Kodunu Taratın:</p>
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=otpauth://totp/StromV2:Kullanici?secret=KBUW43DZEBJXG43X&issuer=StromV2" style="border-radius: 10px;">
-                <button class="submit-btn" onclick="closeModal('securityModal'); alert('2FA Aktif!')" style="margin-top:15px;">Onayla</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="buyModal" class="modal-overlay">
-        <div class="modal-box" style="text-align: center;">
-            <button class="close-btn" onclick="closeModal('buyModal')"><i class="fas fa-times"></i></button>
-            <i class="fas fa-shopping-cart" style="font-size: 50px; color: var(--accent); margin-bottom: 20px;"></i>
-            <h2 style="margin-bottom: 10px; color: white;">Paket Satın Al</h2>
-            <p id="buyText" style="color: #ccc; margin-bottom: 20px; font-size: 18px;"></p>
-            <a href="https://bionluk.com/mustafa852/Ben-premium-komutlar-ile-ayricalikli-ozellikler-sunuyorum-837735" target="_blank" class="submit-btn" style="text-decoration: none; display: block;">Mağazaya Git</a>
-        </div>
-    </div>
-
-    <div id="detailModal" class="modal-overlay">
-        <div class="modal-box">
-            <button class="close-btn" onclick="closeModal('detailModal')"><i class="fas fa-times"></i></button>
-            <h2 id="mCmd" class="rgb-text" style="font-family: monospace; font-size: 32px; margin-bottom: 10px;"></h2>
-            <p id="mDesc" style="color: #ccc; line-height: 1.6; margin-bottom: 20px;"></p>
-            <div style="font-size: 12px; font-weight: bold; color: #666; margin-bottom: 5px;">KULLANIM</div>
-            <div id="mUsage" style="background: #000; padding: 15px; border-radius: 10px; font-family: monospace; color: var(--accent); border: 1px solid #333;"></div>
-        </div>
-    </div>
-
-    <div id="oneriModal" class="modal-overlay">
-        <div class="modal-box">
-            <button class="close-btn" onclick="closeModal('oneriModal')"><i class="fas fa-times"></i></button>
-            <h2>💡 Öneri Yap</h2>
-            <form onsubmit="sendWebhook(event, 'Öneri')">
-                <label style="color:#aaa; font-size:12px; margin-top:10px; display:block;">KATEGORİ</label>
-                <select id="oneriKategori" class="form-control"><option>✨ Yeni Komut İsteği</option><option>🌐 Web Sitesi</option><option>💡 Diğer</option></select>
-                <label style="color:#aaa; font-size:12px; display:block;">KONU</label>
-                <input type="text" id="oneriBaslik" class="form-control" required>
-                <label style="color:#aaa; font-size:12px; display:block;">DETAY</label>
-                <textarea id="oneriDetay" class="form-control" required></textarea>
-                <button type="submit" class="submit-btn">Gönder</button>
-            </form>
-        </div>
-    </div>
-
-    <div id="hataModal" class="modal-overlay">
-        <div class="modal-box">
-            <button class="close-btn" onclick="closeModal('hataModal')"><i class="fas fa-times"></i></button>
-            <h2>🚨 Hata Bildir</h2>
-            <form onsubmit="sendWebhook(event, 'Hata')">
-                <label style="color:#aaa; font-size:12px; margin-top:10px; display:block;">TÜR</label>
-                <select id="hataKategori" class="form-control"><option>🤖 Komut Hatası</option><option>🕸️ Site Bug</option></select>
-                <label style="color:#aaa; font-size:12px; display:block;">YER</label>
-                <input type="text" id="hataBaslik" class="form-control" required>
-                <label style="color:#aaa; font-size:12px; display:block;">NASIL OLUŞTU?</label>
-                <textarea id="hataDetay" class="form-control" required></textarea>
-                <button type="submit" class="submit-btn" style="background: linear-gradient(90deg, #ff0000, #ff4d4d);">Bildir</button>
-            </form>
-        </div>
-    </div>
-
+    <div id="securityModal" class="modal-overlay"><div class="modal-box"><button class="close-btn" onclick="closeModal('securityModal')"><i class="fas fa-times"></i></button><h2 style="margin-bottom: 20px;">🛡️ 2FA Güvenlik</h2><div style="background: #000; padding: 20px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #333;"><div><h3 style="font-size: 16px; color: white;">İki Faktörlü Doğrulama</h3><p style="font-size: 12px; color: #888;">Hesabınızı ekstra koruyun.</p></div><label class="toggle-switch"><input type="checkbox" id="2faToggle" onchange="toggle2FA()"><span class="slider"></span></label></div><div id="2faSetup" style="display: none; text-align: center; margin-top: 20px;"><p style="color: #ccc; margin-bottom: 10px;">QR Kodunu Taratın:</p><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=otpauth://totp/StromV2:Kullanici?secret=KBUW43DZEBJXG43X&issuer=StromV2" style="border-radius: 10px;"><button class="submit-btn" onclick="closeModal('securityModal'); alert('2FA Aktif!')" style="margin-top:15px;">Onayla</button></div></div></div>
+    <div id="buyModal" class="modal-overlay"><div class="modal-box" style="text-align: center;"><button class="close-btn" onclick="closeModal('buyModal')"><i class="fas fa-times"></i></button><i class="fas fa-shopping-cart" style="font-size: 50px; color: var(--accent); margin-bottom: 20px;"></i><h2 style="margin-bottom: 10px; color: white;">Paket Satın Al</h2><p id="buyText" style="color: #ccc; margin-bottom: 20px; font-size: 18px;"></p><a href="https://bionluk.com/mustafa852/Ben-premium-komutlar-ile-ayricalikli-ozellikler-sunuyorum-837735" target="_blank" class="submit-btn" style="text-decoration: none; display: block;">Mağazaya Git</a></div></div>
+    <div id="detailModal" class="modal-overlay"><div class="modal-box"><button class="close-btn" onclick="closeModal('detailModal')"><i class="fas fa-times"></i></button><h2 id="mCmd" class="rgb-text" style="font-family: monospace; font-size: 32px; margin-bottom: 10px;"></h2><p id="mDesc" style="color: #ccc; line-height: 1.6; margin-bottom: 20px;"></p><div style="font-size: 12px; font-weight: bold; color: #666; margin-bottom: 5px;">KULLANIM</div><div id="mUsage" style="background: #000; padding: 15px; border-radius: 10px; font-family: monospace; color: var(--accent); border: 1px solid #333;"></div></div></div>
+    <div id="oneriModal" class="modal-overlay"><div class="modal-box"><button class="close-btn" onclick="closeModal('oneriModal')"><i class="fas fa-times"></i></button><h2>💡 Öneri Yap</h2><form onsubmit="sendWebhook(event, 'Öneri')"><label style="color:#aaa; font-size:12px; margin-top:10px; display:block;">KATEGORİ</label><select id="oneriKategori" class="form-control"><option>✨ Yeni Komut İsteği</option><option>🌐 Web Sitesi</option><option>💡 Diğer</option></select><label style="color:#aaa; font-size:12px; display:block;">KONU</label><input type="text" id="oneriBaslik" class="form-control" required><label style="color:#aaa; font-size:12px; display:block;">DETAY</label><textarea id="oneriDetay" class="form-control" required></textarea><button type="submit" class="submit-btn">Gönder</button></form></div></div>
+    <div id="hataModal" class="modal-overlay"><div class="modal-box"><button class="close-btn" onclick="closeModal('hataModal')"><i class="fas fa-times"></i></button><h2>🚨 Hata Bildir</h2><form onsubmit="sendWebhook(event, 'Hata')"><label style="color:#aaa; font-size:12px; margin-top:10px; display:block;">TÜR</label><select id="hataKategori" class="form-control"><option>🤖 Komut Hatası</option><option>🕸️ Site Bug</option></select><label style="color:#aaa; font-size:12px; display:block;">YER</label><input type="text" id="hataBaslik" class="form-control" required><label style="color:#aaa; font-size:12px; display:block;">NASIL OLUŞTU?</label><textarea id="hataDetay" class="form-control" required></textarea><button type="submit" class="submit-btn" style="background: linear-gradient(90deg, #ff0000, #ff4d4d);">Bildir</button></form></div></div>
     <div id="statusModal" class="modal-overlay" style="z-index: 3000;"><div class="modal-box" style="width: 400px; text-align: center; padding: 50px;"><div id="loadingAnim"><div class="spinner"></div><h3 style="color: var(--text-muted);">Gönderiliyor...</h3></div><div id="successAnim" style="display: none;"><i class="fas fa-check-circle success-checkmark"></i><h3 style="color: white;">Başarılı!</h3><p style="color:#aaa;">Mesajınız iletildi.</p></div></div></div>
     <div id="kullanimModal" class="modal-overlay"><div class="modal-box" style="width: 700px;"><button class="close-btn" onclick="closeModal('kullanimModal')"><i class="fas fa-times"></i></button><h2 style="margin-bottom: 20px; color: var(--accent);">📜 Kullanım Şartları</h2><div class="legal-text"><h3>1) Kullanım Şartları</h3><ul><li>Botu yavaşlatacak davranışlarda bulunmayın.</li><li>Bota DM üzerinden spam yapmayın.</li><li>Botu amacı dışında kullanmak yasaktır.</li><li>Yukarıdaki şartlara uymazsanız botun "karaliste" bölümüne alınırsınız.</li></ul><h3>2) Veri Silme</h3><p>StromV2#2951 isim etiketli ve ID'li bottan verilerinizin silinmesini istiyorsanız <strong>lord__</strong> isim etiketli ve ID'li kullanıcıya ulaşıp verilerinizi sildirebilirsiniz.</p></div></div></div>
     <div id="gizlilikModal" class="modal-overlay"><div class="modal-box" style="width: 700px;"><button class="close-btn" onclick="closeModal('gizlilikModal')"><i class="fas fa-times"></i></button><h2 style="margin-bottom: 20px; color: var(--success);">🔒 Gizlilik Politikası</h2><div class="legal-text"><h3>1) Saklanan Verileriniz</h3><p><strong>Komut Kullanılarak Saklanan Veriler:</strong> Kullanıcı ID'si, Kullanılan sunucu ID'si, Kullanıcı verileri.</p><h3>2) Otomatik Saklanılan Veriler</h3><p><strong>Sunucu:</strong> ID'si, ismi, profil fotoğrafı, üye sayısı, sunucu sahibi, kanal sayısı.</p><p><strong>Üye:</strong> ID'si, ismi, hesap oluşturulma tarihi.</p><h3>3) Verilerinizin Korunumu</h3><p>Verileriniz, şifrelenme yöntemiyle, erişime kısıtlı bir veri tabanlarında saklanır. Verilerinizin gizlenimi hakkında endişeniz varsa bilet oluşturarak yardım alabilirsiniz.</p><h3>4) Verilerinizin Silinimi</h3><p>Verilerinizin silinmesi hakkında talep oluşturmakta özgürsünüz. Verilerinizin tamamen silinmesi için <strong>lord__</strong> kullanıcısına Direkt Mesaj atarak verilerinizi silebilirsiniz. Talebiniz, alındıktan 30 gün içinde işleme alınır.</p></div></div></div>
@@ -472,24 +398,36 @@
         let currentUser = null;
         let selectedRating = 0;
 
-        // --- YENİ: PREMIUM SİSTEMİ (SIMULATED DB) ---
-        function activatePremium(days) {
-            const expiryDate = new Date();
-            expiryDate.setDate(expiryDate.getDate() + days);
-            localStorage.setItem('premium_expiry', expiryDate.getTime());
-            checkPremium();
-            alert(`🎉 Tebrikler! Premium üyeliğiniz ${days} gün boyunca aktif edildi!`);
-        }
+        // --- PREMIUM KULLANICILAR BURAYA EKLENECEK ---
+        // Buraya ID'leri tırnak içinde, virgülle ayırarak yaz:
+        const PREMIUM_USERS = [
+            "846736343593779230", // Lord__ (Örnek)
+            "363734364032598017", 
+            "619869449625010177",
+            "726398807629103146"
+        ];
 
         function checkPremium() {
-            const expiry = localStorage.getItem('premium_expiry');
             const card = document.getElementById('premiumCard');
             const badge = document.getElementById('premiumBadge');
             const planText = document.getElementById('pPlanText');
             const timer = document.getElementById('pTimer');
 
-            if (expiry && new Date().getTime() < expiry) {
-                // Premium Aktif
+            // 1. Önce LocalStorage (Promosyon Kodu) Kontrolü
+            const expiry = localStorage.getItem('premium_expiry');
+            
+            // 2. Sonra Hardcoded List (Senin Eklediğin ID'ler) Kontrolü
+            const isHardcodedPremium = currentUser && PREMIUM_USERS.includes(currentUser.id);
+
+            if (isHardcodedPremium) {
+                // Listede olan kullanıcı (Sınırsız Premium gibi davranır)
+                card.classList.add('active');
+                badge.style.display = 'inline-block';
+                planText.innerText = "✨ GOLD VIP (Sınırsız)";
+                timer.innerText = "Ömür Boyu Erişim";
+            } 
+            else if (expiry && new Date().getTime() < expiry) {
+                // Promosyon Kodu kullanan kullanıcı
                 card.classList.add('active');
                 badge.style.display = 'inline-block';
                 planText.innerText = "✨ GOLD VIP";
@@ -501,7 +439,7 @@
                     if (distance < 0) {
                         clearInterval(interval);
                         localStorage.removeItem('premium_expiry');
-                        checkPremium(); // Süre bitti, normale dön
+                        checkPremium(); 
                     } else {
                         const days = Math.floor(distance / (1000 * 60 * 60 * 24));
                         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -509,7 +447,6 @@
                     }
                 }, 1000);
             } else {
-                // Premium Değil
                 card.classList.remove('active');
                 badge.style.display = 'none';
                 planText.innerText = "Ücretsiz Üyelik";
@@ -517,32 +454,44 @@
             }
         }
 
-        function redeemCode() {
-            const code = document.getElementById('promoCode').value;
-            if (code === "STROM2026") {
-                activatePremium(30); // 30 Günlük Premium Ver
-            } else {
-                alert("❌ Geçersiz kod!");
-            }
+        // --- DİĞER FONKSİYONLAR AYNI ---
+        function activatePremium(days) {
+            const expiryDate = new Date();
+            expiryDate.setDate(expiryDate.getDate() + days);
+            localStorage.setItem('premium_expiry', expiryDate.getTime());
+            checkPremium();
+            alert(`🎉 Tebrikler! Premium üyeliğiniz ${days} gün boyunca aktif edildi!`);
         }
 
-        // --- TEMA MOTORU ---
+        function redeemCode() {
+            const code = document.getElementById('promoCode').value;
+            if (code === "STROM2026") { activatePremium(30); } else { alert("❌ Geçersiz kod!"); }
+        }
+
         function changeTheme(color) {
             document.documentElement.style.setProperty('--primary', color);
-            document.documentElement.style.setProperty('--primary-glow', color + '99'); // %60 opacity
+            document.documentElement.style.setProperty('--primary-glow', color + '99');
             localStorage.setItem('theme_color', color);
         }
 
-        // --- YORUMLAR ---
-        const defaultReviews = [
+       const defaultReviews = [
+
+
 
             { name: "Ghostt01", comment: "bazı komutlarda hata hatalar olmasa gayet iyi bot", stars: 3, avatar: "https://i.hizliresim.com/sme5zz8.png" },
 
+
+
             { name: "XflexX", comment: "hızlı destek veriyor iletişimi iyi ", stars: 5, avatar: "https://i.pinimg.com/236x/cb/28/2f/cb282f7a9431c65c906fe0197e565c4e.jpg" },
+
+
 
             { name: "atlasON_", comment: "premium satın aldım bir sorun çıkmadı.", stars: 4, avatar: "https://i.hizliresim.com/7fc1j9w.jpg" }
 
+
+
         ];
+
 
         function loadReviews() {
             const container = document.getElementById('reviewsContainer');
@@ -583,7 +532,6 @@
             alert("Yorumunuz yayınlandı! ✅");
         }
 
-        // --- İSTATİSTİK SAYAÇ ---
         function animateStats() {
             const counters = document.querySelectorAll('.stat-number');
             counters.forEach(counter => {
@@ -605,12 +553,7 @@
             filter('all');
             animateStats(); 
             loadReviews();
-            checkPremium(); // Premium kontrolü
-
-            // Tema Yükle
-            if(localStorage.getItem('theme_color')) {
-                changeTheme(localStorage.getItem('theme_color'));
-            }
+            if(localStorage.getItem('theme_color')) changeTheme(localStorage.getItem('theme_color'));
 
             const fragment = new URLSearchParams(window.location.hash.slice(1));
             const accessToken = fragment.get('access_token');
@@ -650,65 +593,41 @@
                 document.getElementById('loggedArea').style.display = 'flex';
                 document.getElementById('userAvatar').src = currentUser.avatar;
                 document.getElementById('userName').innerText = currentUser.username;
-                
-                // Profil Modalını Güncelle
                 document.getElementById('pAvatar').src = currentUser.avatar;
                 document.getElementById('pName').innerText = currentUser.username;
                 document.getElementById('settingsName').value = currentUser.username;
+                checkPremium(); // Giriş yapınca premium kontrol et
             } else {
                 document.getElementById('guestArea').style.display = 'flex';
                 document.getElementById('loggedArea').style.display = 'none';
             }
         }
 
-        function checkAuthAndOpen(modalId) {
-            if (!currentUser) { alert("⚠️ Lütfen önce giriş yapın!"); } else { openModal(modalId); }
-        }
-
+        function checkAuthAndOpen(modalId) { if (!currentUser) { alert("⚠️ Lütfen önce giriş yapın!"); } else { openModal(modalId); } }
         function openModal(id) { document.getElementById(id).classList.add('active'); }
         function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-
-        function saveSettings() {
-            localStorage.setItem('user_bio', document.getElementById('settingsBio').value);
-            alert("✅ Kaydedildi!"); closeModal('settingsModal');
-        }
-
-        function toggle2FA() {
-            const toggle = document.getElementById('2faToggle');
-            if(toggle.checked) { document.getElementById('2faSetup').style.display = 'block'; localStorage.setItem('2fa_enabled', 'true'); }
-            else { document.getElementById('2faSetup').style.display = 'none'; localStorage.removeItem('2fa_enabled'); }
-        }
-
+        function saveSettings() { localStorage.setItem('user_bio', document.getElementById('settingsBio').value); alert("✅ Kaydedildi!"); closeModal('settingsModal'); }
+        function toggle2FA() { const toggle = document.getElementById('2faToggle'); if(toggle.checked) { document.getElementById('2faSetup').style.display = 'block'; localStorage.setItem('2fa_enabled', 'true'); } else { document.getElementById('2faSetup').style.display = 'none'; localStorage.removeItem('2fa_enabled'); } }
         function buyPremium(paket) { window.open("https://bionluk.com/mustafa852/Ben-premium-komutlar-ile-ayricalikli-ozellikler-sunuyorum-837735", "_blank"); }
 
         async function sendWebhook(e, tur) {
             e.preventDefault();
             const isOneri = tur === 'Öneri';
             closeModal(isOneri ? 'oneriModal' : 'hataModal');
-            
             const statusModal = document.getElementById('statusModal');
             statusModal.classList.add('active');
             document.getElementById('loadingAnim').style.display = 'block';
             document.getElementById('successAnim').style.display = 'none';
-
             const url = isOneri ? "https://discord.com/api/webhooks/1470618890416427188/f862nZr9-289wlplt1XxLwwKhtr4GclLuew-gG8jB_bgN7HNeFnkEFQNbhhPma8o7G11" : "https://discord.com/api/webhooks/1470619113486418014/uLSpe6STmlQyG8gC3MYbaJHEswpG3-xNOjoIOBl6LtZqJ67I4BxulMM9bJ31IDxbOWrJ";
             const userFooter = currentUser ? `👤 ${currentUser.username} (${currentUser.id})` : "👤 Anonim";
             let kategori = isOneri ? document.getElementById('oneriKategori').value : document.getElementById('hataKategori').value;
             const baslik = document.getElementById(isOneri ? 'oneriBaslik' : 'hataBaslik').value;
             const detay = document.getElementById(isOneri ? 'oneriDetay' : 'hataDetay').value;
-
             const payload = { embeds: [{ title: `${tur} Bildirimi`, color: isOneri ? 16766720 : 15548997, fields: [ { name: "📂 Kategori", value: kategori, inline: true }, { name: "📝 Konu", value: baslik, inline: true }, { name: "📄 Detaylar", value: detay } ], footer: { text: userFooter } }] };
-            
-            try {
-                await fetch(url, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
-                setTimeout(() => {
-                    document.getElementById('loadingAnim').style.display = 'none';
-                    document.getElementById('successAnim').style.display = 'block';
-                    setTimeout(() => { statusModal.classList.remove('active'); e.target.reset(); }, 2000);
-                }, 1000);
-            } catch(err) { console.error(err); statusModal.classList.remove('active'); }
+            try { await fetch(url, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) }); setTimeout(() => { document.getElementById('loadingAnim').style.display = 'none'; document.getElementById('successAnim').style.display = 'block'; setTimeout(() => { statusModal.classList.remove('active'); e.target.reset(); }, 2000); }, 1000); } catch(err) { console.error(err); statusModal.classList.remove('active'); }
         }
 
+        // --- FULL KOMUT LİSTESİ ---
         const commands = [
             // MODERASYON
             { cmd: "s!ban", desc: "Üyeyi sunucudan yasaklar.", cat: "moderasyon", usage: "s!ban @üye <sebep>" },
@@ -907,4 +826,3 @@
     </script>
 </body>
 </html>
-
