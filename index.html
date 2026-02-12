@@ -177,19 +177,17 @@
         .team-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
         
         .team-card {
-            background: transparent; /* Animasyon için transparent yapıyoruz */
-            border-radius: 24px; padding: 5px; /* Border payı */
+            background: transparent; 
+            border-radius: 24px; padding: 5px; 
             width: 300px; text-align: center; transition: 0.3s;
             position: relative; overflow: hidden; display: flex; flex-direction: column;
         }
 
-        /* YETKİLİ KART İÇERİĞİ */
         .team-card-inner {
             background: rgba(25, 25, 30, 0.9);
             border-radius: 20px; padding: 30px; height: 100%; width: 100%; z-index: 2;
         }
 
-        /* YETKİLİ KART RGB ÇERÇEVE */
         .team-card.rgb-anim::before {
             content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
             background: conic-gradient(#ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
@@ -395,7 +393,7 @@
                 <div class="price-card-inner">
                     <div style="position: absolute; top: 15px; right: -30px; background: var(--accent); color: black; font-weight: 800; font-size: 10px; padding: 5px 30px; transform: rotate(45deg);">POPÜLER</div>
                     <div class="plan-name" style="color: var(--accent);">🔥 6 Aylık</div>
-                    <div class="plan-price">350 <span>TL</span></div>
+                    <div class="plan-price">550 <span>TL</span></div>
                     <ul class="plan-features"><li><i class="fas fa-check"></i> %15 İndirim</li><li><i class="fas fa-check"></i> Özel Profil</li><li><i class="fas fa-check"></i> VIP Rolü</li></ul>
                     <button onclick="buyPremium('6 Aylık')" class="buy-btn" style="background: var(--accent); color: black;">Satın Al</button>
                 </div>
@@ -404,7 +402,7 @@
             <div class="price-card purple-anim">
                 <div class="price-card-inner">
                     <div class="plan-name" style="color: var(--secondary);">♾️ Sınırsız</div>
-                    <div class="plan-price">850 <span>TL</span></div>
+                    <div class="plan-price">1200 <span>TL</span></div>
                     <ul class="plan-features"><li><i class="fas fa-check"></i> Ömür Boyu Erişim</li><li><i class="fas fa-check"></i> Sponsor Rolü</li><li><i class="fas fa-check"></i> Erken Erişim</li></ul>
                     <button onclick="buyPremium('Sınırsız')" class="buy-btn" style="background: var(--secondary); box-shadow: 0 0 20px rgba(211, 59, 245, 0.3);">Satın Al</button>
                 </div>
@@ -514,6 +512,7 @@
         let selectedRating = 0;
 
         // --- PREMIUM KULLANICILAR BURAYA EKLENECEK ---
+        // Buraya ID'leri tırnak içinde, virgülle ayırarak yaz:
         const PREMIUM_USERS = [
             "846736343593779230", // Lord__ (Örnek)
             "623973913415647292", 
@@ -528,19 +527,26 @@
             const planText = document.getElementById('pPlanText');
             const timer = document.getElementById('pTimer');
 
+            // 1. Önce LocalStorage (Promosyon Kodu) Kontrolü
             const expiry = localStorage.getItem('premium_expiry');
+            
+            // 2. Sonra Hardcoded List (Senin Eklediğin ID'ler) Kontrolü
             const isHardcodedPremium = currentUser && PREMIUM_USERS.includes(currentUser.id);
 
             if (isHardcodedPremium) {
+                // Listede olan kullanıcı (Sınırsız Premium gibi davranır)
                 card.classList.add('active');
                 badge.style.display = 'inline-block';
                 planText.innerText = "✨ GOLD VIP (Sınırsız)";
                 timer.innerText = "Ömür Boyu Erişim";
             } 
             else if (expiry && new Date().getTime() < expiry) {
+                // Promosyon Kodu kullanan kullanıcı
                 card.classList.add('active');
                 badge.style.display = 'inline-block';
                 planText.innerText = "✨ GOLD VIP";
+                
+                // Geri Sayım
                 const interval = setInterval(() => {
                     const now = new Date().getTime();
                     const distance = expiry - now;
@@ -580,7 +586,7 @@
             }
         }
 
-        // --- DİĞER FONKSİYONLAR ---
+        // --- DİĞER FONKSİYONLAR AYNI ---
         function activatePremium(days) {
             const expiryDate = new Date();
             expiryDate.setDate(expiryDate.getDate() + days);
@@ -605,7 +611,6 @@
             { name: "XflexX", comment: "hızlı destek veriyor iletişimi iyi ", stars: 5, avatar: "https://i.pinimg.com/236x/cb/28/2f/cb282f7a9431c65c906fe0197e565c4e.jpg" },
             { name: "atlasON_", comment: "premium satın aldım bir sorun çıkmadı.", stars: 4, avatar: "https://i.hizliresim.com/7fc1j9w.jpg" }
         ];
-
         function loadReviews() {
             const container = document.getElementById('reviewsContainer');
             container.innerHTML = "";
@@ -642,7 +647,15 @@
             localStorage.setItem('userReview', JSON.stringify(reviewData));
             loadReviews();
             closeModal('rateModal');
-            alert("Yorumunuz yayınlandı! ✅");
+            
+            // Webhook'a gönder
+            const url = "https://discord.com/api/webhooks/1471460158457647126/2a_Ua3H42h3mKBmtwdWgk_3NhGYI1TdVcWU8l9tWOwsq0_uutGR5FmpQ5MBbSKefixNZ"; 
+            const userFooter = currentUser ? `👤 ${currentUser.username} (${currentUser.id})` : "👤 Anonim";
+            const payload = { embeds: [{ title: `⭐ Yeni Değerlendirme: ${selectedRating}/5`, color: 16766720, fields: [ { name: "Yorum", value: text || "Yorum yok." } ], footer: { text: userFooter } }] };
+            
+            fetch(url, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) })
+            .then(() => alert("Yorumunuz başarıyla gönderildi! ✅"))
+            .catch(err => console.error("Webhook hatası:", err));
         }
 
         function animateStats() {
@@ -960,4 +973,3 @@
     </script>
 </body>
 </html>
-
