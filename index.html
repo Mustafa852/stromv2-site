@@ -9,7 +9,7 @@
     <style>
         /* --- NEON & RGB DEĞİŞKENLER --- */
         :root {
-            --primary: #5865F2; 
+            --primary: #5865F2; /* Varsayılan Mor */
             --primary-glow: rgba(88, 101, 242, 0.6);
             --secondary: #d33bf5; 
             --accent: #FFD700;    
@@ -51,12 +51,12 @@
             color: white; text-align: center; padding: 8px; font-size: 13px; font-weight: 700;
             position: relative; z-index: 1001; display: flex; justify-content: center; align-items: center;
         }
-        .top-bar-edit { margin-left: 10px; cursor: pointer; color: black; background: white; padding: 2px 6px; border-radius: 4px; font-size: 10px; display: none; } /* Sadece admin görecek */
+        .top-bar-edit { margin-left: 10px; cursor: pointer; color: black; background: white; padding: 2px 6px; border-radius: 4px; font-size: 10px; display: none; }
         .top-bar-close { background: none; border: none; color: white; cursor: pointer; font-size: 16px; position: absolute; right: 20px; opacity: 0.7; }
 
-        /* --- NAVBAR (ABSOLUTE - TAKİP ETMESİN) --- */
+        /* --- NAVBAR --- */
         nav { 
-            position: absolute; /* Fixed yerine Absolute */
+            position: absolute; 
             top: 35px; width: 100%; height: 80px; z-index: 1000; 
             background: rgba(5, 5, 7, 0.8); backdrop-filter: blur(20px); 
             display: flex; align-items: center; justify-content: space-between; padding: 0 5%; 
@@ -85,8 +85,14 @@
         .feature-card h3 { color: white; font-size: 20px; margin-bottom: 10px; }
         .feature-card p { color: var(--text-muted); font-size: 14px; line-height: 1.6; }
 
-        /* --- OYLAMA --- */
-        .vote-section { padding: 60px 20px; background: rgba(88, 101, 242, 0.05); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); display: flex; justify-content: center; align-items: center; text-align: center; }
+        /* --- OYLAMA (ORTALANDI) --- */
+        .vote-section { 
+            padding: 60px 20px; 
+            background: rgba(88, 101, 242, 0.05); 
+            border-top: 1px solid var(--border); 
+            border-bottom: 1px solid var(--border);
+            display: flex; justify-content: center; align-items: center; text-align: center;
+        }
         .vote-box { max-width: 800px; width: 100%; }
         .vote-stars { font-size: 32px; color: #333; cursor: pointer; transition: 0.2s; display: inline-block; margin-bottom: 20px; }
         .vote-stars i { margin: 0 5px; transition: 0.2s; }
@@ -107,7 +113,7 @@
         
         .price-card {
             background: rgba(25, 25, 30, 0.8); backdrop-filter: blur(10px); 
-            border-radius: 24px; padding: 5px; /* Border padding */
+            border-radius: 24px; padding: 5px; 
             width: 320px; text-align: center; transition: 0.4s; position: relative;
             display: flex; flex-direction: column;
         }
@@ -116,13 +122,21 @@
             background: #111; border-radius: 20px; padding: 35px; height: 100%; width: 100%; z-index: 2; position: relative;
         }
 
-        /* Bronz Çerçeve (100 TL) */
-        .price-card.bronz-border { background: #cd7f32; }
-
-        /* Gold Animasyon (550 TL) */
-        .price-card.gold-anim {
-            background: transparent; overflow: hidden;
+        /* 1 AYLIK (BRONZ ANİMASYON) */
+        .price-card.bronz-anim { background: transparent; overflow: hidden; }
+        .price-card.bronz-anim::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: conic-gradient(transparent, transparent, transparent, #cd7f32);
+            animation: rotate 4s linear infinite; z-index: 1;
         }
+        .price-card.bronz-anim::after {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: conic-gradient(transparent, transparent, transparent, #cd7f32);
+            animation: rotate 4s linear infinite; animation-delay: -2s; z-index: 1;
+        }
+
+        /* 6 AYLIK (GOLD ANİMASYON) */
+        .price-card.gold-anim { background: transparent; overflow: hidden; }
         .price-card.gold-anim::before {
             content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
             background: conic-gradient(transparent, transparent, transparent, #FFD700);
@@ -134,10 +148,8 @@
             animation: rotate 4s linear infinite; animation-delay: -2s; z-index: 1;
         }
 
-        /* Mor Animasyon (Sınırsız) */
-        .price-card.purple-anim {
-            background: transparent; overflow: hidden;
-        }
+        /* SINIRSIZ (MOR ANİMASYON) */
+        .price-card.purple-anim { background: transparent; overflow: hidden; }
         .price-card.purple-anim::before {
             content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
             background: conic-gradient(transparent, transparent, transparent, #d33bf5);
@@ -160,29 +172,40 @@
         .plan-features li { margin-bottom: 12px; color: #ccc; display: flex; align-items: center; gap: 12px; font-size: 15px; }
         .plan-features li i { color: var(--success); }
 
-        /* --- EKİP (RGB BORDER) --- */
+        /* --- EKİP (RGB KART ANİMASYONU) --- */
         .team-section { padding: 80px 5%; text-align: center; }
         .team-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
-        .team-card { background: rgba(25, 25, 30, 0.6); backdrop-filter: blur(10px); border: 1px solid var(--border); border-radius: 24px; padding: 30px; width: 280px; transition: 0.3s; }
+        
+        .team-card {
+            background: transparent; /* Animasyon için transparent yapıyoruz */
+            border-radius: 24px; padding: 5px; /* Border payı */
+            width: 300px; text-align: center; transition: 0.3s;
+            position: relative; overflow: hidden; display: flex; flex-direction: column;
+        }
+
+        /* YETKİLİ KART İÇERİĞİ */
+        .team-card-inner {
+            background: rgba(25, 25, 30, 0.9);
+            border-radius: 20px; padding: 30px; height: 100%; width: 100%; z-index: 2;
+        }
+
+        /* YETKİLİ KART RGB ÇERÇEVE */
+        .team-card.rgb-anim::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: conic-gradient(#ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+            animation: rotate 4s linear infinite; z-index: 1;
+        }
         .team-card:hover { transform: translateY(-10px); }
         
         .team-img { 
             width: 120px; height: 120px; border-radius: 50%; margin-bottom: 20px; object-fit: cover; 
-            border: 4px solid var(--border); /* Varsayılan */
+            border: 4px solid rgba(255,255,255,0.1); 
         }
         
-        /* ÖZEL RGB ÇERÇEVE (SADECE LORD__ İÇİN) */
-        .rgb-border {
-            border: 4px solid transparent;
-            background: linear-gradient(#000, #000) padding-box, linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8) border-box;
-            animation: rgb-spin 5s linear infinite;
-        }
-        @keyframes rgb-spin { 100% { filter: hue-rotate(360deg); } }
-
         .team-name { font-size: 22px; font-weight: 700; color: white; margin-bottom: 5px; }
         .team-role { color: var(--accent); font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* --- DİĞER CSS (AYNI) --- */
+        /* --- DİĞER CSS --- */
         .dashboard { display: grid; grid-template-columns: 280px 1fr; gap: 40px; padding: 80px 5%; }
         .sidebar { position: sticky; top: 100px; height: calc(100vh - 140px); overflow-y: auto; background: var(--bg-glass); backdrop-filter: blur(10px); border-radius: 20px; padding: 25px; border: 1px solid var(--border); }
         .cat-btn { width: 100%; text-align: left; background: none; border: none; padding: 14px 16px; color: var(--text-muted); font-weight: 700; font-size: 15px; cursor: pointer; display: flex; align-items: center; gap: 12px; border-radius: 12px; margin-bottom: 6px; transition: 0.3s; }
@@ -359,7 +382,7 @@
         <div class="section-title"><h2><span class="rgb-text">Premium</span> Paketleri</h2><p style="color: var(--text-muted);">Sunucunuzun sınırlarını neon ışıklarla çizin.</p></div>
         <div class="pricing-grid">
             
-            <div class="price-card bronz-border">
+            <div class="price-card bronz-anim">
                 <div class="price-card-inner">
                     <div class="plan-name">📅 1 Aylık</div>
                     <div class="plan-price">100 <span>TL</span></div>
@@ -393,10 +416,12 @@
     <section id="team" class="team-section">
         <div class="section-title"><h2>Yetkili <span class="rgb-text">Ekibi</span></h2><p style="color: var(--text-muted);">Botun arkasındaki beyin takımı.</p></div>
         <div class="team-grid">
-            <div class="team-card">
-                <img src="https://i.hizliresim.com/15up9hd.gif" class="team-img rgb-border" alt="Founder">
-                <h3 class="team-name">lord__</h3>
-                <span class="team-role">KURUCU & GELİŞTİRİCİ</span>
+            <div class="team-card rgb-anim">
+                <div class="team-card-inner">
+                    <img src="https://i.hizliresim.com/15up9hd.gif" class="team-img" alt="Founder">
+                    <h3 class="team-name">lord__</h3>
+                    <span class="team-role">KURUCU & GELİŞTİRİCİ</span>
+                </div>
             </div>
         </div>
     </section>
