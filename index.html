@@ -33,6 +33,52 @@
                 radial-gradient(circle at 85% 30%, rgba(211, 59, 245, 0.05), transparent 25%);
         }
 
+        /* --- MODERN BİLDİRİM (TOAST) CSS --- */
+        .toast-container {
+            position: fixed; top: 90px; right: 20px; z-index: 10000;
+            display: flex; flex-direction: column; gap: 10px;
+        }
+        
+        .toast {
+            background: rgba(20, 20, 25, 0.95);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 16px 20px;
+            border-radius: 12px;
+            border-left: 5px solid var(--primary);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: flex; align-items: center; gap: 15px;
+            min-width: 300px;
+            transform: translateX(120%);
+            animation: slideIn 0.4s forwards;
+            position: relative; overflow: hidden;
+        }
+        
+        .toast.success { border-color: var(--success); }
+        .toast.error { border-color: var(--danger); }
+        
+        .toast-icon { font-size: 20px; }
+        .toast.success .toast-icon { color: var(--success); }
+        .toast.error .toast-icon { color: var(--danger); }
+        
+        .toast-content { flex: 1; }
+        .toast-title { font-weight: 700; font-size: 14px; margin-bottom: 2px; }
+        .toast-msg { font-size: 12px; color: #ccc; }
+        
+        .toast-progress {
+            position: absolute; bottom: 0; left: 0; height: 3px; background: rgba(255,255,255,0.2); width: 100%;
+        }
+        .toast-progress-bar {
+            height: 100%; width: 100%; background: inherit;
+            animation: progress 3s linear forwards;
+        }
+        .toast.success .toast-progress-bar { background: var(--success); }
+        .toast.error .toast-progress-bar { background: var(--danger); }
+
+        @keyframes slideIn { to { transform: translateX(0); } }
+        @keyframes fadeOut { to { opacity: 0; transform: translateX(100%); } }
+        @keyframes progress { to { width: 0%; } }
+
         /* --- ANİMASYONLAR --- */
         .glow-blob { position: fixed; width: 500px; height: 500px; background: var(--primary); filter: blur(180px); opacity: 0.15; border-radius: 50%; z-index: -1; animation: float 15s infinite ease-in-out; transition: background 0.5s; }
         .blob-1 { top: -100px; left: -100px; }
@@ -301,6 +347,8 @@
     <div class="glow-blob blob-1"></div>
     <div class="glow-blob blob-2"></div>
 
+    <div class="toast-container" id="toastContainer"></div>
+
     <div id="topBar" class="top-bar">
         <span id="announcementText">🚀 StromV2 ile Sunucunu Uçur! V2.0 Yayında!</span>
         <button id="editAnnouncementBtn" class="top-bar-edit" onclick="editAnnouncement()"><i class="fas fa-edit"></i></button>
@@ -511,8 +559,36 @@
         let currentUser = null;
         let selectedRating = 0;
 
+        // --- MODERN BİLDİRİM FONKSİYONU ---
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            const icon = type === 'success' ? '<i class="fas fa-check-circle toast-icon"></i>' : '<i class="fas fa-exclamation-circle toast-icon"></i>';
+            const title = type === 'success' ? 'Başarılı' : 'Hata';
+            
+            toast.innerHTML = `
+                ${icon}
+                <div class="toast-content">
+                    <div class="toast-title">${title}</div>
+                    <div class="toast-msg">${message}</div>
+                </div>
+                <div class="toast-progress">
+                    <div class="toast-progress-bar"></div>
+                </div>
+            `;
+            
+            container.appendChild(toast);
+            
+            // 3.5 saniye sonra sil
+            setTimeout(() => {
+                toast.style.animation = 'fadeOut 0.4s forwards';
+                setTimeout(() => toast.remove(), 400);
+            }, 3000);
+        }
+
         // --- PREMIUM KULLANICILAR BURAYA EKLENECEK ---
-        // Buraya ID'leri tırnak içinde, virgülle ayırarak yaz:
         const PREMIUM_USERS = [
             "846736343593779230", // Lord__ (Örnek)
             "623973913415647292", 
@@ -521,32 +597,26 @@
             "619869449625010177"
         ];
 
+
         function checkPremium() {
             const card = document.getElementById('premiumCard');
             const badge = document.getElementById('premiumBadge');
             const planText = document.getElementById('pPlanText');
             const timer = document.getElementById('pTimer');
 
-            // 1. Önce LocalStorage (Promosyon Kodu) Kontrolü
             const expiry = localStorage.getItem('premium_expiry');
-            
-            // 2. Sonra Hardcoded List (Senin Eklediğin ID'ler) Kontrolü
             const isHardcodedPremium = currentUser && PREMIUM_USERS.includes(currentUser.id);
 
             if (isHardcodedPremium) {
-                // Listede olan kullanıcı (Sınırsız Premium gibi davranır)
                 card.classList.add('active');
                 badge.style.display = 'inline-block';
                 planText.innerText = "✨ GOLD VIP (Sınırsız)";
                 timer.innerText = "Ömür Boyu Erişim";
             } 
             else if (expiry && new Date().getTime() < expiry) {
-                // Promosyon Kodu kullanan kullanıcı
                 card.classList.add('active');
                 badge.style.display = 'inline-block';
                 planText.innerText = "✨ GOLD VIP";
-                
-                // Geri Sayım
                 const interval = setInterval(() => {
                     const now = new Date().getTime();
                     const distance = expiry - now;
@@ -568,9 +638,7 @@
             }
         }
 
-        // --- ADMIN DUYURU SİSTEMİ ---
         function checkAdmin() {
-            // Sadece ID'si bu olan kullanıcı düzenleme butonunu görür
             if (currentUser && currentUser.id === "846736343593779230") {
                 document.getElementById('editAnnouncementBtn').style.display = 'inline-block';
             }
@@ -582,28 +650,33 @@
             if (newText) {
                 document.getElementById('announcementText').innerText = newText;
                 localStorage.setItem('site_announcement', newText);
-                // Not: Bu sadece adminin kendi tarayıcısında kalır. Herkes görsün istiyorsan HTML'i güncellemelisin.
+                showToast("Duyuru başarıyla güncellendi!", "success");
             }
         }
 
-        // --- DİĞER FONKSİYONLAR AYNI ---
+        // --- DİĞER FONKSİYONLAR ---
         function activatePremium(days) {
             const expiryDate = new Date();
             expiryDate.setDate(expiryDate.getDate() + days);
             localStorage.setItem('premium_expiry', expiryDate.getTime());
             checkPremium();
-            alert(`🎉 Tebrikler! Premium üyeliğiniz ${days} gün boyunca aktif edildi!`);
+            showToast(`Tebrikler! Premium üyeliğiniz ${days} gün aktif!`, "success");
         }
 
         function redeemCode() {
             const code = document.getElementById('promoCode').value;
-            if (code === "STROM2026") { activatePremium(30); } else { alert("❌ Geçersiz kod!"); }
+            if (code === "STROM2026") { 
+                activatePremium(30); 
+            } else { 
+                showToast("Geçersiz promosyon kodu!", "error"); 
+            }
         }
 
         function changeTheme(color) {
             document.documentElement.style.setProperty('--primary', color);
             document.documentElement.style.setProperty('--primary-glow', color + '99');
             localStorage.setItem('theme_color', color);
+            showToast("Tema rengi değiştirildi!", "success");
         }
 
         const defaultReviews = [
@@ -611,6 +684,9 @@
             { name: "XflexX", comment: "hızlı destek veriyor iletişimi iyi ", stars: 5, avatar: "https://i.pinimg.com/236x/cb/28/2f/cb282f7a9431c65c906fe0197e565c4e.jpg" },
             { name: "atlasON_", comment: "premium satın aldım bir sorun çıkmadı.", stars: 4, avatar: "https://i.hizliresim.com/7fc1j9w.jpg" }
         ];
+
+
+
         function loadReviews() {
             const container = document.getElementById('reviewsContainer');
             container.innerHTML = "";
@@ -636,7 +712,7 @@
         }
 
         function submitReview() {
-            if(selectedRating === 0) { alert("Lütfen puan verin!"); return; }
+            if(selectedRating === 0) { showToast("Lütfen puan verin!", "error"); return; }
             const text = document.getElementById('reviewText').value;
             const reviewData = {
                 name: currentUser ? currentUser.username : "Misafir Kullanıcı",
@@ -648,14 +724,13 @@
             loadReviews();
             closeModal('rateModal');
             
-            // Webhook'a gönder
             const url = "https://discord.com/api/webhooks/1471460158457647126/2a_Ua3H42h3mKBmtwdWgk_3NhGYI1TdVcWU8l9tWOwsq0_uutGR5FmpQ5MBbSKefixNZ"; 
             const userFooter = currentUser ? `👤 ${currentUser.username} (${currentUser.id})` : "👤 Anonim";
             const payload = { embeds: [{ title: `⭐ Yeni Değerlendirme: ${selectedRating}/5`, color: 16766720, fields: [ { name: "Yorum", value: text || "Yorum yok." } ], footer: { text: userFooter } }] };
             
             fetch(url, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) })
-            .then(() => alert("Yorumunuz başarıyla gönderildi! ✅"))
-            .catch(err => console.error("Webhook hatası:", err));
+            .then(() => showToast("Yorumunuz başarıyla gönderildi!", "success"))
+            .catch(err => showToast("Bir hata oluştu.", "error"));
         }
 
         function animateStats() {
@@ -675,7 +750,6 @@
 
         function toggleFaq(element) { element.classList.toggle('active'); }
 
-        // --- TOP BAR & SCROLL ---
         function closeTopBar() {
             document.getElementById('topBar').style.display = 'none';
             document.body.classList.add('top-bar-closed');
@@ -741,17 +815,17 @@
                 document.getElementById('pName').innerText = currentUser.username;
                 document.getElementById('settingsName').value = currentUser.username;
                 checkPremium(); 
-                checkAdmin(); // Admin kontrolünü yap
+                checkAdmin(); 
             } else {
                 document.getElementById('guestArea').style.display = 'flex';
                 document.getElementById('loggedArea').style.display = 'none';
             }
         }
 
-        function checkAuthAndOpen(modalId) { if (!currentUser) { alert("⚠️ Lütfen önce giriş yapın!"); } else { openModal(modalId); } }
+        function checkAuthAndOpen(modalId) { if (!currentUser) { showToast("Lütfen önce giriş yapın!", "error"); } else { openModal(modalId); } }
         function openModal(id) { document.getElementById(id).classList.add('active'); }
         function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-        function saveSettings() { localStorage.setItem('user_bio', document.getElementById('settingsBio').value); alert("✅ Kaydedildi!"); closeModal('settingsModal'); }
+        function saveSettings() { localStorage.setItem('user_bio', document.getElementById('settingsBio').value); showToast("Ayarlar kaydedildi!", "success"); closeModal('settingsModal'); }
         function toggle2FA() { const toggle = document.getElementById('2faToggle'); if(toggle.checked) { document.getElementById('2faSetup').style.display = 'block'; localStorage.setItem('2fa_enabled', 'true'); } else { document.getElementById('2faSetup').style.display = 'none'; localStorage.removeItem('2fa_enabled'); } }
         function buyPremium(paket) { window.open("https://bionluk.com/mustafa852/Ben-premium-komutlar-ile-ayricalikli-ozellikler-sunuyorum-837735", "_blank"); }
 
