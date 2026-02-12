@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StromV2</title>
+    <title>StromV2 | Neon & Güç</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -45,8 +45,20 @@
         }
         @keyframes rgb-flow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
+        /* --- DUYURU ÇUBUĞU (TOP BAR) --- */
+        .top-bar {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white; text-align: center; padding: 8px; font-size: 13px; font-weight: 700;
+            position: relative; z-index: 1001; display: flex; justify-content: center; align-items: center;
+        }
+        .top-bar span { margin-right: 10px; }
+        .top-bar-close { background: none; border: none; color: white; cursor: pointer; font-size: 16px; position: absolute; right: 20px; opacity: 0.7; }
+        .top-bar-close:hover { opacity: 1; }
+
         /* --- NAVBAR --- */
-        nav { position: fixed; top: 0; width: 100%; height: 80px; z-index: 1000; background: rgba(5, 5, 7, 0.8); backdrop-filter: blur(20px); display: flex; align-items: center; justify-content: space-between; padding: 0 5%; border-bottom: 1px solid var(--border); }
+        nav { position: fixed; top: 0; width: 100%; height: 80px; z-index: 1000; background: rgba(5, 5, 7, 0.8); backdrop-filter: blur(20px); display: flex; align-items: center; justify-content: space-between; padding: 0 5%; border-bottom: 1px solid var(--border); top: 35px; /* Top bar için aşağı ittik */ transition: top 0.3s; }
+        body.top-bar-closed nav { top: 0; } /* Top bar kapanınca yukarı yapış */
+
         .logo { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 24px; color: white; cursor: pointer; }
         .logo-img { width: 45px; height: 45px; border-radius: 12px; background: url('https://i.hizliresim.com/a3su1pc.png') center/cover; box-shadow: 0 0 25px var(--primary-glow); border: 2px solid rgba(255,255,255,0.1); }
         .nav-links { display: flex; gap: 20px; }
@@ -55,27 +67,24 @@
         .auth-buttons { display: flex; gap: 15px; align-items: center; }
 
         /* --- HERO --- */
-        .hero { height: 90vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 20px; position: relative; }
+        .hero { height: 85vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 20px; position: relative; margin-top: 40px; }
         .hero h1 { font-size: 5rem; font-weight: 900; margin-bottom: 20px; line-height: 1.1; letter-spacing: -2px; }
         .hero p { font-size: 1.3rem; color: var(--text-muted); max-width: 700px; margin-bottom: 40px; line-height: 1.6; }
         .cta-btn { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 16px 40px; border-radius: 14px; font-weight: 800; font-size: 18px; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 10px 40px rgba(88, 101, 242, 0.4); transition: 0.3s; border: 1px solid rgba(255,255,255,0.2); }
         .cta-btn:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 20px 60px rgba(211, 59, 245, 0.5); }
 
-        /* --- OYLAMA ALANI (ORTALANDI) --- */
-        .vote-section { 
-            padding: 60px 20px; 
-            background: rgba(88, 101, 242, 0.05); 
-            border-top: 1px solid var(--border); 
-            border-bottom: 1px solid var(--border);
-            display: flex; 
-            justify-content: center; 
-            align-items: center;
-            text-align: center;
+        /* --- NEDEN BİZ? (FEATURES) --- */
+        .features-section { padding: 40px 5%; display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-bottom: 60px; }
+        .feature-card {
+            background: rgba(25, 25, 30, 0.6); backdrop-filter: blur(10px); border: 1px solid var(--border);
+            padding: 30px; border-radius: 20px; width: 300px; text-align: center; transition: 0.3s;
+            position: relative; overflow: hidden;
         }
-        .vote-box { max-width: 800px; width: 100%; }
-        .vote-stars { font-size: 32px; color: #333; cursor: pointer; transition: 0.2s; display: inline-block; margin-bottom: 20px; }
-        .vote-stars i { margin: 0 5px; transition: 0.2s; }
-        
+        .feature-card:hover { transform: translateY(-10px); border-color: var(--primary); box-shadow: 0 10px 40px rgba(88, 101, 242, 0.2); }
+        .feature-icon { font-size: 35px; color: var(--accent); margin-bottom: 20px; background: rgba(255,255,255,0.05); width: 70px; height: 70px; display: flex; align-items: center; justify-content: center; border-radius: 50%; margin-left: auto; margin-right: auto; }
+        .feature-card h3 { color: white; font-size: 20px; margin-bottom: 10px; }
+        .feature-card p { color: var(--text-muted); font-size: 14px; line-height: 1.6; }
+
         /* --- İSTATİSTİKLER --- */
         .stats-section { display: flex; justify-content: center; gap: 50px; padding: 60px 5%; margin-top: -50px; position: relative; z-index: 2; }
         .stat-card { background: rgba(20, 20, 25, 0.6); backdrop-filter: blur(10px); border: 1px solid var(--border); padding: 30px; border-radius: 20px; text-align: center; width: 250px; transition: 0.3s; }
@@ -84,6 +93,12 @@
         .stat-label { color: var(--text-muted); font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
         .stat-icon { font-size: 24px; color: var(--accent); margin-bottom: 15px; }
 
+        /* --- OYLAMA ALANI --- */
+        .vote-section { padding: 60px 20px; background: rgba(88, 101, 242, 0.05); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); display: flex; justify-content: center; align-items: center; text-align: center; }
+        .vote-box { max-width: 800px; width: 100%; }
+        .vote-stars { font-size: 32px; color: #333; cursor: pointer; transition: 0.2s; display: inline-block; margin-bottom: 20px; }
+        .vote-stars i { margin: 0 5px; transition: 0.2s; }
+        
         /* --- PREMIUM PACKAGES --- */
         .premium-section { padding: 100px 5%; position: relative; }
         .section-title { text-align: center; margin-bottom: 60px; }
@@ -113,21 +128,13 @@
         .reviews-section { padding: 80px 5%; background: linear-gradient(to top, #020203, rgba(88, 101, 242, 0.05)); border-top: 1px solid var(--border); }
         .reviews-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; flex-wrap: wrap; gap: 20px; }
         .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
-        .review-card {
-            background: rgba(25, 25, 30, 0.6); backdrop-filter: blur(10px); border: 1px solid var(--border);
-            padding: 25px; border-radius: 16px; transition: 0.3s; position: relative;
-        }
+        .review-card { background: rgba(25, 25, 30, 0.6); backdrop-filter: blur(10px); border: 1px solid var(--border); padding: 25px; border-radius: 16px; transition: 0.3s; position: relative; }
         .review-card:hover { transform: translateY(-5px); border-color: var(--primary); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .review-head { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
         .review-avatar { width: 45px; height: 45px; border-radius: 50%; background-color: #333; object-fit: cover; border: 2px solid var(--border); }
         .review-info h4 { color: white; font-size: 16px; margin-bottom: 2px; }
         .review-stars { color: var(--accent); font-size: 13px; }
         .review-body { color: var(--text-muted); font-size: 14px; line-height: 1.6; font-style: italic; }
-
-        /* --- OYLAMA YILDIZLARI --- */
-        .vote-stars-input { font-size: 35px; color: #333; cursor: pointer; text-align: center; margin: 20px 0; }
-        .vote-stars-input i { transition: 0.2s; padding: 0 5px; }
-        .vote-stars-input i:hover, .vote-stars-input i.active { color: var(--accent); text-shadow: 0 0 20px var(--accent); }
 
         /* --- EKİP --- */
         .team-section { padding: 80px 5%; text-align: center; }
@@ -156,6 +163,15 @@
         .footer-col a { display: block; color: var(--text-muted); text-decoration: none; margin-bottom: 10px; transition: 0.2s; font-size: 14px; cursor: pointer; }
         .footer-col a:hover { color: var(--primary); transform: translateX(5px); display: inline-block; }
         .footer-bottom { text-align: center; border-top: 1px solid var(--border); padding-top: 30px; color: #555; font-size: 13px; }
+
+        /* --- YUKARI ÇIK BUTONU --- */
+        #scrollTopBtn {
+            display: none; position: fixed; bottom: 30px; right: 30px; z-index: 999;
+            border: none; outline: none; background: var(--primary); color: white;
+            cursor: pointer; padding: 15px; border-radius: 50%; font-size: 18px;
+            box-shadow: 0 0 20px var(--primary-glow); transition: 0.3s;
+        }
+        #scrollTopBtn:hover { transform: translateY(-5px); background: #4752c4; }
 
         /* --- GENEL BUTONLAR VE MODALLER --- */
         .btn-rgb { position: relative; padding: 2px; border-radius: 12px; background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8); background-size: 400%; animation: rgb-flow 8s linear infinite; cursor: pointer; transition: 0.3s; }
@@ -230,7 +246,7 @@
         .vote-stars-input i { transition: 0.2s; padding: 0 5px; }
         .vote-stars-input i:hover, .vote-stars-input i.active { color: var(--accent); text-shadow: 0 0 20px var(--accent); }
 
-        @media (max-width: 900px) { .dashboard { grid-template-columns: 1fr; } .sidebar { display: none; } .nav-links { display: none; } .stats-section { flex-wrap: wrap; gap: 20px; } .footer-content { flex-direction: column; } }
+        @media (max-width: 900px) { .dashboard { grid-template-columns: 1fr; } .sidebar { display: none; } .nav-links { display: none; } .stats-section { flex-wrap: wrap; gap: 20px; } .footer-content { flex-direction: column; } .features-section { gap: 20px; } }
     </style>
 </head>
     <link rel="shortcut icon" href="https://i.hizliresim.com/a3su1pc.png" type="image/x-icon">
@@ -238,6 +254,11 @@
 
     <div class="glow-blob blob-1"></div>
     <div class="glow-blob blob-2"></div>
+
+    <div id="topBar" class="top-bar">
+        <span>🚀 StromV2 ile Sunucunu Uçur! V2.0 Yayında!</span>
+        <button class="top-bar-close" onclick="closeTopBar()"><i class="fas fa-times"></i></button>
+    </div>
 
     <nav>
         <div class="logo">
@@ -276,11 +297,21 @@
         <a href="#premium" class="cta-btn"><i class="fas fa-rocket"></i> Botu Şimdi Ekle</a>
     </section>
 
-    <div class="vote-section">
-        <div class="vote-box">
-            <h2 style="margin-bottom: 10px;">Botumuzu <span class="rgb-text">Değerlendir</span></h2>
-            <p style="color: var(--text-muted); margin-bottom: 20px;">Düşünceleriniz bizim için çok değerli.</p>
-            <button id="voteBtn" onclick="checkAuthAndOpen('rateModal')" class="cta-btn" style="background: rgba(255,255,255,0.1); border: 1px solid var(--border);">⭐ Oy Ver & Yorum Yap</button>
+    <div class="features-section">
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+            <h3>7/24 Kesintisiz</h3>
+            <p>%99.9 Uptime garantisi ile sunucunuz asla botsuz kalmaz. Hız ve performans bizim işimiz.</p>
+        </div>
+        <div class="feature-card" style="border-color: var(--primary);">
+            <div class="feature-icon" style="color: var(--primary);"><i class="fas fa-shield-alt"></i></div>
+            <h3>Gelişmiş Koruma</h3>
+            <p>Sunucunuzu trol saldırılarına, reklamlara ve spam'a karşı tam otomatik sistemlerle korur.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-gamepad"></i></div>
+            <h3>Sınırsız Eğlence</h3>
+            <p>Kumar, ekonomi ve eğlence komutları ile üyelerinizin sıkılmasına asla izin vermeyin.</p>
         </div>
     </div>
 
@@ -288,6 +319,14 @@
         <div class="stat-card"><div class="stat-icon"><i class="fas fa-server"></i></div><div class="stat-number" data-target="250">0</div><div class="stat-label">Sunucu</div></div>
         <div class="stat-card"><div class="stat-icon"><i class="fas fa-users"></i></div><div class="stat-number" data-target="15000">0</div><div class="stat-label">Kullanıcı</div></div>
         <div class="stat-card"><div class="stat-icon"><i class="fas fa-bolt"></i></div><div class="stat-number" data-target="99">0</div><div class="stat-label">% Uptime</div></div>
+    </div>
+
+    <div class="vote-section">
+        <div class="vote-box">
+            <h2 style="margin-bottom: 10px;">Botumuzu <span class="rgb-text">Değerlendir</span></h2>
+            <p style="color: var(--text-muted); margin-bottom: 20px;">Düşünceleriniz bizim için çok değerli.</p>
+            <button id="voteBtn" onclick="checkAuthAndOpen('rateModal')" class="cta-btn" style="background: rgba(255,255,255,0.1); border: 1px solid var(--border);">⭐ Oy Ver & Yorum Yap</button>
+        </div>
     </div>
 
     <section id="premium" class="premium-section">
@@ -354,6 +393,8 @@
         </div>
         <div class="footer-bottom">&copy; 2026 StromV2. Tüm hakları saklıdır. Designed by <b>lord__</b></div>
     </footer>
+
+    <button id="scrollTopBtn" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
 
     <div id="profileModal" class="modal-overlay">
         <div class="modal-box">
@@ -470,16 +511,21 @@
             localStorage.setItem('theme_color', color);
         }
 
-const defaultReviews = [
+        const defaultReviews = [
+
+
 
             { name: "Ghostt01", comment: "bazı komutlarda hata hatalar olmasa gayet iyi bot", stars: 3, avatar: "https://i.hizliresim.com/sme5zz8.png" },
 
+
+
             { name: "XflexX", comment: "hızlı destek veriyor iletişimi iyi ", stars: 5, avatar: "https://i.pinimg.com/236x/cb/28/2f/cb282f7a9431c65c906fe0197e565c4e.jpg" },
 
+
+
             { name: "atlasON_", comment: "premium satın aldım bir sorun çıkmadı.", stars: 4, avatar: "https://i.hizliresim.com/7fc1j9w.jpg" }
+
         ];
-
-
 
         function loadReviews() {
             const container = document.getElementById('reviewsContainer');
@@ -536,6 +582,23 @@ const defaultReviews = [
         }
 
         function toggleFaq(element) { element.classList.toggle('active'); }
+
+        // --- TOP BAR & SCROLL ---
+        function closeTopBar() {
+            document.getElementById('topBar').style.display = 'none';
+            document.body.classList.add('top-bar-closed');
+        }
+
+        function scrollToTop() { window.scrollTo({top: 0, behavior: 'smooth'}); }
+
+        window.onscroll = function() {
+            const btn = document.getElementById('scrollTopBtn');
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
 
         window.onload = () => {
             filter('all');
