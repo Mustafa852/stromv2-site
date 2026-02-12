@@ -61,21 +61,18 @@
         .cta-btn { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 16px 40px; border-radius: 14px; font-weight: 800; font-size: 18px; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 10px 40px rgba(88, 101, 242, 0.4); transition: 0.3s; border: 1px solid rgba(255,255,255,0.2); }
         .cta-btn:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 20px 60px rgba(211, 59, 245, 0.5); }
 
-        /* --- OYLAMA ALANI (DÜZELTİLDİ: ORTALANDI) --- */
+        /* --- OYLAMA ALANI (ORTALANDI) --- */
         .vote-section { 
             padding: 60px 20px; 
             background: rgba(88, 101, 242, 0.05); 
             border-top: 1px solid var(--border); 
             border-bottom: 1px solid var(--border);
-            display: flex; /* Flexbox ile ortalama */
+            display: flex; 
             justify-content: center; 
             align-items: center;
             text-align: center;
         }
-        .vote-box { 
-            max-width: 800px; 
-            width: 100%;
-        }
+        .vote-box { max-width: 800px; width: 100%; }
         .vote-stars { font-size: 32px; color: #333; cursor: pointer; transition: 0.2s; display: inline-block; margin-bottom: 20px; }
         .vote-stars i { margin: 0 5px; transition: 0.2s; }
         
@@ -127,7 +124,7 @@
         .review-stars { color: var(--accent); font-size: 13px; }
         .review-body { color: var(--text-muted); font-size: 14px; line-height: 1.6; font-style: italic; }
 
-        /* --- OYLAMA MODALI İÇİN YILDIZLAR --- */
+        /* --- OYLAMA YILDIZLARI --- */
         .vote-stars-input { font-size: 35px; color: #333; cursor: pointer; text-align: center; margin: 20px 0; }
         .vote-stars-input i { transition: 0.2s; padding: 0 5px; }
         .vote-stars-input i:hover, .vote-stars-input i.active { color: var(--accent); text-shadow: 0 0 20px var(--accent); }
@@ -402,9 +399,8 @@
         // Buraya ID'leri tırnak içinde, virgülle ayırarak yaz:
         const PREMIUM_USERS = [
             "846736343593779230", // Lord__ (Örnek)
-            "363734364032598017", 
-            "619869449625010177",
-            "726398807629103146"
+            "KULLANICI_ID_1", 
+            "KULLANICI_ID_2"
         ];
 
         function checkPremium() {
@@ -474,23 +470,15 @@
             localStorage.setItem('theme_color', color);
         }
 
-       const defaultReviews = [
-
-
+const defaultReviews = [
 
             { name: "Ghostt01", comment: "bazı komutlarda hata hatalar olmasa gayet iyi bot", stars: 3, avatar: "https://i.hizliresim.com/sme5zz8.png" },
 
-
-
             { name: "XflexX", comment: "hızlı destek veriyor iletişimi iyi ", stars: 5, avatar: "https://i.pinimg.com/236x/cb/28/2f/cb282f7a9431c65c906fe0197e565c4e.jpg" },
 
-
-
             { name: "atlasON_", comment: "premium satın aldım bir sorun çıkmadı.", stars: 4, avatar: "https://i.hizliresim.com/7fc1j9w.jpg" }
-
-
-
         ];
+
 
 
         function loadReviews() {
@@ -785,7 +773,9 @@
             { cmd: "s!fiyat-bilgi", desc: "Premium fiyatları.", cat: "kullanici", usage: "s!fiyat-bilgi" },
             { cmd: "s!öneri", desc: "Öneri gönderir.", cat: "kullanici", usage: "s!öneri <mesaj>" },
             { cmd: "s!şikayet", desc: "Şikayet bildirir.", cat: "kullanici", usage: "s!şikayet <mesaj>" },
-            { cmd: "s!say", desc: "Sunucu sayımı.", cat: "kullanici", usage: "s!say" }
+            { cmd: "s!say", desc: "Sunucu sayımı.", cat: "kullanici", usage: "s!say" },
+            { cmd: "s!premium-list", desc: "Aktif premium üyeleri listeler.", cat: "kullanici", usage: "s!premium-list" },
+            { cmd: "s!premium", desc: "Kendi premium durumunu gösterir.", cat: "kullanici", usage: "s!premium" }
         ];
 
         function filter(cat) {
@@ -826,4 +816,3 @@
     </script>
 </body>
 </html>
-
